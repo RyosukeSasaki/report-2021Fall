@@ -1,0 +1,13 @@
+\subsection*{2-A.}
+\subsubsection*{プログラムについて}
+図\ref{fig:fig/2a.png}にPAD図を示す.
+PAD図はPadTools (\url{https://naoblo.net/misc/padtools/})を用いて作図した.
+このプログラムではdouble precision型のOnePlusEpsilon変数に$1+2^{-n}$を順次代入し,
+これが$1$と一致したときにループを抜ける.このとき$2^{-(n-1)}$が計算機イプシロンになる.
+ソースコード\ref{src2a}にfortranによるソースコードを示す.
+\mfig[width=10cm]{fig/2a.png}{2-A.のPAD図}
+\subsubsection*{出力結果}
+実行すると$n = 52,\ \varepsilon = 2.2\times10^{-16}$という結果を得た.
+またOnePlusEpsilonをreal型に変えると$n = 23,\ epsilon = 1.2\times10^{-7}$となった.
+これらは倍精度の指数部が52 bit,単精度の指数部が23 bitであることとも整合し,
+プログラムが正常に動作していると考えられる.\cite{floating}
