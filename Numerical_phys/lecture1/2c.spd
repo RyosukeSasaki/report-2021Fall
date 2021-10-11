@@ -1,0 +1,12 @@
+function simpson(arg, a, b, n)
+function debye(x, n)
+function dulong_petit(x)
+function low_temperature_behavior(x)
+open(18)
+:while n = 1, num_samples
+	x = x_start + interval * n
+	write(18, *) x, debye(x, 2**10), dulong_petit(), low_temperature_behavior(x)
+:while i=3,9
+	n = 2**i
+	write(18, *) (1d0 / x_end - 0d0)/n, (f_exact - debye(x_end, n))/f_exact
+close(18)

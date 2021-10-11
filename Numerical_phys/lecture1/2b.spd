@@ -1,0 +1,10 @@
+function planck(x)
+function rayleigh_jeans(x)
+function wien(x)
+integer, parameter :: num_samples = 10000
+double precision :: x_start = 0, x_end = 10
+double precision :: interval = (x_end-x_start) / num_samples
+:while do n=1,num_samples
+	x = x_start+interval*n
+	write(*, *) x, planck(x), rayleigh_jeans(x), wien(x)
+	

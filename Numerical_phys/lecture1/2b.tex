@@ -1,0 +1,28 @@
+\subsection*{2-B.}
+\subsubsection*{公式の無次元化}
+各公式を無次元数$\tilde{\omega}=\beta\hbar\omega$で無次元化する.まずPlanckの公式について
+\begin{align*}
+  u(\omega,T)&=\frac{\omega^2}{\pi^2c^3}\frac{\hbar\omega}{{\rm e}^{\beta\hbar\omega}-1}\\
+  &=\frac{1}{\pi^2c^3}\frac{\tilde{\omega^2}}{\beta^2\hbar^2}\frac{\tilde{\omega}}{\beta({\rm e}^{\tilde{\omega}}-1)}\\
+\end{align*}
+\begin{align*}
+  f_{\rm planck}(\tilde{\omega}):=\beta^3\pi^2\hbar^2c^3u(\omega,T)=\frac{\tilde{\omega}^3}{{\rm e}^{\tilde{\omega}}-1}
+\end{align*}
+同様にRayleigh-Jeansの公式, Wienの公式について
+\begin{align*}
+  f_{\rm rayleigh-jeans}(\tilde{\omega})&:=\tilde{\omega}^2\\
+  f_{\rm wien}(\tilde{\omega})&:=\tilde{\omega}^3{\rm e}^{-\tilde{\omega}}
+\end{align*}
+として無次元化できた.
+\subsubsection*{プログラムについて}
+図\ref{fig:fig/2b.png}にPAD図を示す.このプログラムではx\_startからx\_endまでをnum\_samples分割し,
+それぞれの点でのplanck(x), rayleigh\_jeans(x), wien(x)関数の値を出力している.
+これらの関数はそれぞれ上で無次元化したPlanckの公式, Rayleigh-Jeansの公式, Wienの公式の値を返す関数である.
+ソースコード\ref{src2b}にfortranによるソースコードを示す.
+\mfig[width=10cm]{fig/2b.png}{2-B.のPAD図}
+\clearpage
+\subsubsection*{出力結果}
+図\ref{fig:graph/2b.tex}にプロットしたグラフを示す.
+Rayleigh-Jeansの公式, Wienの公式はそれぞれPlanckの公式の低周波数,高周波数での近似である.
+図\ref{fig:graph/2b.tex}ではたしかにそれぞれの公式が低周波数,高周波数でのPlanckの公式をよく近似していることがわかる.
+\gnu{出力結果}{graph/2b.tex}

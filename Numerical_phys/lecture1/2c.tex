@@ -1,0 +1,33 @@
+\subsection*{2-C.}
+\subsubsection*{公式の無次元化}
+各公式を無次元数$\tau=T/\Theta_D$で無次元化する.まずDebyeの公式は
+\begin{align*}
+  C_V&=3Nk_B\cdot 3\left(\frac{T}{\Theta_D}\right)^3\int^{\Theta_D/T}_0\frac{x^4{\rm e}^x}{({\rm e}^x-1)^2}{\rm d}x\\
+  &=3Nk_B\cdot 3\tau^3\int^{1/\tau}_0\frac{x^4{\rm e}^x}{({\rm e}^x-1)^2}{\rm d}x
+\end{align*}
+\begin{align*}
+  f_{\rm debye}(\tau):=\frac{C_V}{3Nk_B}=3\tau^3\int^{1/\tau}_0\frac{x^4{\rm e}^x}{({\rm e}^x-1)^2}{\rm d}x
+\end{align*}
+同様にDulong-Petitの公式及び低温での式も無次元化すると
+\begin{align*}
+  f_{\rm dulong-petit}(\tau)&:=1\\
+  f_{\rm lowtemp}(\tau)&:=\frac{4}{5}\pi^4\tau^3
+\end{align*}
+として無次元化できた.
+\subsubsection*{プログラムについて}
+図\ref{fig:fig/2c.png}にPAD図を示す.このプログラムでは1つ目のループで2-B.と同様にx\_startからx\_endまでをnum\_samples分割し,
+それぞれの点でdebye(x), dulong\_petit(x), low\_temperature\_behavior(x)関数の値を出力している.それぞれの関数は上で無次元化した各公式である.
+また数値積分にはsimpson(arg, a, b, n)関数を用いており, arg(x)の区間$\rm [a,b]$をn分割してシンプソン則により積分を実行している.
+また2つ目のループではシンプソン則の分割数nを変えつつ誤差を記録した.
+ソースコード\ref{src2c}にfortranによるソースコードを示す.
+各関数と積分関数はモジュール化されており,積分関数は被積分関数を引数として受けている.
+\mfig[width=12cm]{fig/2c.png}{2-C.のPAD図}
+\subsubsection*{出力結果}
+図\ref{fig:graph/2c-1.tex}に出力結果を示す.
+この図からたしかにDulong-Petitの公式や低温での振る舞いを示す公式は高温域及び低温域でDebyeの公式をよく近似していることがわかる.
+すなわち定積比熱は高温域で一定値($=3Nk_B$),低温域では3次関数($3Nk_B\cdot4\pi^4/5(T/\Theta_D)^3$)のように振る舞う.
+
+また図\ref{fig:graph/2c-2.tex}に刻み幅$h$の4乗($h^4$)と誤差の関係を示す.図からシンプソン則の誤差は刻み幅の4乗に比例することがわかる.
+また\cite{simpson}によるとシンプソン則はその導出過程からも確かに$h^4$の精度であり,妥当な結果だと言える.
+\gnu{出力結果}{graph/2c-1.tex}
+\gnu{$h^4$と誤差の関係}{graph/2c-2.tex}
