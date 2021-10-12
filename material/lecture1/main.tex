@@ -1,0 +1,169 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+\renewcommand{\thesubsection}{問\arabic{subsection}}
+
+\begin{document}
+\title{物性物理学1 レポートNo.1}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\setcounter{section}{1}
+\subsection{}
+\gnu{$V(x)$のグラフ}{q1.tex}
+\subsection{}
+$V_0=0$のときSchr\"{o}dinger方程式に$W_k(x)$を代入すると
+\begin{align*}
+  -\frac{\hbar^2}{2m}\frac{{\rm d}^2}{{\rm d}x^2}W_k(x)&=EW_k(x)\\
+  \frac{\hbar^2k^2}{2m}W_k(x)&=EW_k(x)\\
+  \therefore\ E&=\frac{\hbar^2k^2}{2m}
+\end{align*}
+\subsection{}
+$V_0>0$のとき$HW_k(x)$は
+\begin{align*}
+  &HW_k(x)\\
+  =&-\frac{\hbar^2}{2m}\frac{{\rm d}^2}{{\rm d}x^2}W_k(x)+V_0({\rm e}^{i{2\pi x}/{a}}+{\rm e}^{-i{2\pi x}/{a}})W_k(x)\\
+\end{align*}
+このとき第1項は
+\begin{align*}
+  (第1項)=\frac{\hbar^2k^2}{2m}W_k(x)
+\end{align*}
+また第2項は
+\begin{align*}
+  (第2項)&=V_0({\rm e}^{i{2\pi x}/{a}}+{\rm e}^{-i{2\pi x}/{a}})\frac{1}{\sqrt{L}}{\rm e}^{ikx}\\
+  &=V_0\frac{1}{\sqrt{L}}({\rm e}^{i(k+2\pi/a)x}+{\rm e}^{i(k-2\pi/a)x})\\
+  &=V_0\left(W_{k+h_1}(x)+W_{k+h_{-1}}(x)\right)
+\end{align*}
+より$HW_k(x)$は
+\begin{align*}
+  HW_k(x)=\frac{\hbar^2k^2}{2m}W_k(x)+V_0\left(W_{k+h_1}(x)+W_{k+h_{-1}}(x)\right)
+\end{align*}
+となる.したがってSchr\"{o}dinger方程式は
+\begin{align*}
+  \frac{\hbar^2k^2}{2m}W_k(x)+V_0\left(W_{k+h_1}(x)+W_{k+h_{-1}}(x)\right)=EW_k(x)
+\end{align*}
+となる.
+$W_k(x)$と$W_{k+h_1}(x)$, $W_{k+h_{-1}}(x)$は直行するため,
+$W_k(x)$は上のSchr\"{o}dinger方程式の固有関数ではない.
+\subsection{}
+前問と同様に
+\begin{align*}
+  &HW_{k+h_n}(x)\\
+  =&-\frac{\hbar^2}{2m}\frac{{\rm d}^2}{{\rm d}x^2}W_{k+h_n}(x)+V_0({\rm e}^{i{2\pi x}/{a}}+{\rm e}^{-i{2\pi x}/{a}})W_{k+h_n}(x)\\
+  =&\frac{\hbar^2(k+h_n)^2}{2m}W_{k+h_n}(x)+V_0\left(W_{k+h_{n+1}}(x)+W_{k+h_{n-1}}(x)\right)
+\end{align*}
+\subsection{}
+$\psi_k(x)$をSchr\"{o}dinger方程式に代入すると,その左辺は
+\begin{align*}
+  H\psi_k(x)&=-\frac{\hbar^2}{2m}\frac{{\rm d}^2}{{\rm d}x^2}\psi_k(x)+V_0({\rm e}^{i{2\pi x}/{a}}+{\rm e}^{-i{2\pi x}/{a}})\psi_k(x)\\
+\end{align*}
+ここで右辺第1項は
+\begin{align*}
+  (第1項)&=-\frac{\hbar^2}{2m}\frac{{\rm d}^2}{{\rm d}x^2}\sum_nc_n(k)W_{k+h_n}(x)\\
+  &=\frac{\hbar^2}{2m}\sum_nc_n(k)(k+h_n)^2W_{k+h_n}(x)
+\end{align*}
+また第2項は
+\begin{align*}
+  (第2項)&=V_0({\rm e}^{i{2\pi x}/{a}}+{\rm e}^{-i{2\pi x}/{a}})\sum_nc_n(k)W_{k+h_n}(x)\\
+  &=V_0\sum_nc_n(k)\left(W_{k+h_{n+1}}(x)+W_{k+h_{n-1}}(x)\right)
+\end{align*}
+したがってSchr\"{o}dinger方程式は
+\begin{align*}
+  \frac{\hbar^2}{2m}\sum_nc_n(k)(k+h_n)^2W_{k+h_n}(x)+V_0\sum_nc_n(k)\left(W_{k+h_{n+1}}(x)+W_{k+h_{n-1}}(x)\right)=E\sum_nc_n(k)W_{k+h_n}(x)
+\end{align*}
+であり$W_{k+h_n}(x)$に関する項をまとめると
+\begin{align*}
+  \frac{\hbar^2}{2m}c_n(k)(k+h_n)^2+V_0\left(c_{n-1}(k)+c_{n+1}(k)\right)&=Ec_n(k)
+\end{align*}
+\subsection{}
+前問の結果を用いると
+\begin{align*}&\left(
+  \begin{array}{ccccccc}
+    \ddots\\
+    &\ddots&&&&\text{\huge{0}}\\
+    &V_0&{\hbar^2(k+h_{n-1})^2}/{2m}&V_0\\
+    &&V_0&{\hbar^2(k+h_{n})^2}/{2m}&V_0\\
+    &&&V_0&{\hbar^2(k+h_{n+1})^2}/{2m}&V_0\\
+    &\text{\huge{0}}&&&&\ddots\\
+    &&&&&&\ddots
+  \end{array}\right)
+  \left(
+  \begin{array}{c}
+    \vdots\\
+    c_{n-2}(k)\\
+    c_{n-1}(k)\\
+    c_{n}(k)\\
+    c_{n+1}(k)\\
+    c_{n+2}(k)\\
+    \vdots
+  \end{array}
+  \right)\\
+  =&E
+  \left(
+    \begin{array}{c}
+      \vdots\\
+      c_{n-2}(k)\\
+      c_{n-1}(k)\\
+      c_{n}(k)\\
+      c_{n+1}(k)\\
+      c_{n+2}(k)\\
+      \vdots
+    \end{array}
+  \right)
+\end{align*}
+\subsection{}
+$k=-\pi/a$なので
+\begin{align*}
+  \psi_k(x)=W_{-\pi/a}(x)+W_{\pi/a}(x)
+\end{align*}
+したがって$H\psi_k(x)$は
+\begin{align*}
+  H\psi_k(x)&=-\frac{\hbar^2}{2m}\frac{{\rm d}^2}{{\rm d}x^2}\psi_k(x)+V(x)\psi_k(x)\\
+  &=-\frac{\hbar^2}{2m}\left(\frac{\pi}{a}\right)^2\psi_k(x)+\frac{V_0}{\sqrt{L}}\left({\rm e}^{i\pi x/a}+{\rm e}^{-i\pi x/a}+{\rm e}^{i3\pi x/a}+{\rm e}^{-i3\pi x/a}\right)\\
+  &=-\frac{\hbar^2}{2m}\left(\frac{\pi}{a}\right)^2\psi_k(x)+\frac{2V_0}{\sqrt{L}}\left(\cos\left(\frac{\pi x}{a}\right)+\cos\left(\frac{3\pi x}{a}\right)\right)
+\end{align*}
+\subsection{}
+\begin{align*}
+  \psi_k(x)&=W_{-\pi/a}(x)+W_{\pi/a}(x)\\
+  &=\frac{2}{\sqrt{L}}\cos\left(\frac{\pi x}{a}\right)
+\end{align*}
+\gnu{$|\psi_k(x)|^2$のグラフ}{q2.tex}
+\subsection{}
+前問で得た$H\psi_k(x)$より$\cos(3\pi x/a)$の成分が十分小さければ$\psi_k(x)$は固有関数となりうる.
+そのためには$V_0$が小さいか$L$が十分大きければ良いと考えられる.
+\bibliography{ref.bib}
+\end{document}
