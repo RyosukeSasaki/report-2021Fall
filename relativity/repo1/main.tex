@@ -1,0 +1,212 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{相対性理論 レポートNo.1}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsection*{Q3.}
+\subsubsection*{(1)}
+Lorentz変換は1次変換なので$x',y',z',t'$は以下のように表されるべきである
+\begin{align*}
+  x'&=a_{11}x+a_{12}y+a_{13}z+a_{14}t\\
+  y'&=a_{21}x+a_{22}y+a_{23}z+a_{24}t\\
+  z'&=a_{31}x+a_{32}y+a_{33}z+a_{34}t\\
+  t'&=a_{41}x+a_{42}y+a_{43}z+a_{44}t
+\end{align*}
+これらの係数は$x,y,z,t$には依存すべきではないが$v$には依存しても良い.
+$y',z'$が陽に$t$に依存するとき,これらは時間経過とともに移動することになる.
+これは系S'が$x$軸方向にのみ移動しているという仮定に反するので$a_{24}=a_{34}=0$となるべきである.
+また$y'$が$x,z$, $z'$が$x,y$に依存するとき$y',z'$は$y,z$に対して傾いた軸になるため,
+$a_{21}=a_{31}=a_{23}=a_{32}=0$となるべきである.ここまでで$y',z'$は
+\begin{align*}
+  y'=a_{22}(v)y\\
+  z'=a_{33}(v)z
+\end{align*}
+ここで空間の等方性から$y',z'$は対等であるべきなので$a_{22}=a_{33}$である.
+また空間の反転に対して対称であるべきなのでこれらの係数は$|v|$にのみ依るべきである.
+また$S'$から$S$をみたとき同様に
+\begin{align*}
+  y=a_{22}(|-v|)y'\\
+  z=a_{22}(|-v|)z'
+\end{align*}
+であり,以上から
+\begin{align*}
+  &a_{22}(|v|)^2=1\\
+  \therefore\ &a_{22}(|v|)=\pm1
+\end{align*}
+さらに$v\rightarrow 0$で明らかに$y'=y$, $z'=z$であるべきなので
+\begin{align*}
+  a_{22}(|v|)=1
+\end{align*}
+である.以上から
+\begin{align}
+  y'=y\\
+  z'=z
+\end{align}
+となる.
+\subsubsection*{(2)}
+まず$x'$について$x'$軸と$x$軸は一致すべきなので$a_{12}=a_{13}=0$である.
+また$x'=0$は$x=vt$と一致すべきなので定数$A$を用いて
+\begin{align}
+  x'=A(v)(x-vt)
+\end{align}
+という形であるべきである.また$s^2=0\Leftrightarrow s'^2=0$より比例関係
+\begin{align*}
+  s'^2=\alpha(v)s^2
+\end{align*}
+が成り立つべきである.また空間の反転に対して対称であるべきなので$\alpha$は$|v|$にのみ依るべきである.
+また前問と同様に
+\begin{align*}
+  s^2=\alpha(|v|)s'^2
+\end{align*}
+であるべきなので
+\begin{align*}
+  \alpha(|v|)=\pm1
+\end{align*}
+また$v\rightarrow 0$で$s'^2=s^2$であることから
+\begin{align*}
+  \alpha(|v|)=1
+\end{align*}
+となる.以上から
+\begin{align*}
+  s'^2&=s^2\\
+  x'^2+y'^2+z'^2-(ct')^2&=x^2+y^2+z^2-(ct)^2
+\end{align*}
+(1), (2), (3)から
+\begin{align*}
+  A(v)^2(x-vt)^2-c^2(a_{41}x+a_{42}y+a_{43}z+a_{44}t)^2=x^2-(ct)^2
+\end{align*}
+右辺に$y,z$が現れないことから$a_{42}=a_{43}=0$である.したがって新たな定数$B, D$を用いて
+\begin{align*}
+  x^2-(ct)^2&=A(v)^2(x-vt)^2-c^2(B(v)x+D(v)t)^2\\
+  &=(A^2-c^2B^2)x^2-(c^2D^2-v^2A^2)t^2+(-2vA^2-2c^2BD)xt
+\end{align*}
+よって係数を比較すれば
+\begin{align}
+  A^2-c^2B^2&=1\\
+  c^2D^2-v^2A^2&=c^2\\
+  vA^2+c^2BD&=0
+\end{align}
+を得る.まず(6)から
+\begin{align*}
+  B=-\frac{vA^2}{c^2D}
+\end{align*}
+これを(4)に代入すると
+\begin{align*}
+  A^2-\frac{v^2}{c^2D^2}A^4=1
+\end{align*}
+また(5)から
+\begin{align}
+  A^2=\frac{c^2}{v^2}(D^2-1)
+\end{align}
+これらを連立すると
+\begin{align*}
+  \frac{c^2}{v^2}(D^2-1)-\frac{v^2}{c^2D^2}\left(\frac{c^2}{v^2}(D^2-1)\right)^2&=1\\
+  (D^2-1)\left(1-\frac{D^2-1}{D^2}\right)&=\frac{v^2}{c^2}
+\end{align*}
+\begin{align*}
+  D=\pm\frac{1}{\sqrt{1-\frac{v^2}{c^2}}}
+\end{align*}
+これと(7)を連立すると
+\begin{align*}
+  A=D=\pm\frac{1}{\sqrt{1-\frac{v^2}{c^2}}}
+\end{align*}
+ここで(3)において$v\rightarrow0$のとき$x'=x$となるべきなので符号が確定し
+\begin{align}
+  A=D=\frac{1}{\sqrt{1-\frac{v^2}{c^2}}}
+\end{align}
+となる.また(4)から
+\begin{align*}
+  B=\pm\frac{v/c^2}{\sqrt{1-\frac{v^2}{c^2}}}
+\end{align*}
+であり(6)が成り立つことから符号が確定し
+\begin{align*}
+  B=-\frac{v/c^2}{\sqrt{1-\frac{v^2}{c^2}}}
+\end{align*}
+となる.以上から$x',t'$と$x,t$の間の関係は
+\begin{align*}
+  x'&=\gamma(x-vt)\\
+  t'&=\gamma(-vx/c^2+t)
+\end{align*}
+すなわち
+\begin{align*}
+  \left(\begin{array}{c}
+    ct'\\x'
+  \end{array}\right)
+  =\gamma\left(\begin{array}{cc}
+    1&-\beta\\
+    -\beta&1
+  \end{array}\right)
+  \left(\begin{array}{c}
+    ct\\x
+  \end{array}\right)
+\end{align*}
+を得る.
+\subsection*{Q4.}
+明らかに
+\begin{align*}
+  y=y',z=z'
+\end{align*}
+である.また$x$については
+\begin{align}
+  x'&=\gamma(x-vt)\nonumber\\
+  x&=x'\frac{1}{\gamma}+vt
+\end{align}
+同様に$t$については
+\begin{align}
+  t=t'\frac{1}{\gamma}+\frac{v}{c^2}x
+\end{align}
+(9)に(10)を代入すると
+\begin{align*}
+  x&=x'\frac{1}{\gamma}+t'\frac{v}{\gamma}+\beta^2x\\
+  x(1-\beta^2)&=x'\frac{1}{\gamma}+t'\frac{v}{\gamma}\\
+  x\frac{1}{\gamma^2}&=x'\frac{1}{\gamma}+t'\frac{v}{\gamma}\\
+  x&=\gamma(x'+vt')
+\end{align*}
+同様に(10)に(9)を代入すると
+\begin{align*}
+  t&=t'\frac{1}{\gamma}+\frac{v}{\gamma c^2}x'+\frac{v^2}{c^2}t\\
+  t(1-\beta^2)&=t'\frac{1}{\gamma}+\frac{v}{\gamma c^2}x'\\
+  t&=\gamma(vx'/c^2+t')
+\end{align*}
+以上からLorentz変換を逆に解くと$S$と$S'$を入れ替え,
+$\beta$と$-\beta$に置き換えたものになっている.
+\bibliography{ref.bib}
+\end{document}
