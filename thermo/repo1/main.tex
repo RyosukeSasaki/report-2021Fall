@@ -1,0 +1,92 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{熱統計力学2 レポートNo.1}
+\author{佐々木良輔}
+\date{}
+\maketitle
+図のように熱浴と接している系を考える.
+系と熱浴を合わせたエネルギーは保存し,これらは熱力学的に平衡であるとする.
+このとき系のエネルギーが$E$から$E+\Delta E$の間にある確率は状態密度$N$を用いて
+\begin{align*}
+  P(E,N)\Delta E=\frac{N(E)\Delta E\cdot N_r(E_r)\Delta E}{N_{全}(E_{全})\Delta E}
+\end{align*}
+である.ただし$E_r=E_{全}-E$である.ここで系と熱浴を切り離し,それぞれを孤立系にする.
+ただし系と熱浴のエネルギーのゆらぎは十分小さいとする.
+ここで熱浴側のエントロピーは
+\begin{align*}
+  S_r(E_r)=S_r(E_{全}-E)&=k_B\log(N_r(E_r)\Delta E)\\
+  &=S_r(E_{全})-\frac{\partial S_r}{\partial E_{全}}E
+\end{align*}
+ここで$\partial S/\partial E=1/T$なので
+\begin{align*}
+  k_B\log(N_r(E_r)\Delta E)&=S_r(E_{全})-\frac{1}{T}E\\
+  &=k_B\log\left(N_r(E_{全}){\rm e}^{-\beta E}\Delta E\right)
+\end{align*}
+したがって
+\begin{align*}
+  N_r(E_r)=N_r(E_{全}){\rm e}^{-\beta E}
+\end{align*}
+よって確率密度は
+\begin{align*}
+  P(E,V,N)=\frac{N_r(E_{全})}{N_{全}(E_{全})}N(E){\rm e}^{-\beta E}
+\end{align*}
+ここで$N_r(E_{全})/N_{全}(E_{全})$は定数なので$1/Z$とすると
+\begin{align*}
+  P(E,V,N)=\frac{1}{Z}N(E){\rm e}^{-\beta E}
+\end{align*}
+ここで規格化条件から
+\begin{align*}
+  1&=\frac{1}{Z}\int{\rm d}E\ N(E){\rm e}^{-\beta E}\\
+  Z&=\int{\rm d}E\ N(E){\rm e}^{-\beta E}b
+\end{align*}
+エネルギーが離散的ならば
+\begin{align*}
+  Z&=\sum_\nu{\rm e}^{-\beta E_\nu}
+\end{align*}
+となる.ここでヘルムホルムの自由エネルギーは$F=E-TS$なのでボルツマンの関係式を用いれば
+\begin{align*}
+  F&=\sum_\nu E_\nu P_\nu+Tk_B\sum_\nu P_\nu\log P_\nu\\
+  &=\sum_\nu E_\nu P_\nu+Tk_B\sum_\nu P_\nu\left(\frac{{\rm e}^{-\beta E_\nu}}{Z}\right)\\
+  &=\sum_\nu E_\nu P_\nu-Tk_B\beta\sum_\nu P_\nu E_\nu-Tk_B\sum_\nu P_\nu\log Z\\
+  &=-k_BT\langle\log Z\rangle=-k_BT\log Z
+\end{align*}
+を得る.
+\bibliography{ref.bib}
+\end{document}
