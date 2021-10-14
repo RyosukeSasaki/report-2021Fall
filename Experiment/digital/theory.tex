@@ -1,0 +1,216 @@
+\section{原理}
+\subsection{論理ゲートの動作}
+表\ref{tab:notgate}から表\ref{tab:norgate}に各論理ゲートの真理値表を図\ref{fig:fig/not.png}から図\ref{fig:fig/nor.png}に各論理ゲートのMIL記号を示す.
+NOTゲートは入力を反転するゲートである.
+ANDゲートは2個以上の全入力がHighの時High,それ以外のときLowを返すゲートである.
+ORゲートは2個以上の入力のうち1つでもHighがあればHigh,全入力がLowのときはLowを返すゲートである.
+またNANDゲートはANDゲート,
+NORゲートはORゲートをそれぞれ反転したゲートである.
+図\ref{fig:fig/1-a.png}に各論理ゲートの動作確認用の回路を示す.
+これによりワークスペース上の各ゲートが真理値表の通りの動作をしていると確認できた.
+\begin{figure}[h]
+  \def\@captype{table}
+  \begin{minipage}[t]{.48\textwidth}
+    \begin{center}
+      \begin{tabular}{cc}
+        \hline
+        X & $\rm Y=\overline{X}$\\
+        \hline
+        0 & 1\\
+        1 & 0\\
+        \hline
+      \end{tabular}
+    \end{center}
+    \tblcaption{NOTゲートの真理値表}
+    \label{tab:notgate}
+  \end{minipage}
+  %
+  \hfill
+  %
+  \begin{minipage}[c]{.48\textwidth}
+    \mfig[width=3cm]{fig/not.png}{NOTゲートのMIL記号(実験テキストより引用)}
+  \end{minipage}
+\end{figure}
+\begin{figure}[h]
+  \def\@captype{table}
+  \begin{minipage}[t]{.48\textwidth}
+    \begin{center}
+      \begin{tabular}{ccc}
+        \hline
+        X & Y & $\rm Z=X\cdot Y$\\
+        \hline
+        0 & 0 & 0\\
+        0 & 1 & 0\\
+        1 & 0 & 0\\
+        1 & 1 & 1\\
+        \hline
+      \end{tabular}
+    \end{center}
+    \tblcaption{ANDゲートの真理値表}
+    \label{tab:andgate}
+  \end{minipage}
+  %
+  \hfill
+  %
+  \begin{minipage}[c]{.48\textwidth}
+    \mfig[width=3cm]{fig/and.png}{ANDゲートのMIL記号(実験テキストより引用)}
+  \end{minipage}
+\end{figure}
+\begin{figure}[h]
+  \def\@captype{table}
+  \begin{minipage}[t]{.48\textwidth}
+    \begin{center}
+      \begin{tabular}{ccc}
+        \hline
+        X & Y & $\rm Z=X+ Y$\\
+        \hline
+        0 & 0 & 0\\
+        0 & 1 & 1\\
+        1 & 0 & 1\\
+        1 & 1 & 1\\
+        \hline
+      \end{tabular}
+    \end{center}
+    \tblcaption{ORゲートの真理値表}
+    \label{tab:orgate}
+  \end{minipage}
+  %
+  \hfill
+  %
+  \begin{minipage}[c]{.48\textwidth}
+    \mfig[width=3cm]{fig/or.png}{ORゲートのMIL記号(実験テキストより引用)}
+  \end{minipage}
+\end{figure}
+\begin{figure}[h]
+  \def\@captype{table}
+  \begin{minipage}[t]{.48\textwidth}
+    \begin{center}
+      \begin{tabular}{ccc}
+        \hline
+        X & Y & $\rm Z=\overline{X\cdot Y}$\\
+        \hline
+        0 & 0 & 1\\
+        0 & 1 & 1\\
+        1 & 0 & 1\\
+        1 & 1 & 0\\
+        \hline
+      \end{tabular}
+    \end{center}
+    \tblcaption{NANDゲートの真理値表}
+    \label{tab:nandgate}
+  \end{minipage}
+  %
+  \hfill
+  %
+  \begin{minipage}[c]{.48\textwidth}
+    \mfig[width=3cm]{fig/nand.png}{NANDゲートのMIL記号(実験テキストより引用)}
+  \end{minipage}
+\end{figure}
+\begin{figure}[h]
+  \def\@captype{table}
+  \begin{minipage}[t]{.48\textwidth}
+    \begin{center}
+      \begin{tabular}{ccc}
+        \hline
+        X & Y & $\rm Z=\overline{X+Y}$\\
+        \hline
+        0 & 0 & 1\\
+        0 & 1 & 0\\
+        1 & 0 & 0\\
+        1 & 1 & 0\\
+        \hline
+      \end{tabular}
+    \end{center}
+    \tblcaption{NORゲートの真理値表}
+    \label{tab:norgate}
+  \end{minipage}
+  %
+  \hfill
+  %
+  \begin{minipage}[c]{.48\textwidth}
+    \mfig[width=3cm]{fig/nor.png}{NORゲートのMIL記号(実験テキストより引用)}
+  \end{minipage}
+\end{figure}
+\mfig[width=5cm]{fig/1-a.png}{動作確認用の回路}
+\clearpage
+\subsection{RSラッチの動作}
+RSラッチの真理値表を表\ref{tab:rslatch}に回路図を図\ref{fig:fig/RS.png}に示す.
+RSラッチは$\rm \overline{S}$, $\rm \overline{R}$の2入力を受け$\rm Q$, $\rm \overline{Q}$を出力する.
+SはSetをRはResetを意味する.
+$\rm\overline{S}=0$(すなわち$\rm S=1$)とすると,
+NANDはいずれかの入力に0が立っていれば1を出力するのでこのとき$\rm Q=1$である.
+このとき$\rm Q=1$であれば下側のNANDの入力は両方1なので$\rm\overline{Q}=0$となる.
+一方で$\rm Q=0$だと$\rm\overline{Q}=1$となり$\rm\overline{Q}=Q$なので矛盾している.
+すなわち$\rm\overline{S}=\overline{R}=0$は矛盾するため禁止される.
+また$\rm\overline{S}=\overline{R}=1$だと$Q=1$のときは$\rm\overline{Q}=0$,
+$Q=0$のときは$\overline{Q}=1$となり前回の状態が維持される.
+$\rm\overline{S}$と$\rm\overline{R}$は完全に対称なので$\rm\overline{R}$についても同様の議論が行える.
+以上からRSラッチは$\rm\overline{S}=0$で1を記録し,
+$\rm\overline{R}=0$で0を記録する回路だと言える.
+図\ref{fig:fig/RS_latch.png}にRSラッチの動作確認用の回路を示す.
+これにより真理値表から期待される通りの動作をしていることが確認できた.
+\begin{figure}[h]
+  \def\@captype{table}
+  \begin{minipage}[t]{.48\textwidth}
+    \begin{center}
+      \begin{tabular}{cccc}
+        \hline
+        $\rm\overline{S}$ & $\rm\overline{R}$ & $\rm Q_{n+1}$ & $\rm\overline{Q_{n+1}}$\\
+        \hline
+        0 & 0 & \multicolumn{2}{c}{禁止}\\
+        0 & 1 & 0 & 1\\
+        1 & 0 & 0 & 0\\
+        1 & 1 & $\rm Q_n$ & $\rm \overline{Q_n}$\\
+        \hline
+      \end{tabular}
+    \end{center}
+    \tblcaption{RSラッチの真理値表}
+    \label{tab:rslatch}
+  \end{minipage}
+  %
+  \hfill
+  %
+  \begin{minipage}[c]{.48\textwidth}
+    \mfig[width=4cm]{fig/RS.png}{RSラッチの回路図(実験テキストから引用)}
+  \end{minipage}
+\end{figure}
+\mfig[width=6cm]{fig/RS_latch.png}{動作確認用の回路}
+\clearpage
+\subsection{JK F/Fの動作}
+JK F/Fの真理値表を表に回路記号を図に示す.
+JK F/Fでは入力JがRSラッチで言うS,
+入力KがRSラッチのRに近い役割を持つ.
+ただしRSラッチでは$\rm S=R=1$の状態は禁制状態とされたが,
+JK F/Fでは禁制ではなく出力の状態を反転するように機能する.
+またJK F/Fの動作はCLK入力により同期され,
+CLKの立ち下がり(または立ち上がり)に状態が更新される.
+また$\rm\overline{PRS}$はPreset,
+$\rm\overline{CLR}$はClearを意味し,それぞれQに1及び0を立てる.
+図\ref{fig:fig/3-b2.png}にJK F/Fの動作確認用の回路を示す.
+これにより真理値表から期待される通りの動作をしていることが確認できた.
+\begin{figure}[h]
+  \def\@captype{table}
+  \begin{minipage}[t]{.48\textwidth}
+    \begin{center}
+      \begin{tabular}{cccc}
+        \hline
+        J & K & $\rm Q_{n+1}$ & $\rm\overline{Q_{n+1}}$\\
+        \hline
+        0 & 0 & $\rm \overline{Q_n}$ & $\rm Q_n$\\
+        0 & 1 & 0 & 1\\
+        1 & 0 & 0 & 0\\
+        1 & 1 & $\rm Q_n$ & $\rm \overline{Q_n}$\\
+        \hline
+      \end{tabular}
+    \end{center}
+    \tblcaption{JK F/Fの真理値表}
+    \label{tab:JKFF}
+  \end{minipage}
+  %
+  \hfill
+  %
+  \begin{minipage}[c]{.48\textwidth}
+    \mfig[width=4cm]{fig/JKFF.png}{JK F/Fの回路記号(実験テキストから引用)}
+  \end{minipage}
+\end{figure}
+\mfig[width=7cm]{fig/3-b2.png}{動作確認用の回路}
