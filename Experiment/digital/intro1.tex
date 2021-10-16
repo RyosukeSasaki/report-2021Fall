@@ -1,0 +1,103 @@
+\section{入門編}
+\subsection{2進表示回路}
+ここではスイッチ$n$ ($n=1,2,3$)からの入力を受け$n$を2進数表示する回路を作成した.
+以下ではスイッチ$n$の状態を${\rm X}_n$,
+1桁目の出力の状態をA,2桁目の出力の状態をBと表記している
+\subsubsection{設計}
+表\ref{tab:binary}に真理値表を示す.
+したがって論理式は以下で与えられる.
+\begin{align}
+  \begin{split}
+    {\rm A} &= {\rm X}_1{\rm\overline{X}}_2{\rm\overline{X}}_3+{\rm\overline{X}}_1{\rm\overline{X}}_2{\rm X}_3\\
+    {\rm B} &= {\rm\overline{X}}_1{\rm X}_2{\rm\overline{X}}_3+{\rm\overline{X}}_1{\rm\overline{X}}_2{\rm X}_3
+  \end{split}
+\end{align}
+\begin{table}[h]
+  \label{tab:binary}
+  \centering
+  \begin{tabular}{ccc|cc}
+    \hline
+    ${\rm X}_3$ & ${\rm X}_2$ & ${\rm X}_1$ & B & A\\
+    \hline
+    0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 & 1 \\
+    0 & 1 & 0 & 1 & 0 \\
+    0 & 1 & 1 & 0 & 0 \\
+    1 & 0 & 0 & 1 & 1 \\
+    1 & 0 & 1 & 0 & 0 \\
+    1 & 1 & 0 & 0 & 0 \\
+    1 & 1 & 1 & 0 & 0 \\
+    \hline
+  \end{tabular}
+  \caption{2進表示回路}
+\end{table}
+\clearpage
+\subsubsection{動作確認}
+図\ref{fig:fig/1-b.png}に実装した回路を示す.
+トグルスイッチ$n$が${\rm X}_n$の状態を入力し,
+LED AとLED Bがそれぞれ出力A, Bを表す.
+全8通りの入力を試行し,期待される通りの動作をしていることを確認できた.
+\mfig[width=10cm]{fig/1-b.png}{2進表示回路の実装}
+\clearpage
+\subsection{比較回路}
+ここでは2桁の2進数${\rm X}_1{\rm X}_2$および${\rm Y}_1{\rm Y}_2$を受け,
+${\rm X}_1{\rm X}_2>{\rm Y}_1{\rm Y}_2$を判定する回路を作成した.
+以下では出力の状態をSとする.
+\subsubsection{設計}
+表\ref{tab:comparator}に真理値表を示す.これからカルノー図は図\ref{fig:karnaugh1c}のようになる.したがって論理式は以下のようになる.
+\begin{align}
+  S={\rm X}_1{\rm\overline{Y}}_1+{\rm X}_2{\rm\overline{Y}}_1{\rm\overline{Y}}_2+{\rm X}_1{\rm X}_2{\rm\overline{Y}}_2
+\end{align}
+\begin{figure}[h]
+  \begin{tabular}{c}
+    \begin{minipage}[t]{.48\textwidth}
+      \centering
+      \begin{tabular}{cccc|c}
+        \hline
+        ${\rm X}_1$ & ${\rm X}_2$ & ${\rm Y}_1$ & ${\rm Y}_2$ & S\\
+        \hline
+        0 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 1 & 0 \\
+        0 & 0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 1 & 0 \\
+        0 & 1 & 0 & 0 & 1 \\
+        0 & 1 & 0 & 1 & 0 \\
+        0 & 1 & 1 & 0 & 0 \\
+        0 & 1 & 1 & 1 & 0 \\
+        1 & 0 & 0 & 0 & 1 \\
+        1 & 0 & 0 & 1 & 1 \\
+        1 & 0 & 1 & 0 & 0 \\
+        1 & 0 & 1 & 1 & 0 \\
+        1 & 1 & 0 & 0 & 1 \\
+        1 & 1 & 0 & 1 & 1 \\
+        1 & 1 & 1 & 0 & 1 \\
+        1 & 1 & 1 & 1 & 0 \\
+        \hline
+      \end{tabular}
+      \tblcaption{比較回路}
+      \label{tab:comparator}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiv{S}{{${\rm Y}_1$}{${\rm Y}_2$}{${\rm X}_1$}{${\rm X}_2$}}{}{0111001100010000}%
+      {%
+      \color{red}\put(1,1){\oval(1.8,1.8)}
+      \color{green}\put(0.5,2){\oval(0.8,1.8)}
+      \color{blue}\put(0,1.5){\oval(1.8,0.8)[r]}
+      \color{blue}\put(4,1.5){\oval(1.8,0.8)[l]}
+      }
+      \caption{Sのカルノー図}
+      \label{fig:karnaugh1c}
+    \end{minipage}
+  \end{tabular}
+\end{figure}
+\clearpage
+\subsubsection{動作確認}
+図\ref{fig:fig/1-c.png}に実装した回路を示す.
+トグルスイッチ${\rm X}_n$, ${\rm Y}_n$が入力値,
+LED Aが出力Sを表す.
+全16通りの入力を試行し,期待される通りの動作をしていることを確認できた.
+\mfig[width=10cm]{fig/1-c.png}{比較回路の実装}

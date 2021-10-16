@@ -1,0 +1,188 @@
+\subsection{非同期式カウンタ(負論理)}
+ここではClockの立ち下がりをカウントするカウンタ回路を作成した.
+\subsubsection{タイミングチャート}
+表\ref{tab:JKFF}からJK F/Fに$\rm J=K=1$を入力すると出力Qが反転する.
+したがって矩形波を入力すると1周期ごとに状態が反転するため,分周器として機能することがわかる.
+したがって図\ref{fig:fig/async_counter.png}のようにJK F/Fを複数段接続すると各出力$\rm Q_n$は図\ref{fig:fig/timing-chart.png}のタイミングチャートのようになり,
+CLKの立ち下がりを2進数で数えることができる.
+タイミングチャートはTiming Chart Formatter\cite{TimingCh73}を用いて生成し,
+Microsoft Office PowerPointで加筆した.
+ただし実際には素子のLow Levelまで電圧が落ち込むのに有限の時間がかかるため,
+図\ref{fig:fig/timing-chart.png}のように少しずつタイミングが遅れていく.
+そのため構成できる桁数には限界があると考えられる.
+\mfig[width=10cm]{fig/async_counter.png}{非同期カウンタの構成}
+\mfig[width=10cm]{fig/timing-chart.png}{非同期カウンタのタイミングチャート}
+\clearpage
+\subsubsection{動作確認}
+図\ref{fig:fig/async_AL.png}に実装した回路を示す.
+LED ${\rm Q}n$が$n$番目の出力を示す.
+これにより各出力がタイミングチャートで期待した通りの挙動をしていることが確認できた.
+\mfig[width=10cm]{fig/async_AL.png}{非同期式カウンタの実装}
+\clearpage
+\subsection{非同期式カウンタ(正論理)}
+\subsubsection{タイミングチャート}
+正論理のJK F/FはCLKの立ち上がりで状態が更新されるため,
+図\ref{fig:fig/async_counter_AH.png}のように接続するとタイミングチャートは図\ref{fig:fig/timing-chart_AH.png}のようになる.
+したがって各出力の否定${\rm\overline{Q}}_n$がカウンタとして機能していることがわかる.
+\mfig[width=10cm]{fig/async_counter_AH.png}{非同期カウンタの構成}
+\mfig[width=10cm]{fig/async_counter_AH.png}{非同期カウンタの構成}
+\mfig[width=10cm]{fig/timing-chart_AH.png}{非同期カウンタのタイミングチャート}
+\clearpage
+\subsubsection{動作確認}
+図\ref{fig:fig/async_AH.png}に実装した回路を示す.
+LED ${\rm Q}n$が$n$番目の出力を示す.
+これにより各出力がタイミングチャートで期待した通りの挙動をしていることが確認できた.
+\mfig[width=10cm]{fig/async_AH.png}{非同期式カウンタの実装}
+\subsection{同期式カウンタ}
+前節の非同期式カウンタは後段に行くほど信号が遅れるため構成できる桁数に限界があった.
+対して同期式カウンタはすべての桁に同一のClockを入力するため,上位桁の遅れがなくより多くの桁数を構成できる.
+ここでは3桁で5進のカウンタを作成した.
+\subsubsection{設計}
+JK F/Fの出力${\rm Q}_{n+1}$は${\rm Q}_n$を明示すると表\ref{tab:JKFF_Qn}のような真理値表で表される.
+したがって
+$0\rightarrow 0$の遷移では$\rm J=0$, $\rm K=\ast$,
+$0\rightarrow 1$の遷移では$\rm J=1$, $\rm K=\ast$,
+$1\rightarrow 0$の遷移では$\rm J=\ast$, $\rm K=1$,
+$1\rightarrow 1$の遷移では$\rm J=\ast$, $\rm K=0$
+とすれば良い.
+\begin{figure}[h]
+  \begin{tabular}{c}
+    \begin{minipage}[t]{.48\textwidth}
+      \centering
+      \begin{tabular}{ccc|c}
+        \hline
+        ${\rm Q}_{\rm prev}$ & J & K & ${\rm Q}_{\rm next}$\\
+        \hline
+        0 & 0 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 1 & 0 & 1 \\
+        0 & 1 & 1 & 1 \\
+        1 & 0 & 0 & 1 \\
+        1 & 0 & 1 & 0 \\
+        1 & 1 & 0 & 1 \\
+        1 & 1 & 1 & 0 \\
+        \hline
+      \end{tabular}
+      \tblcaption{JK F/Fの動作}
+      \label{tab:JKFF_Qn}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \mfig[width=3cm]{fig/sync_counter_state.png}{同期式カウンタの状態遷移}
+    \end{minipage}
+  \end{tabular}
+\end{figure}
+\clearpage
+以上から${\rm J}_n$, ${\rm K}_n$の真理値表は表\ref{tab:JKs}のようになる.
+また${\rm J}_n$, ${\rm K}_n$のカルノー図は図\ref{fig:karnaughJ1}から図\ref{fig:karnaughK3}のようになる.
+したがって${\rm J}_n$, ${\rm K}_n$の論理式は以下のようになる.
+\begin{align}
+  \begin{array}{ll}
+    {\rm J}_1={\rm\overline{Q}}_3,&{\rm K}_1=1\\
+    {\rm J}_2={\rm Q}_1,&{\rm K}_2={\rm Q}_1\\
+    {\rm J}_3={\rm Q}_1{\rm Q}_2,&{\rm K}_3=1
+  \end{array}
+\end{align}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{ccc|cc|cc|cc}
+    \hline
+    ${\rm Q}_3$ & ${\rm Q}_2$ & ${\rm Q}_1$ & ${\rm J}_1$ & ${\rm K}_1$ & ${\rm J}_2$ & ${\rm K}_2$ & ${\rm J}_3$ & ${\rm K}_3$\\
+    \hline \hline
+    0 & 0 & 0 & 1 & * & 0 & * & 0 & * \\
+    0 & 0 & 1 & * & 1 & 1 & * & 0 & * \\
+    0 & 1 & 0 & 1 & * & * & 0 & 0 & * \\
+    0 & 1 & 1 & * & 1 & * & 1 & 1 & * \\
+    1 & 0 & 0 & 0 & * & 0 & * & * & 1 \\
+    1 & 0 & 1 & * & * & * & * & * & * \\
+    1 & 1 & 0 & * & * & * & * & * & * \\
+    1 & 1 & 1 & * & * & * & * & * & * \\
+    \hline
+  \end{tabular}
+  \caption{${\rm J}_n$, ${\rm K}_n$の真理値表}
+  \label{tab:JKs}
+\end{table}
+\begin{figure}[h]
+  \begin{tabular}{c}
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm J_1$}{{$\rm Q_2$}{$\rm Q_1$}{$\rm Q_3$}}{}{10**1***}
+      {
+        \color{red}\put(1.9,1.5){\oval(3.8,0.8)}
+      }
+      \caption{$\rm J_1$のカルノー図}
+      \label{fig:karnaughJ1}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm K_1$}{{$\rm Q_2$}{$\rm Q_1$}{$\rm Q_3$}}{}{**1***1*}
+      {
+        \color{red}\put(1.9,1){\oval(3.8,1.8)}
+      }
+      \caption{$\rm K_1$のカルノー図}
+      \label{fig:karnaughK1}
+    \end{minipage}
+  \end{tabular}
+\end{figure}
+\begin{figure}[h]
+  \begin{tabular}{c}
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm J_2$}{{$\rm Q_2$}{$\rm Q_1$}{$\rm Q_3$}}{}{001*****}
+      {
+        \color{red}\put(1.9,1){\oval(1.8,1.8)}
+      }
+      \caption{$\rm J_2$のカルノー図}
+      \label{fig:karnaughJ2}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm K_2$}{{$\rm Q_2$}{$\rm Q_1$}{$\rm Q_3$}}{}{****0*1*}
+      {
+        \color{red}\put(1.9,1){\oval(1.8,1.8)}
+      }
+      \caption{$\rm K_2$のカルノー図}
+      \label{fig:karnaughK2}
+    \end{minipage}
+  \end{tabular}
+\end{figure}
+\begin{figure}[h]
+  \begin{tabular}{c}
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm J_3$}{{$\rm Q_2$}{$\rm Q_1$}{$\rm Q_3$}}{}{0*0*0*1*}
+      {
+        \color{red}\put(2.4,1){\oval(0.8,1.8)}
+      }
+      \caption{$\rm J_3$のカルノー図}
+      \label{fig:karnaughJ3}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm K_3$}{{$\rm Q_2$}{$\rm Q_1$}{$\rm Q_3$}}{}{*1******}
+      {
+        \color{red}\put(1.9,1){\oval(3.8,1.8)}
+      }
+      \caption{$\rm K_3$のカルノー図}
+      \label{fig:karnaughK3}
+    \end{minipage}
+  \end{tabular}
+\end{figure}
+\newpage
+\subsubsection{動作確認}
+図に実装した回路を示す.
+LED ${\rm Q}n$が$n$番目の出力を示す.
+これによりCLKの立ち下がりを0から4番目まで正常にカウントしていることが確認できた.
+\mfig[width=10cm]{fig/3-d.png}{同期式カウンタの実装}
