@@ -1,0 +1,66 @@
+\section{応用編;早撃ちゲーム}
+早撃ちゲームは合図生成部,ロジック部,メモリー\&出力部,リセット部から構成される.
+\mfig[width=12cm]{fig/4_ALL_comment.png}{早撃ちゲーム}
+\subsection{合図生成部}
+図\ref{fig:fig/signal_gen.png}に合図生成部の回路を示す.
+合図生成部は3桁の分周器(カウンタ)とメモリー用のJK F/F (SIGNAL\_GEN)から成る.
+カウンタがオーバーフローするとSIGNAL\_GENのCLKに信号が入力され
+${\rm J}=1$, ${\rm K}=0$であることから${\rm Q}=1$となり,表示用LED (Signal)及びロジック部に入力される.
+これ以降はカウンタがオーバーフローしても${\rm Q}=1$のままである.
+カウンタのJK F/Fの入力Jと入力Kは電源スイッチ (SW)から入力されており,これがOFFになるとカウントが停止する.
+\mfig[width=8cm]{fig/signal_gen.png}{合図生成部}
+\subsection{ロジック部}
+ロジック部は合図の状態とプレイヤーA, Bの入力に応じて勝敗を判定する.
+\subsubsection{設計}
+プレイヤーA, Bの勝敗の状態を$\rm W_A$, $\rm W_B$とする.
+$\rm W_A=1$のときはAの勝利,
+$\rm W_B=1$のときはBの勝利である.このとき真理値表は表\ref{tab:WAWB}のようになる.
+ここで$\rm Q$は合図生成部から入力される合図信号である.
+ただし2人が同時にボタンを押したときはドローとする.
+したがって論理式は以下のようになる.
+\begin{align}
+  \begin{split}
+    {\rm W_A}=\overline{\rm QA}{\rm B}+{\rm QA}\overline{\rm B}\\
+    {\rm W_B}=\overline{\rm Q}{\rm A}\overline{\rm B}+{\rm Q}\overline{\rm A}{\rm B}\\
+  \end{split}
+\end{align}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{ccc|cc}
+    \hline
+    Q & A & B & $\rm W_A$ & $\rm W_B$ \\
+    \hline
+    0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 1 & 0 \\
+    0 & 1 & 0 & 0 & 1 \\
+    0 & 1 & 1 & 0 & 0 \\
+    1 & 0 & 0 & 0 & 0 \\
+    1 & 0 & 1 & 0 & 1 \\
+    1 & 1 & 0 & 1 & 0 \\
+    1 & 1 & 1 & 0 & 0 \\
+    \hline
+  \end{tabular}
+  \caption{ロジック部の真理値表}
+  \label{tab:WAWB}
+\end{table}
+\subsubsection{実装及び動作確認}
+図\ref{fig:fig/4_LOGIC.png}にロジック部の実装を示す.
+本来Qは合図生成部から入力されるが,ここでは単体試験のためトグルスイッチを用いて代用している.
+全8通りの入力を試行し,期待される通りの動作をしていることを確認できた.
+\mfig[width=8cm]{fig/4_LOGIC.png}{ロジック部}
+\subsection{メモリー\&出力部}
+メモリー\&出力部はロジック部が出力した勝敗を記録,出力する.
+メモリー\&出力部は3個のJK F/F (MEM\_STATE, MEM\_A, MEM\_B)と出力用LED A, Bからなる.
+MEM\_STATEは$\rm W_A$, $\rm W_B$のどちらかが$1\rightarrow 0$と遷移したときに$\rm J=1$であることから$\overline{\rm Q}=0$となる.
+以降$\overline{\rm Q}$はスイッチの状態が変化しても0のままである.
+MEM\_A, MEM\_Bの入力Jには$\rm W_A$, $\rm W_B$が入力されており,
+Aが勝利したときはMEM\_Aに1,
+Bが勝利したときはMEM\_Bに1が記録される.
+またMEM\_A, MEM\_Bの$\overline{\rm CLK}$にはMEM\_STATEの$\overline{\rm Q}$が入力されているため,
+これ以降はスイッチの状態が変化しても記録された値は変化しない.
+\mfig[width=6cm]{fig/4_MEM_OUT.png}{メモリー\&出力部}
+\subsection{リセット部}
+リセット部は合図生成部及びメモリー\&出力部に含まれるすべてのJK F/FにCLR信号を入力し,状態を初期化することでリセット処理を行う.
+また電源スイッチがOFFになったときもリセット信号が1になり,すべてリセットされる.
+\subsection{全体の動作確認}
+プレイヤーA, Bそれぞれが勝利する場合, お手つきする場合の全4通りについて試行し,期待される通りの動作をしていることを確認できた.

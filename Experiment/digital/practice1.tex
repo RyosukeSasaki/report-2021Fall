@@ -1,0 +1,288 @@
+\section{実践編;加算器}
+ここでは2桁の2進数${\rm A_2A_1}$及び${\rm B_2B_1}$を加算し,その結果を7セグメントLEDに出力する回路を作成した.
+\subsection{7セグメントLEDの表示回路}
+\subsubsection{設計}
+7セグメントLEDの入力は各セグメントに対して図\ref{fig:fig/7seg.png}のようにアサインされている.
+これに対して3桁の2進数${\rm X_3X_2X_1}$を入力し,
+10進で表示する.
+各セグメントの入力を${\rm L}_n$とすると真理値表は表\ref{tab:7seg}のようになる.
+したがって各入力のカルノー図は図\ref{fig:karnaughL1}から図\ref{fig:karnaughL7}のようになる.
+また,論理式は以下のようになる.
+\begin{align}
+  \begin{split}
+    {\rm L}_1&=X_2+\overline{\rm X_1\oplus X_3}\\
+    {\rm L}_2&=\overline{\rm X_3}+\overline{\rm X_1\oplus X_2}\\
+    {\rm L}_3&={\rm X}_1+\overline{\rm X_2}+{\rm X}_3\\
+    {\rm L}_4&={\rm X}_1\overline{\rm X_2}X_3+\overline{\rm X_1X_3}+\overline{\rm X_1}{\rm X}_2+{\rm X}_2\overline{\rm X_3}\\
+    {\rm L}_5&=\overline{\rm X_1}{\rm X}_2+\overline{\rm X_1X_3}\\
+    {\rm L}_6&=\overline{\rm X_2}{\rm X}_3+\overline{\rm X_1X_2}+\overline{\rm X_1}{\rm X_3}\\
+    {\rm L}_7&=\overline{\rm X_1}{\rm X}_2+{\rm X_2}\oplus{\rm X_3}
+  \end{split}
+\end{align}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{ccc|ccccccc}
+\hline
+$\rm X_3$ & $\rm X_2$ & $\rm X_1$ & $\rm L_1$ & $\rm L_2$ & $\rm L_3$ & $\rm L_4$ & $\rm L_5$ & $\rm L_6$ & $\rm L_7$\\
+\hline \hline
+0&0&0&1&1&1&1&1&1&0\\
+0&0&1&0&1&1&0&0&0&0\\
+0&1&0&1&1&0&1&1&0&1\\
+0&1&1&1&1&1&1&0&0&1\\
+1&0&0&0&1&1&0&0&1&1\\
+1&0&1&1&0&1&1&0&1&1\\
+1&1&0&1&0&1&1&1&1&1\\
+1&1&1&1&1&1&0&0&0&0\\
+\hline
+\end{tabular}
+\caption{7セグメントLEDの真理値表}
+\label{tab:7seg}
+\end{table}
+\begin{figure}[h]
+  \begin{tabular}{c}
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm L_1$}{{$\rm X_2$}{$\rm X_1$}{$\rm X_3$}}{}{10011111}
+      {
+        \color{red}\put(2.9,1){\oval(1.8,1.8)}
+        \color{blue}\put(1.9,0.5){\oval(1.8,0.8)}
+        \color{green}\put(3.9,1.5){\oval(1.8,0.8)[l]}
+        \color{green}\put(-0.1,1.5){\oval(1.8,0.8)[r]}
+      }
+      \caption{$\rm L_1$のカルノー図}
+      \label{fig:karnaughL1}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm L_2$}{{$\rm X_2$}{$\rm X_1$}{$\rm X_3$}}{}{11101011}
+      {
+        \color{red}\put(1.9,1.5){\oval(3.8,0.8)}
+        \color{blue}\put(0.4,1){\oval(0.8,1.8)}
+        \color{green}\put(2.4,1){\oval(0.8,1.8)}
+      }
+      \caption{$\rm L_2$のカルノー図}
+      \label{fig:karnaughL2}
+    \end{minipage}
+  \end{tabular}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{tabular}{c}
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm L_3$}{{$\rm X_2$}{$\rm X_1$}{$\rm X_3$}}{}{11110111}
+      {
+        \color{red}\put(1.9,0.5){\oval(3.8,0.8)}
+        \color{blue}\put(0.9,1){\oval(1.8,1.8)}
+        \color{green}\put(1.9,1){\oval(1.8,1.8)}
+      }
+      \caption{$\rm L_3$のカルノー図}
+      \label{fig:karnaughL3}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm L_4$}{{$\rm X_2$}{$\rm X_1$}{$\rm X_3$}}{}{10011110}
+      {
+        \color{red}\put(2.9,1.5){\oval(1.8,0.8)}
+        \color{black}\put(1.4,0.5){\oval(0.8,0.8)}
+        \color{green}\put(3.4,1){\oval(0.8,1.8)}
+        \color{blue}\put(3.9,1.5){\oval(1.8,0.8)[l]}
+        \color{blue}\put(-0.1,1.5){\oval(1.8,0.8)[r]}
+      }
+      \caption{$\rm L_4$のカルノー図}
+      \label{fig:karnaughL4}
+    \end{minipage}
+  \end{tabular}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{tabular}{c}
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm L_5$}{{$\rm X_2$}{$\rm X_1$}{$\rm X_3$}}{}{10001100}
+      {
+        \color{red}\put(-0.1,1.5){\oval(1.8,0.8)[r]}
+        \color{red}\put(3.9,1.5){\oval(1.8,0.8)[l]}
+        \color{blue}\put(3.4,1){\oval(0.8,1.8)}
+      }
+      \caption{$\rm L_5$のカルノー図}
+      \label{fig:karnaughL5}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm L_6$}{{$\rm X_2$}{$\rm X_1$}{$\rm X_3$}}{}{11010100}
+      {
+        \color{red}\put(0.9,0.5){\oval(1.8,0.8)}
+        \color{green}\put(0.4,1){\oval(0.8,1.8)}
+        \color{blue}\put(3.9,0.5){\oval(1.8,0.8)[l]}
+        \color{blue}\put(-0.1,0.5){\oval(1.8,0.8)[r]}
+      }
+      \caption{$\rm L_6$のカルノー図}
+      \label{fig:karnaughL6}
+    \end{minipage}
+  \end{tabular}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{tabular}{c}
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \askmapiii{$\rm L_7$}{{$\rm X_2$}{$\rm X_1$}{$\rm X_3$}}{}{01011110}
+      {
+        \color{red}\put(0.9,0.5){\oval(1.8,0.8)}
+        \color{green}\put(3.4,1){\oval(0.8,1.8)}
+        \color{blue}\put(2.9,1.5){\oval(1.8,0.8)}
+      }
+      \caption{$\rm L_7$のカルノー図}
+      \label{fig:karnaughL7}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \mfig[width=2cm]{fig/7seg.png}{7セグメントLEDのアサイン}
+    \end{minipage}
+  \end{tabular}
+\end{figure}
+\newpage
+\subsubsection{実装及び動作確認}
+図\ref{fig:fig/2-a.png}に実装した回路を示す.トグルスイッチ${\rm X}n$が${\rm X}_n$の状態を表す.
+全8通りの入力を試行し,期待される通りの動作をしていることを確認できた.
+\mfig[width=12cm]{fig/2-a.png}{7セグメントLEDの表示回路}
+\subsection{半加算器}
+\subsubsection{設計}
+半加算器の真理値表を表\ref{tab:half_addr}に示す.
+これから明らかに以下の論理式を得る.
+\begin{align}
+  \begin{split}
+    {\rm S}={\rm A}_1\oplus{\rm B}_1\\
+    {\rm C}={\rm A}_1\cdot{\rm B}_1
+  \end{split}
+\end{align}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{cc|cc}
+    \hline
+    $\rm A_1$ & $\rm B_1$ & C & S\\
+    \hline
+    0 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 1 \\
+    1 & 0 & 0 & 1 \\
+    1 & 1 & 1 & 0 \\
+    \hline
+  \end{tabular}
+  \caption{半加算器の真理値表}
+  \label{tab:half_addr}
+\end{table}
+\newpage
+\subsubsection{実装及び動作確認}
+図\ref{fig:fig/half_adder_xor.png}に実装した回路を示す.トグルスイッチ$\rm A1$, $\rm B1$がそれぞれ${\rm A}_1$, ${\rm B}_1$を表している.
+全4通りの入力を試行し,期待される通りの動作をしていることを確認できた.
+\mfig[width=6cm]{fig/half_adder_xor.png}{半加算器}
+\subsection{全加算器}
+\subsubsection{設計}
+全加算器は前段からの桁上げ${\rm C}_n$及び入力${\rm A}_{n+1}$, ${\rm B}_{n+1}$を受けて和${\rm S}_{n+1}$及び次の桁上げ${\rm C}_{n+1}$を出力する.
+真理値表は表\ref{tab:full_adder}のようになる.
+ここで${\rm S}_{n+1}$の真理値表を${\rm C}_n$によって場合分けすると表\ref{tab:s_cn0}及び表\ref{tab:s_cn1}のようになる.
+したがって${\rm S}_{n+1}$の論理式は以下のようになる.
+\begin{align}
+  {\rm S}_{n+1}=\overline{{\rm C}_n}({\rm A}_{n+1}\oplus{\rm B}_{n+1})+{\rm C}_n(\overline{{\rm A}_{n+1}\oplus{\rm B}_{n+1}})
+\end{align}
+また${\rm C}_{n+1}$のカルノー図は図\ref{fig:Cn1}であり論理式は以下のようになる.
+\begin{align}
+  {\rm C}_{n+1}={\rm A}_{n+1}{\rm C}_n+{\rm B}_{n+1}{\rm C}_n+{\rm A}_{n+1}{\rm B}_{n+1}
+\end{align}
+\newpage
+\begin{table}[h]
+  \centering
+  \begin{tabular}{ccc|cc}
+    \hline
+    ${\rm A}_{n+1}$ & ${\rm B}_{n+1}$ & ${\rm C}_{n}$ & ${\rm C}_{n+1}$ & ${\rm S}_{n+1}$ \\
+    \hline
+    0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 & 1 \\
+    0 & 1 & 0 & 0 & 1 \\
+    0 & 1 & 1 & 1 & 0 \\
+    1 & 0 & 0 & 0 & 1 \\
+    1 & 0 & 1 & 1 & 0 \\
+    1 & 1 & 0 & 1 & 0 \\
+    1 & 1 & 1 & 1 & 1 \\
+    \hline
+  \end{tabular}
+  \caption{全加算器の真理値表}
+  \label{tab:full_adder}
+\end{table}
+
+\begin{figure}[h]
+  \begin{tabular}{c}
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \begin{tabular}{cc|c}
+        \hline
+        ${\rm A}_{n+1}$ & ${\rm B}_{n+1}$ & ${\rm S}_{n+1}$ \\
+        \hline
+        0 & 0 & 0 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 0 \\
+        \hline
+      \end{tabular}
+      \tblcaption{${\rm S}_{n+1}$の真理値表(${\rm C}_n=0$)}
+      \label{tab:s_cn0}
+    \end{minipage}
+    %
+    \hfill
+    %
+    \begin{minipage}[c]{.48\textwidth}
+      \centering
+      \begin{tabular}{cc|c}
+        \hline
+        ${\rm A}_{n+1}$ & ${\rm B}_{n+1}$ & ${\rm S}_{n+1}$ \\
+        \hline
+        0 & 0 & 1 \\
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        1 & 1 & 1 \\
+        \hline
+      \end{tabular}
+      \tblcaption{${\rm S}_{n+1}$の真理値表(${\rm C}_n=1$)}
+      \label{tab:s_cn1}
+    \end{minipage}
+  \end{tabular}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \askmapiii{${\rm C}_{n+1}$}{{A}{B}{${\rm C}_n$}}{}{00010111}
+  {
+    \color{red}\put(1.9,0.5){\oval(1.8,0.8)}
+    \color{blue}\put(2.9,0.5){\oval(1.8,0.8)}
+    \color{green}\put(2.4,1){\oval(0.8,1.8)}
+  }
+  \caption{${\rm C}_{n+1}$}
+  \label{fig:Cn1}
+\end{figure}
+\subsubsection{実装及び動作確認}
+図\ref{fig:fig/2-c_faddr.png}に実装した回路を示す.
+トグルスイッチ$\rm An$, $\rm Bn$がそれぞれ${\rm A}_n$, ${\rm B}_n$を表している.
+1段目は半加算器であり,2段目に上の回路を用いている.
+全16通りの入力を試行し,期待される通りの動作をしていることを確認できた.
+\mfig[width=10cm]{fig/2-c_faddr.png}{全加算器}
+\newpage
+\subsection{加算器と7セグメントLEDの結合}
+上で作成した7セグメントLEDの表示回路と加算器を組み合わせ,計算結果を10進で表示する回路を作成した.
+\subsubsection{実装及び動作確認}
+図\ref{fig:fig/2-d.png}に実装した回路を示す.
+左側に加算器,右側に7セグメントLEDの表示回路がある.
+全16通りの入力を試行し,期待される通りの動作をしていることを確認できた.
+\mfig[width=12cm]{fig/2-d.png}{加算器と表示回路}
