@@ -1,0 +1,134 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{物性物理学1 レポートNo.2}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsection*{問1}
+$V(x)=\infty\ (x\leq 0,a\leq x)$より境界では波動関数は0になっているべきなので,以下の境界条件を課す.
+\begin{align}
+  \psi(x)|_{x=0}=\psi(x)|_{x=a}=0
+\end{align}
+また$V(x)=0\ (0<x<a)$なのでSchr\"{o}dinger方程式は
+\begin{align}
+  -\frac{\hbar^2}{2m}\psi(x)=E\psi(x)
+\end{align}
+ここで$\psi(x)=C{\rm e}^{\lambda x}$と置くと
+\begin{align}
+  -\frac{\hbar^2}{2m}\lambda\psi(x)&=E\psi(x)\nonumber\\
+  \therefore\ \lambda&=\pm i\frac{\sqrt{2mE}}{\hbar}=:\pm ik
+\end{align}
+となる.したがって$\psi(x)$は定数$A,B$を用いて
+\begin{align}
+  \psi(x)=A{\rm e}^{ikx}+B{\rm e}^{-ikx}
+\end{align}
+となる.ここで境界条件(1)を用いると
+\begin{align}
+  \psi(0)&=A+B=0\nonumber\\
+  \therefore\ B&=-A
+\end{align}
+\begin{align}
+  \psi(a)&=A({\rm e}^{ika}-{\rm e}^{-ika})\nonumber\\
+  &=2iA\sin ka=0\nonumber\\
+  \therefore\ k&=\frac{n\pi}{a}
+\end{align}
+(3)と(5)より
+\begin{align}
+  \frac{n\pi}{a}&=\frac{\sqrt{2mE}}{\hbar}\nonumber\\
+  \therefore\ E_n&=\frac{\pi^2\hbar^2}{2ma^2}n^2
+\end{align}
+以上から$E_1$, $E_2$はそれぞれ以下のようになる.
+\begin{align}
+  E_1=\frac{\pi^2\hbar^2}{2ma^2}\\
+  E_2=\frac{4\pi^2\hbar^2}{2ma^2}
+\end{align}
+\subsection*{問2}
+$\alpha=\sqrt{2mE}/\hbar,\beta=\sqrt{2m(V_0-E)}/\hbar$である.
+ここで$Vb$を一定にしたまま$V\rightarrow\infty,b\rightarrow 0$とすると
+\begin{align*}
+  \alpha(a-b)&\rightarrow\alpha a\\
+  \beta b&\rightarrow 0\\
+\end{align*}
+また$\beta b\rightarrow 0$より
+\begin{align*}
+  \sinh\beta b&\simeq\beta b\\
+  \cosh\beta b&\simeq 1
+\end{align*}
+である.したがって
+\begin{align*}
+  \frac{\beta^2-\alpha^2}{\beta}\sinh\beta b&\simeq b(\beta^2-\alpha^2)\\
+  &=b\frac{2mV_0-4mE}{\hbar^2}\\
+  &\rightarrow \frac{2mV_0b}{\hbar^2}
+\end{align*}
+ただし最後の極限では$V_0\gg E$とした.
+したがって\textcircled{\scriptsize 7}式は
+\begin{align*}
+  {\rm e}^{2ika}+1&={\rm e}^{ika}\left(\frac{2mV_0b}{\alpha\hbar^2}\sin\alpha a+2\cos\alpha a\right)
+\end{align*}
+両辺を${\rm e}^{ika}$で割ると
+\begin{align}
+  {\rm e}^{ika}+{\rm e}^{-ika}&=\frac{2mV_0b}{\alpha\hbar^2}\sin\alpha a+2\cos\alpha a\nonumber\\
+  \cos ka&=\frac{mV_0b}{\alpha\hbar^2}\sin\alpha a+\cos\alpha a=:f(\alpha a)
+\end{align}
+\newpage
+\subsubsection*{(1)}
+$V_0b\rightarrow 0$とすると(10)は
+\begin{align}
+  \cos ka&=\cos\alpha a\nonumber\\
+  k&=\alpha=\frac{\sqrt{2mE}}{\hbar}\nonumber\\
+  \therefore\ E&=\frac{\hbar^2k^2}{2m}
+\end{align}
+となり自由電子のエネルギー分散関係が得られた.
+\subsubsection*{(2)}
+$f(x)$をプロットすると図1のようになる.
+(10)の左辺は$\cos$関数であり$-1$から$1$までの値しか取れないため,
+図1の赤ハッチの領域のように$|f(\alpha a)|>1$となるエネルギー領域では解がないことがわかる.
+ここで${mV_0b}/{\alpha\hbar^2}$を徐々に大きくしたときのグラフは図2のようになる.
+図2から$V_0b$が大きくなるとグラフが縦に鋭くなり,解を持つエネルギー領域が狭くなっていくことがわかる.
+ここで$V_0b\rightarrow\infty$とすると解は$\alpha a=n\pi$のみになる.このときのエネルギー準位は
+\begin{align}
+  \alpha a&=n\pi\nonumber\\
+  \frac{\sqrt{2mE}}{\hbar}&=\frac{n\pi}{a}\nonumber\\
+  \therefore\ E_n&=\frac{\pi^2\hbar^2}{2ma^2}n^2
+\end{align}
+となり,井戸型ポテンシャルと同様のエネルギー準位を得る.
+\mfig[width=10cm]{fig/materialNo2-1.png}{$f(x)$のグラフ(${mV_0b}/{\alpha\hbar^2}=1$のとき)}
+\mfig[width=10cm]{fig/materialNo2-2.png}{$f(x)$のグラフ(青→緑→赤の順で${mV_0b}/{\alpha\hbar^2}$が大きい)}
+\end{document}
