@@ -1,0 +1,168 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{相対性理論 レポートNo.1}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsection*{Q11.}
+どの慣性系からみても波の位相は一致すべきなので
+\begin{align}
+  \begin{split}
+    -\omega t+k_x\cdot x=-\omega' t'+k'_x\cdot x'\\
+    -\omega t+k_y\cdot y=-\omega' t'+k'_y\cdot y'\\
+    -\omega t+k_z\cdot z=-\omega' t'+k'_z\cdot z'
+  \end{split}
+\end{align}
+ここで$S'$から$S$へのLorentz変換は
+\begin{align*}
+  \left(\begin{array}{c}
+    ct\\x
+  \end{array}\right)
+  =\gamma\left(\begin{array}{cc}
+    1 & \beta\\
+    \beta & 1\\
+  \end{array}\right)\left(
+    \begin{array}{c}
+      ct'\\x'
+    \end{array}
+  \right)
+\end{align*}
+なので
+\begin{align}
+  \begin{split}
+    t&=\gamma\left(t'+\frac{\beta}{c}x'\right)\\
+    x&=\gamma\left(x'+\beta ct'\right)\\
+    y&=y'\\
+    z&=z'
+  \end{split}
+\end{align}
+である.これを(1)に代入すると$y,z$成分については直ちに
+\begin{align*}
+  k_y'=k_y,\ k_z'=k_z
+\end{align*}
+とわかる.
+また$t,z$成分については
+\begin{align}
+  \begin{split}
+    -\omega' t'+k'_x\cdot x'&=-\omega\gamma\left(t'+\frac{\beta}{c}x'\right)+k_x\gamma\left(x'+\beta ct'\right)\\
+    &=t'\gamma\left(k_x\beta c-\omega\right)+x'\gamma\left(k_x-\frac{\beta}{c}\omega\right)
+  \end{split}
+\end{align}
+$t',x'$について係数を比較すれば
+\begin{align}
+  \begin{split}
+    \frac{\omega'}{c}&=\gamma\left(\frac{\omega}{c}-k_x\beta\right)\\
+    k_x'&=\gamma\left(k_x-\frac{\beta}{c}\omega\right)
+  \end{split}
+\end{align}
+を得る.
+\subsection*{Q16.}
+\subsubsection*{(1)}
+相対論的な速度の合成則において$v/c\ll1$, $u_x/c\ll1$, $u_x'/c\ll1$としてこれらの2次以上の微小項を無視すると
+\begin{align}
+  u_x=\frac{u_x'+v}{1+\frac{u_x'}{c}\frac{u_x}{c}}\simeq\frac{u_x'+v}{1+O(\frac{v^2}{c^2})}=u_x'+v
+\end{align}
+また
+\begin{align}
+  \gamma=\left(1+\left(\frac{v}{c}\right)^2\right)^{-\frac{1}{2}}\simeq1-\frac{1}{2}\left(\frac{v}{c}\right)^2
+\end{align}
+なので
+\begin{align}
+  \begin{split}
+    u_i&=\frac{u_i'}{\gamma\left(1+\frac{u_x'}{c}\frac{v}{c}\right)}\\
+    &\simeq\frac{u_i'}{\left(1-\frac{1}{2}\left(\frac{v}{c}\right)^2\right)\left(1+\frac{u_x'}{c}\frac{v}{c}\right)}\\
+    &\simeq\frac{u_i'}{1+O(\frac{v^2}{c^2})}=u_i'\qquad (i=y,z)    
+  \end{split}
+\end{align}
+となる.
+\subsubsection*{(2)}
+$S'$で見たときの$y,z$成分が0なので$u_y'=u_z'=0$
+また$x$成分に関して$u_x'/c=:\beta'$とすると相対論的な速度の合成則から
+\begin{align}
+  u_x=c\frac{\beta'+\beta}{1+\beta'\beta}
+\end{align}
+ここで$\beta$を定数と見て$\beta'$について微分すると
+\begin{align}
+  \begin{split}
+    \frac{\partial u_x}{\partial \beta'}=\frac{1-\beta^2}{(1+\beta'\beta)^2}
+  \end{split}
+\end{align}
+$0\leq\beta<1$なので(9)は常に正であり$u_x$は$\beta'$について単調増加である.
+ここで$0\leq\beta'<1$なので$u_x<u_x|_{\beta'=1}$であるので
+\begin{align}
+  u_x<c\frac{1+\beta}{1+\beta}=c
+\end{align}
+であり$u_x<c$が示された.
+\subsubsection*{(3)}
+$(u_x,u_y)=c(\cos\theta,\sin\theta)$とする.また$(u_x',u_y')=c(\cos\theta',\sin\theta')$とする.
+したがって$\tan\theta=u_y/u_x$, $\tan\theta'=u_y'/u_x'$である.
+速度の合成則を逆に解くには$S$と$S'$を入れ替えればよいので
+\begin{align}
+  \begin{split}
+    u_x'&=\frac{u_x-v}{1-\frac{u_x}{c}\frac{v}{c}}\\
+    u_i'&=\frac{u_i}{\gamma\left(1-\frac{u_x}{c}\frac{v}{c}\right)}\qquad(i=y,z)
+  \end{split}
+\end{align}
+したがって
+\begin{align}
+  \begin{split}
+    \tan\theta'&=\frac{u_y'}{u_x'}
+    =\frac{\frac{u_y}{\gamma\left(1-\frac{u_x}{c}\frac{v}{c}\right)}}{\frac{u_x-v}{1-\frac{u_x}{c}\frac{v}{c}}}\\
+    &=\frac{u_y}{\gamma(u_x-v)}\\
+    &=\frac{1}{\gamma}\frac{u_y}{u_x}\frac{1}{1-\frac{v}{u_x}}
+  \end{split}
+\end{align}
+ここで$c=\sqrt{u_x^2+u_y^2}$より
+\begin{align}
+  \begin{split}
+    \frac{v}{u_x}&=\frac{v}{u_x}\sqrt{\frac{u_x^2+u_y^2}{c^2}}\\
+    &=\frac{v}{c}\sqrt{1+\left(\frac{u_y}{u_x}\right)^2}\\
+    &=\beta\sqrt{1+\tan^2\theta}=\frac{\beta}{\cos\theta}
+  \end{split}
+\end{align}
+なので
+\begin{align}
+  \begin{split}
+    \tan\theta'&=\frac{1}{\gamma}\tan\theta\frac{1}{1-\beta\cos\theta}\\
+    &=\frac{1}{\gamma}\frac{\sin\theta}{\cos\theta-\beta}
+  \end{split}
+\end{align}
+を得る.
+\end{document}
