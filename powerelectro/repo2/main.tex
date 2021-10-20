@@ -1,0 +1,109 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{パワーエレクトロニクス No.2}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsection*{演習1}
+実効値$V_{\rm eff}$は
+\begin{align}
+  \begin{split}
+    V_{\rm eff}&=\sqrt{\frac{1}{2\pi}\int_0^{2\pi}v^2(\theta)\ {\rm d}\theta}\\
+    &=\sqrt{\frac{1}{2\pi}}\sqrt{\int_\theta^{\pi-\theta}V^2\ {\rm d}\theta+\int^{2\pi-\theta}_{\pi+\theta}V^2\ {\rm d}\theta}\\
+    &=V\sqrt{1-\frac{2\theta}{\pi}}
+  \end{split}
+\end{align}
+また平均値は明らかに0なので$V_0=0$,奇関数なので$a_n=0$である.
+したがってフーリエ係数$b_n$は
+\begin{align}
+  \begin{split}
+    b_n&=\int_0^{2\pi}v(\theta')\sin n\theta'\ {\rm d}\theta\\
+    &=\frac{V}{\pi}\left(\int_\theta^{\pi-\theta}\sin n\theta'\ {\rm d}\theta'-\int_{\pi+\theta}^{2\pi-\theta}\sin n\theta'\ {\rm d}\theta'\right)\\
+    &=\frac{V}{n\pi}\left(-\cos n(\pi-\theta)+\cos n\theta+\cos n(2\pi-\theta)-\cos n(\pi+\theta)\right)
+  \end{split}
+\end{align}
+ここで$n$が奇数の時$\cos n\theta=\cos n(2\pi-\theta)=-\cos n(\pi-\theta)=-\cos n(\pi+\theta)$,
+$n$が偶数の時$\cos n\theta=\cos n(2\pi-\theta)=\cos n(\pi-\theta)=\cos n(\pi+\theta)$なので
+\begin{align}
+  \begin{split}
+    b_n=\begin{cases}
+      \frac{4V}{n\pi}\cos n\theta & (n:奇数)\\
+      0 & (n:偶数)
+    \end{cases}
+  \end{split}
+\end{align}
+以上から
+\begin{align}
+  v(\theta')=\sum_{n=1}^{\infty} \frac{4V}{(2n-1)\pi}\cos(2n-1)\theta\sin(2n-1)\theta'
+\end{align}
+したがって基本波は
+\begin{align}
+  v_1(\theta')=\frac{4V}{\pi}\cos\theta\sin\theta'
+\end{align}
+高調波は
+\begin{align}
+  v_h(\theta')=\sum_{n=2}^{\infty} \frac{4V}{(2n-1)\pi}\cos(2n-1)\theta\sin(2n-1)\theta'
+\end{align}
+である.よって基本波の実効値は
+\begin{align}
+  V_1=\frac{4V}{\pi}\cos\theta\frac{1}{\sqrt{2}}=\frac{2\sqrt{2}V\cos\theta}{\pi}
+\end{align}
+したがってひずみ率は
+\begin{align}
+  \begin{split}
+    \frac{V_H}{V_1}&=\frac{\sqrt{V^2\left(1-\frac{2\theta}{\pi}\right)^2-\frac{8V^2\cos\theta}{\pi^2}}}{\frac{2\sqrt{2}V\cos\theta}{\pi}}\\
+    &=\frac{\sqrt{(\pi-2\theta)^2-8\cos^2\theta}}{2\sqrt{2}\cos\theta}    
+  \end{split}
+\end{align}
+となる.
+\subsection*{演習2}
+直流の場合の消費電力$P_D$は
+\begin{align}
+  P_D=\frac{V^2}{R}
+\end{align}
+である.また振幅$\sqrt{2}V$の交流電源の実効値は$V$である.
+この電源の電力の平均値は
+\begin{align}
+  P_A&=\frac{1}{T}\int_0^T{\rm d}t\sqrt{2}V\sin\left(\frac{2\pi t}{T}\right)\cdot\sqrt{2}\frac{V}{R}\sin\left(\frac{2\pi t}{T}\right)\\
+  &=\frac{2V^2}{R}\frac{1}{2\pi^2}\int_0^{2\pi}\sin x\ {\rm d}x\\
+  &=\frac{V^2}{R}
+\end{align}
+となる.このことから実効値とはある電圧のひずみの無い交流信号と同じ仕事をできる直流の電圧と言える.
+\end{document}
