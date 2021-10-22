@@ -28,7 +28,7 @@ while (i < 6) {
     x_end = x_start[i] + 100
     fit_begin = x_start[i]
     fit_begin_minerr = x_start[i]
-    c_err_min = 100
+    c_minerr_percent = 100
     set xrange [x_start[i]:x_end]
     set xtics x_start[i],40,x_start[i]+100
     set mxtics 4
@@ -38,11 +38,11 @@ while (i < 6) {
     set fit nolog
     while (fit_begin < x_end-60) {b=fit_begin;
         fit [fit_begin:x_end] f(x) fname via a,b,c,d;
-        if (c_err_min > c_err) {
-            c_err_min = c_err
+        if (c_minerr_percent > (c_err / c)) {
+            c_minerr_percent = (c_err / c)
             fit_begin_minerr = fit_begin
         }
-        print sprintf("%f, %f", fit_begin, c_err);
+        print sprintf("%f, %f", fit_begin, (c_err / c));
         fit_begin = fit_begin + 1}
     set print
     b = fit_begin_minerr
