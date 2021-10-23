@@ -1,0 +1,89 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{天体物理学レポート No.1}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{(1)}
+Poisson方程式のGreen関数は以下のように与えられる.
+\begin{align*}
+  G({\bm r}-{\bm r'})=-\frac{1}{4\pi |{\bm r}-{\bm r'}|}
+\end{align*}
+したがって与式のポテンシャルは
+\begin{align*}
+  \phi({\bm r})&=-4\pi Gm\int\frac{\delta({\bm r'})}{4\pi|{\bm r}-{\bm r'}|}{\rm d}{\bm r'}\\
+  &=-\frac{Gm}{|{\bm r}|}\propto \frac{1}{r}
+\end{align*}
+\subsubsection*{(2)}
+$\phi({\bm r})$と$\delta({\bm r})$をそれぞれFourier変換すると
+\begin{align*}
+  \phi({\bm r})&=\frac{1}{(2\pi)^3}\int\phi({\bm k}){\rm e}^{i{\bm k}\cdot{\bm r}}{\rm d}{\bm k}\\
+  \delta({\bm r})&=\frac{1}{(2\pi)^3}\int{\rm e}^{i{\bm k}\cdot{\bm r}}{\rm d}{\bm k}
+\end{align*}
+したがって与式は
+\begin{align*}
+  (\nabla^2-\mu^2)\frac{1}{(2\pi)^3}\int\phi({\bm k}){\rm e}^{i{\bm k}\cdot{\bm r}}{\rm d}{\bm k}&=\frac{4\pi Gm}{(2\pi)^3}\int{\rm e}^{i{\bm k}\cdot{\bm r}}{\rm d}{\bm k}\\
+  (-k^2-\mu^2)\phi({\bm k})&=4\pi Gm\\
+  \phi({\bm k})&=-\frac{4\pi Gm}{k^2+\mu^2}
+\end{align*}
+よってポテンシャルは上式の逆Fourier変換で与えられ
+\begin{align*}
+  \phi({\bm r})&=-\frac{4\pi Gm}{(2\pi)^3}\int\frac{{\rm e}^{i{\bm k\cdot r}}}{k^2+\mu^2}{\rm d}{\bm k}
+\end{align*}
+ここで積分を球座標に移す
+\begin{align*}
+  \int\frac{{\rm e}^{i{\bm k\cdot r}}}{k^2+\mu^2}{\rm d}{\bm k}&=\int_0^{2\pi}{\rm d}\varphi\int_0^{\pi}{\rm d}\theta\int_0^{\infty}{\rm d}k
+  \frac{{\rm e}^{ikr\cos\theta}}{k^2+\mu^2}k^2\sin\theta\\
+  &=2\pi\int_0^\infty{\rm d}k\left[-\frac{{\rm e}^{ikr\cos\theta}}{ikr(k^2+\mu^2)}k^2\right]_0^\pi\\
+  &=\frac{2\pi}{ir}\int^\infty_0{\rm d}k\frac{k({\rm e}^{ikr}-{\rm e}^{-ikr})}{k^2+\mu^2}\\
+  &=\frac{2\pi}{ir}\left(\int^\infty_0{\rm d}k\frac{k{\rm e}^{ikr}}{k^2+\mu^2}-\int^\infty_0{\rm d}k\frac{k{\rm e}^{-ikr}}{k^2+\mu^2}\right)\\
+  &=\frac{(2\pi)^2}{r}\frac{1}{2\pi i}\int^\infty_{-\infty}{\rm d}k\frac{k{\rm e}^{ikr}}{k^2+\mu^2}
+\end{align*}
+これは上半平面において$k=i\mu$の留数を持つので,留数定理から
+\begin{align*}
+  \int\frac{{\rm e}^{i{\bm k\cdot r}}}{k^2+\mu^2}{\rm d}{\bm k}&=\frac{(2\pi^2)}{r}\frac{{\rm e}^{-\mu r}}{2}
+\end{align*}
+以上からポテンシャルは
+\begin{align*}
+  \phi({\bm r})=-\frac{Gm}{r}{\rm e}^{-\mu r}
+\end{align*}
+を得る.この解は$r\rightarrow 0$では${\rm e}^{-\mu r}$が早く$1$に漸近するため$\phi({\bm r})\propto1/r$という挙動をとる.
+一方で$r\rightarrow\infty$では${\rm e}^{-\mu r}$が早く$0$に漸近するため,前問のポテンシャルよりも減衰が早いと考えられる.
+\end{document}

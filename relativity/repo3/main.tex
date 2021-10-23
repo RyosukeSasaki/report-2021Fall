@@ -1,0 +1,62 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{相対性理論 レポートNo.3}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsection*{Q20.}
+(5.3)式から
+\begin{align}
+  \begin{split}
+    \eta_{00}=-1&=\sum_{\rho,\sigma}a^\rho_{\ 0}\eta_{\rho\sigma}a^\sigma_{\ 0}\\
+    &=-(a^0_{\ 0})^2+(a^1_{\ 1})^2+(a^2_{\ 2})^2+(a^3_{\ 3})^2
+  \end{split} 
+\end{align}
+したがって
+\begin{align}
+  (a^0_{\ 0})^2=1+(a^1_{\ 1})^2+(a^2_{\ 2})^2+(a^3_{\ 3})^2\geq 1
+\end{align}
+以上から
+\begin{align}
+  |a^0_{\ 0}|\geq 1
+\end{align}
+\subsection*{Q23.}
+\bibliography{ref.bib}
+\end{document}
