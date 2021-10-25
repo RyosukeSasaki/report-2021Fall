@@ -36,14 +36,16 @@ while (i < 6) {
     set print poname
     set fit quiet
     set fit nolog
-    while (fit_begin < x_end-50) {b=fit_begin;
+    while (fit_begin < x_end-50) {
+        b=fit_begin;
         fit [fit_begin:x_end] f(x) fname via a,b,c,d;
         if (c_minerr_percent > (c_err / c)) {
             c_minerr_percent = (c_err / c)
             fit_begin_minerr = fit_begin
         }
         print sprintf("%f, %f", fit_begin, (c_err / c));
-        fit_begin = fit_begin + 1}
+        fit_begin = fit_begin + 1
+    }
     set print
     b = fit_begin_minerr
     fit [fit_begin_minerr:x_end] f(x) fname via a,b,c,d;
