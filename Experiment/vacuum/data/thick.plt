@@ -7,7 +7,7 @@ set output oname
 set size square
 
 set xlabel "Time / sec"
-set ylabel "Pressure $10^{-3}$/$\\si{\\pascal}$"
+set ylabel "Pressure\\ /\\ $\\times10^{-3}$$\\ \\si{\\pascal}$"
 set print "thick/note.txt"
 set print
 

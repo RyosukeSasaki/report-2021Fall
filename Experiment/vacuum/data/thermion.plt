@@ -3,7 +3,7 @@ unset multiplot
 #set terminal wxt
 oname = "../graph/thermion/all.tex"
 set output oname
-set terminal tikz size 10cm, 11cm
+set terminal tikz size 10cm, 8cm
 set size square
 
 set xlabel "$\\sqrt{V_A}\\ /\\ \\si{\\volt^{1/2}}$"
@@ -38,9 +38,11 @@ set print "thermion/line.dat"
 i = 1
 while (i < 8) {
     file = sprintf("thermion/If=%sA.txt", num[i])
+    ofile = sprintf("thermion/rangeIf=%sA.txt", num[i])
     ap = a[i]
     bp = b[i]
     fit_begin = 0
+    set print ofile
     while (fit_begin < 15.5) {
         fit [fit_begin:fit_end] f(x) file u (sqrt($1)):($2) via ap, bp
         if (ap_minerr_percent[i] > (ap_err / ap)) {
@@ -49,8 +51,10 @@ while (i < 8) {
             af[i] = ap
             bf[i] = bp
         }
+        print sprintf("%f, %f", fit_begin, (ap_err / ap));
         fit_begin = fit_begin + 0.2
     }
+    set print "thermion/line.dat" append
     print sprintf("%f %f", af[i], bf[i]);
     i = i + 1
 }
