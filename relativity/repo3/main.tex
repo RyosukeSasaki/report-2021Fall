@@ -46,17 +46,52 @@
 \begin{align}
   \begin{split}
     \eta_{00}=-1&=\sum_{\rho,\sigma}a^\rho_{\ 0}\eta_{\rho\sigma}a^\sigma_{\ 0}\\
-    &=-(a^0_{\ 0})^2+(a^1_{\ 1})^2+(a^2_{\ 2})^2+(a^3_{\ 3})^2
+    &=\sum_\sigma\left(a^0_{\ 0}\eta_{0\sigma}a^\sigma_{\ 0}+
+    a^1_{\ 0}\eta_{1\sigma}a^\sigma_{\ 0}+
+    a^2_{\ 0}\eta_{2\sigma}a^\sigma_{\ 0}+
+    a^3_{\ 0}\eta_{3\sigma}a^\sigma_{\ 0}
+    \right)\\
+    &=-(a^0_{\ 0})^2+(a^1_{\ 0})^2+(a^2_{\ 0})^2+(a^3_{\ 0})^2
   \end{split} 
 \end{align}
 したがって
 \begin{align}
-  (a^0_{\ 0})^2=1+(a^1_{\ 1})^2+(a^2_{\ 2})^2+(a^3_{\ 3})^2\geq 1
+  (a^0_{\ 0})^2=1+(a^1_{\ 0})^2+(a^2_{\ 0})^2+(a^3_{\ 0})^2\geq 1
 \end{align}
 以上から
 \begin{align}
   |a^0_{\ 0}|\geq 1
 \end{align}
 \subsection*{Q23.}
-\bibliography{ref.bib}
+Lorentz変換の条件は(5.3)から
+\begin{align}
+  {\bm Y}=\bm{A}^T\bm{YA}
+\end{align}
+であった.ここで
+\begin{align}
+  \bm{Y}^T\bm{Y}=\left(\begin{array}{cccc}
+    -1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1\\
+  \end{array}\right)
+  \left(\begin{array}{cccc}
+    -1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1\\
+  \end{array}\right)
+  ={\bm I}
+\end{align}
+から$Y$は直交行列である.したがって(4)を両辺転置すると
+\begin{align}
+  \begin{split}
+    \bm{Y}^T&=({\bm A}^T)^T{\bm Y}^T{\bm A}^T\\
+    \bm{Y}^{-1}&=\bm{A}\bm{Y}^{-1}\bm{A}^T
+  \end{split}
+\end{align}
+これをテンソルで表記すると
+\begin{align}
+  \eta^{\mu\nu}=a^\mu_{\ \rho}\eta^{\rho\sigma}a^\nu_{\ \sigma}
+\end{align}
 \end{document}
