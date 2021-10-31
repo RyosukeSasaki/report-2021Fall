@@ -1,0 +1,169 @@
+\section{原理}
+\subsection{気体分子運動論}
+\subsubsection{Maxwell-Boltzmann分布}
+速度分布関数を$F(v_x,v_y,v_z)$とする.
+空間が等方的であり3成分が独立であるならば,各成分ごとの分布関数が$f(v)$とすると
+\begin{align}
+  F(v_x,v_y,v_z)=f(v_x)f(v_y)f(v_z)
+\end{align}
+となるべきである.また空間の等方性から速度の反転に関して速度分布は等しいはずなので
+\begin{align}
+  \label{equ:211-invert}
+  F(v_x,v_y,v_z)=F(v^2=v_x^2+v_y^2+v_z^2)=f(v_x)f(v_y)f(v_z)
+\end{align}
+ここで分子の速度が$x$成分のみを持つ,すなわち$v_y=v_z=0$ならば
+\begin{align}
+  \label{equ:211-v_y=v_z=0}
+  \begin{split}
+    F(v_x,0,0)&=F(v_x^2)=f(v_x)f(0)f(0)=:a^2f(v_x)\\
+    \therefore\ f(v_x)&=\frac{1}{a^2}F(v_x^2)
+  \end{split}
+\end{align}
+よって(\ref{equ:211-invert})と(\ref{equ:211-v_y=v_z=0})から
+\begin{align}
+  F(v_x^2+v_y^2+v_z^2)=\frac{1}{a^6}F(v_x^2)F(v_y^2)F(v_z^2)
+\end{align}
+となる.両辺を$u_x^2$で偏微分すると
+\begin{align}
+  \frac{\partial F}{\partial v_x^2}(v_x^2+v_y^2+v_z^2)=\frac{1}{a^6}\frac{\partial F}{\partial v_x^2}(v_x^2)\cdot F(v_y^2)F(v_z^2)
+\end{align}
+ここで$v_x=v_y=0$とすると
+\begin{align}
+  F'(v_z^2)=\frac{1}{a^6}F'(0)F(0)F(v_z^2)
+\end{align}
+また(\ref{equ:211-invert})と(\ref{equ:211-v_y=v_z=0})から
+\begin{align}
+  F(0)=a^3
+\end{align}
+なので
+\begin{align}
+  F'(v_z^2)=\frac{F'(0)}{a^3}F(v_z^2)=:-\alpha F(v_z^2)
+\end{align}
+これは$v_z^2$に関する微分方程式なので
+\begin{align}
+  F(v_z^2)=C{\rm e}^{-\alpha v_z^2}
+\end{align}
+これと(\ref{equ:211-invert}), (\ref{equ:211-v_y=v_z=0})から
+\begin{align}
+  \label{equ:211-F(v^2)}
+  F(v^2)=\frac{C}{a^6}{\rm e}^{-\alpha(v_x^2+v_y^2+v_z^2)}=:A{\rm e}^{-\alpha(v_x^2+v_y^2+v_z^2)}
+\end{align}
+ここで確立の規格化条件から全速度領域で積分すると
+\begin{align}
+  A\int_{-\infty}^\infty{\rm d}v_x\int_{-\infty}^\infty{\rm d}v_y\int_{-\infty}^\infty{\rm d}v_z\ {\rm e}^{-\alpha(v_x^2+v_y^2+v_z^2)}&=1\\
+\end{align}
+ガウス積分を用いれば
+\begin{align}
+  \label{equ:211-A}
+  A=\left(\frac{\alpha}{\pi}\right)^{3/2}
+\end{align}
+また全エネルギー$E$は全粒子数$N$を用いて
+\begin{align}
+  \begin{split}
+    E&=\int_{-\infty}^\infty{\rm d}v_x\int_{-\infty}^\infty{\rm d}v_y\int_{-\infty}^\infty{\rm d}v_z\ \frac{mv^2}{2}NF(v_x,v_y,v_z)\\
+    &=\left(\frac{\alpha}{\pi}\right)^{3/2}\frac{Nm}{2}\int_{-\infty}^\infty{\rm d}v_x\int_{-\infty}^\infty{\rm d}v_y\int_{-\infty}^\infty{\rm d}v_z\ v^2{\rm e}^{-\alpha(v_x^2+v_y^2+v_z^2)}
+  \end{split}
+\end{align}
+球座標に変換すると
+\begin{align}
+  \begin{split}
+    E&=\left(\frac{\alpha}{\pi}\right)^{3/2}\frac{Nm}{2}\iint_\Omega{\rm d}\Omega\int_0^\infty{\rm d}r\ r^4{\rm e}^{-\alpha r^2}\\
+    &=\sqrt{\frac{\alpha^3}{\pi^3}}\frac{Nm}{2}4\pi\frac{3}{8}\sqrt{\frac{\pi}{\alpha^5}}\\
+    &=\frac{3mN}{4\alpha}
+  \end{split}
+\end{align}
+これをエネルギー等分配則と比較すると
+\begin{align}
+  \label{equ:211-alpha}
+  \begin{split}
+    \frac{3}{2}Nk_BT&=\frac{3mN}{4\alpha}\\
+    \alpha&=\frac{m}{2k_BT}
+  \end{split}
+\end{align}
+以上から(\ref{equ:211-A}), (\ref{equ:211-alpha})を(\ref{equ:211-F(v^2)})に代入すれば
+\begin{align}
+  F(v)=\left(\frac{m}{2\pi k_BT}\right)^{3/2}\exp\left(-\frac{mv^2}{2k_BT}\right)
+\end{align}
+となり,これがMaxwell-Boltzmann分布である.\cite{std02pdf3:online}
+\subsubsection{圧力}
+圧力は単位面積あたりに気体分子が壁面に加える力,すなわち単位面積,単位時間あたりに気体分子が壁面に与える力積である.
+壁面と気体分子の間の衝突が完全弾性衝突であるならば,壁面が固定されていることから$x$方向に壁面と衝突する気体分子が壁面に与える力積は
+\begin{align}
+  I=2mv_x
+\end{align}
+である.ここで図\ref{fig:fig/fig2.png}のように面積素${\rm d}A$を考えると,次の時間${\rm d}t$の間に衝突する気体分子は
+図\ref{fig:fig/fig2.png}の円筒に含まれる.
+速度が$\vec{v}$から$\vec{v}+{\rm d}^3\vec{v}$の範囲にある気体分子が壁面に与える力積${\rm d}I(\vec{v}\ 〜\ \vec{v}+{\rm d}^3\vec{v})$を考える.
+この円筒内に含まれる気体分子の数${\rm d}N$は,単位体積あたりの気体分子の数密度を$n$とすれば
+\begin{align}
+  \label{equ:212-dN}
+  {\rm d}N=({\rm d}A\cdot v_x{\rm d}t)\cdot (nF(v){\rm d}^3\vec{v})
+\end{align}
+なので
+\begin{align}
+  {\rm d}I=2mv_x({\rm d}A\cdot v_x{\rm d}t)\cdot (nF(v){\rm d}^3\vec{v})
+\end{align}
+これを$\vec{v}$の空間で積分する.ただし$x$の正方向から衝突する気体分子の寄与を考えるので$x\geq 0$である
+\begin{align}
+  \begin{split}
+    I&={\rm d}A{\rm d}t\cdot 4\int_{-\infty}^\infty{\rm d}z\int_{-\infty}^\infty{\rm d}y\int_{0}^\infty{\rm d}x\ \frac{mv_x^2}{2}nF(v)\\
+    &={\rm d}A{\rm d}t\cdot 2\int_{-\infty}^\infty{\rm d}z\int_{-\infty}^\infty{\rm d}y\int_{-\infty}^\infty{\rm d}x\ \frac{mv_x^2}{2}nF(v)
+  \end{split}
+\end{align}
+ここで被積分関数が偶関数であることを用いた.ここで積分項は1次元の気体分子のエネルギーであるので,
+エネルギー等分配則を用いれば
+\begin{align}
+  I={\rm d}A{\rm d}t\cdot 2\frac{nk_BT}{2}=nk_BT{\rm d}A{\rm d}t
+\end{align}
+ここで圧力$p$は単位面積,単位時間あたりに与えられる力積であったので
+\begin{align}
+  p=\frac{I}{{\rm d}A{\rm d}t}=nk_BT
+\end{align}
+となり,理想気体の状態方程式を得る.
+これによって圧力と気体分子の数密度や温度を関係付けることができた.
+\mfig[width=6cm]{fig/fig2.png}{壁面に対する気体分子の衝突}
+\subsubsection{平均自由行程}
+平均自由行程$\lambda$は気体分子が他の粒子に衝突せずに直進できる距離の平均である.
+まず簡単のために注目する粒子以外の粒子は静止していると考える.
+分子が直径$d$の剛体球と考えると,時間${\rm d}t$中に衝突しうる粒子は図\ref{fig:fig/fig3.png}に示した半径$d$,
+長さ$v{\rm d}t$の円筒空間に含まれる粒子である.
+したがって${\rm d}t$中に衝突する回数${\rm d}f$は気体分子の数密度$n$を用いて
+\begin{align}
+  {\rm d}f=n\pi d^2 v{\rm d}t
+\end{align}
+したがって平均自由行程は
+\begin{align}
+  \lambda=\frac{v{\rm d}t}{{\rm d}f}=\frac{1}{\pi d^2 n}
+\end{align}
+となる.ここで先程まで静止していると考えた他の粒子が図\ref{fig:fig/fig4.png}のようにすべて平均速度$v$で,ランダムな方向に動いていると考える.
+このとき分子同士は平均すると$90\si{\degree}$で衝突するので相対速度の平均は
+\begin{align}
+  \overline{v}=\sqrt{2}v
+\end{align}
+となる.\cite{yamasaki:online}
+したがって平均自由行程は以下で与えられる.
+\begin{align}
+  \lambda=\frac{v{\rm d}t}{n\pi d^2 \sqrt{2}v{\rm d}t}=\frac{1}{\sqrt{2}\pi d^2 n}
+\end{align}
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \mfig[width=4cm]{fig/fig3.png}{注目する粒子が${\rm d}t$中に衝突しうる粒子}
+  \end{minipage}
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \mfig[width=4cm]{fig/fig4.png}{自由に動く粒子}
+  \end{minipage}
+\end{figure}
+\subsubsection{分子流と粘性流}
+チャンバーや配管など取り扱う系の特徴的な大きさを$D$とすると
+$\lambda\ll D$での気体の振る舞いは粘性流,
+$\lambda\gg D$での気体の振る舞いは分子流と呼ばれる.
+粘性流においては平均自由行程が系の大きさに比べて十分小さいことから,
+気体分子の運動は分子同士の衝突に支配され,分子は流体的な挙動を取ることがわかる.
+一方で分子流においては平均自由行程は系の大きさに比べて十分に大きいため,
+気体分子同士の衝突は非常に稀な事象であり,気体分子の挙動は質点の挙動として取り扱われることになる.
+すなわち同じ系であっても平均自由行程が異なる(すなわち圧力が異なる)場合は気体の挙動を記述する方程式が異なる.
+また分子流の条件が$\lambda\gg D$であり$\lambda\propto 1/n\propto 1/p$であることから
+同じ気体でもチャンバーなどが大型化すれば分子流を実現するために必要な圧力はより低くなると考えられる.

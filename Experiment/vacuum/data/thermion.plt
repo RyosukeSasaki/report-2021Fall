@@ -25,8 +25,10 @@ set mxtics 5
 
 array a[7] = [0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01]
 array b[7] = [20, 40, 100, 110, 130, 170, 1000]
+array temp[7] = [1724, 1767, 1811, 1853, 1895, 1936, 1977]
 array af[7]
 array bf[7]
+array bf_err[7]
 array fit_begin_minerr[7] = [0,0,0,0,0,0,0]
 array ap_minerr_percent[7] = [100, 100, 100, 100, 100, 100, 100]
 fit_end = 20
@@ -50,12 +52,13 @@ while (i < 8) {
             fit_begin_minerr[i] = fit_begin
             af[i] = ap
             bf[i] = bp
+            bf_err[i] = bp_err
         }
         print sprintf("%f, %f", fit_begin, (ap_err / ap));
         fit_begin = fit_begin + 0.2
     }
     set print "thermion/line.dat" append
-    print sprintf("%f %f", af[i], bf[i]);
+    print sprintf("%d, %4.2f, %f", temp[i], bf[i], bf_err[i]);
     i = i + 1
 }
 set logscale y

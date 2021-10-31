@@ -1,5 +1,5 @@
 set terminal tikz size 10cm, 8cm
-oname = "../graph/thermion/wf.tex"
+oname = "../graph/thermion/wf2.tex"
 set output oname
 #set terminal wxt
 set size square
@@ -26,7 +26,10 @@ a=-10000
 b=15
 y(x) = a*x + b
 
+g(x) = 16.8-49319*x
+
 fit y(x) "thermion/line.dat" u (1/$1):(log($2/($1)**2)) via a, b
 
 plot "thermion/line.dat" u (1/$1):(log($2/($1)**2)) title "data points",\
-y(x) title "Fitting Line"
+y(x) title "Fitting Line",\
+g(x) title "Theoretical"

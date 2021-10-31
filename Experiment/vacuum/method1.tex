@@ -1,0 +1,64 @@
+\section{実験方法}
+\subsection{実験装置}
+\subsubsection{真空装置の構成}
+図\ref{fig:fig/fig7.png}に真空装置の構成図を示す.
+RPは油回転ポンプDPは油拡散ポンプである.また${\rm V}_n$はバルブである.
+コンダクタンス管はフレキシブルパイプで接続され,交換が可能である.
+真空チャンバーは内径$216.3\ \si{\milli\metre}$,高さ$250\ \si{\milli\metre}$の円筒容器である.
+またコンダクタンス管は内径$10\ \si{\milli\metre}$のものと$15\ \si{\milli\metre}$のものがあり,
+共に長さは$200\ \si{\milli\metre}$である.
+フランジは旧JIS規格のVF/VGフランジでありOリングと共に用いることで$10\ \si{\micro\pascal}$程度の高真空を実現できる.\cite{VacuumTe71:online}
+油回転ポンプは大気圧から$1\ \si{\pascal}$程度まで減圧することができる.
+一方で油拡散ポンプは低圧($6\ \si{\pascal}$程度)から高真空まで減圧することができる.
+ただし停止中にチャンバー側が真空になっていると油が逆流するため,吸気側をリークする必要がある.
+油拡散ポンプを使用する際は${\rm V}_2$を開き,排気された気体を油回転ポンプで更に排気する必要がある.
+また電離真空計は$0.6\ \si{\pascal}$以上で使用することはできない.
+\mfig[width=12cm]{fig/fig7.png}{真空装置の構成}
+\subsubsection{熱電子電流測定装置の構成}
+図\ref{fig:fig/fig12.png}に熱電子放出の実験系の構成を示す.
+フィラメントはTaであり,電流$I_f$を流すとジュール熱により発熱する.
+アノードには引き込み電圧$V_A$が掛けられている.
+熱電子がアノードに到達すると電流計が熱電子電流を検出する.
+\mfig[width=6cm]{fig/fig12.png}{熱電子電流測定装置の構成}
+\subsection{実験手順}
+\subsubsection{排気手順}
+図\ref{fig:fig/fig8.png}に粗引き手順,図\ref{fig:fig/fig9.png}に油回転ポンプの起動手順
+図\ref{fig:fig/fig10.png}に真空引きの手順のフローチャートを示す.
+油回転ポンプによる粗引きの後油拡散ポンプを起動,高真空までの真空引きを行っている.
+これにより油拡散ポンプへ大気圧を流入させることなく高真空を実現できる.
+\begin{figure}[htbp]
+  \begin{minipage}{0.5\hsize}
+    \centering
+    \mfig[width=3cm]{fig/fig8.png}{粗引き手順}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \centering
+    \mfig[width=3cm]{fig/fig9.png}{油回転ポンプの起動手順}
+  \end{minipage}
+\end{figure}
+\mfig[width=6cm]{fig/fig10.png}{真空引き手順}
+\newpage
+\subsubsection{真空装置のシャットダウン手順}
+図\ref{fig:fig/fig11.png}に真空装置のシャットダウン手順を示す.
+シャットダウンの順番は真空引きの際の逆順である.
+\mfig[width=6cm]{fig/fig11.png}{シャットダウン手順}
+\subsubsection{コンダクタンスの測定}
+コンダクタンス管がない場合と2種のコンダクタンス管それぞれについて図\ref{fig:fig/fig13.png}の手順で圧力の時間変化を各5回ずつ測定した.
+(\ref{equ:216-pt})によれば圧力の時間変化は指数関数的であり,その時定数は排気速度に依存した.
+したがって得られた圧力の時間変化を指数関数でfittingし,その時定数を測定することで排気速度を得ることができる.
+コンダクタンス管を取り付けた場合,合成コンダクタンスは(\ref{equ:216-conduct})で表されるので,
+コンダクタンス管がない場合の排気速度からコンダクタンス管のコンダクタンスを求める.
+以上からコンダクタンスの半径依存性を求め,チャンバーの気体が粘性流か分子流かを判定する.
+\mfig[width=6cm]{fig/fig13.png}{コンダクタンスの測定}
+\subsubsection{熱電子電流の測定}
+図\ref{fig:fig/fig14.png}の手順で熱電子電流$I_P$を測定した.
+また有限要素法解析によりフィラメント電流$I_f$とフィラメント温度の関係を計算した.
+これによりSchottkyプロットを作成し,外挿により$I_S$を求めた.
+(\ref{equ:221-RDmann})から$\log(I_S/T^2)=a-\phi_0/k_BT$なので縦軸を$\log(I_ST^2)$,
+横軸を$1/T$とすればその傾きが$-\phi_0/k_B$となり,仕事関数を求められる.
+\mfig[width=3cm]{fig/fig14.png}{熱電子電流の測定}
+\newpage
+\subsubsection{質量分析}
+図\ref{fig:fig/fig15.png}の手順で質量スペクトル及び吸着,脱離時の圧力変化を測定した.
+質量スペクトルから残留気体の組成を同定した.
+\mfig[width=7cm]{fig/fig15.png}{熱電子電流の測定}

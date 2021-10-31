@@ -1,4 +1,4 @@
-\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\documentclass[uplatex,a4j,11pt,dvipdfmx,draft]{jsarticle}
 \usepackage{listings,jvlisting}
 \bibliographystyle{jplain}
 
@@ -35,18 +35,25 @@
 \end{center}
 \end{figure}
 }
+\makeatletter
+  \renewcommand{\theequation}{%
+    \arabic{equation}}
+  \@addtoreset{equation}{section}
+\makeatother
+\makeatletter
+\@addtoreset{equation}{section}
+\def\theequation{\thesection.\arabic{equation}}% renewcommand でもOK
+\makeatother
 
 \begin{document}
-%\gnu{test}{graph/nopipe/1.tex}
-%\gnu{test}{graph/nopipe/2.tex}
-%\gnu{test}{graph/nopipe/3.tex}
-%\gnu{test}{graph/nopipe/4.tex}
-%\gnu{test}{graph/nopipe/5.tex}
-\gnu{コンダクタンス管なし}{graph/nopipe/all.tex}
-\gnu{コンダクタンス管($\phi=10\ \si{\milli\metre}$)}{graph/thin/all.tex}
-\gnu{コンダクタンス管($\phi=15\ \si{\milli\metre}$)}{graph/thick/all.tex}
-\gnu{熱電子放出}{graph/thermion/all.tex}
-\gnu{仕事関数の計算}{graph/thermion/wf.tex}
-\gnu{質量スペクトル}{graph/mass/mass.tex}
+\section{目的}
+今日の研究開発において真空技術はもはや必要不可欠である.
+当実験では真空に関する物理学,並びに真空を実現するための技術,装置の取り扱いについて理解する.
+また真空技術の基礎概念並びに応用としてコンダクタンスの測定,吸着の測定,仕事関数の測定を行う.
+\input{theory1.tex}\newpage
+\input{theory2.tex}
+\input{method1.tex}\newpage
+\input{res1.tex}\newpage
+\input{consider1.tex}
 \bibliography{ref.bib}
 \end{document}

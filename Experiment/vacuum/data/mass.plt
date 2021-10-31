@@ -1,9 +1,9 @@
 reset
-set terminal tikz size 14cm, 8cm
-oname = "../graph/mass/mass.tex"
-set output oname
-#set terminal wxt
-#set size square
+#set terminal tikz size 14cm, 8cm
+#oname = "../graph/mass/mass.tex"
+#set output oname
+set terminal wxt
+set size square
 
 set xlabel "分子量"
 set ylabel "分圧$p\\ /\\ \\times10^{-5}\\ \\si{Torr}$"

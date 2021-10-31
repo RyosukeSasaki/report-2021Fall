@@ -1,0 +1,167 @@
+\subsubsection{排気速度とコンダクタンス}
+排気速度$S$は単位時間あたりにある平面を横切る気体の体積として定義される.
+ここで単位時間,単位面積あたりに壁面に衝突する気体の数を$\Gamma$とする.
+衝突する平面を$x$軸に垂直な平面とし$+x$方向からの衝突を考えると$\Gamma$は
+(\ref{equ:212-dN})を${\rm d}A{\rm d}t$で割り$x\geq 0$の空間で積分すれば良いので
+\begin{align}
+  \begin{split}
+    \Gamma&=\int_{-\infty}^\infty{\rm d}v_z\int_{-\infty}^\infty{\rm d}v_y\int_{0}^\infty{\rm d}v_x\ \frac{{\rm d}N}{{\rm d}A{\rm d}t}\\
+    &=\sqrt{\frac{\alpha}{\pi}}n\int_0^{\infty}{\rm d}v_x\ v_x{\rm e}^{-\alpha v_x^2}\\
+    &=\frac{n}{2\sqrt{a\pi}}\\
+    &=n\sqrt{\frac{k_BT}{2\pi m}}
+  \end{split}
+\end{align}
+ここで分子の平均速度が$\overline{v}=\sqrt{8k_BT/\pi m}$であるので
+\begin{align}
+  \Gamma=\frac{1}{4}n\overline{v}
+\end{align}
+となる.これを$n$で割った$\Gamma_V=\overline{v}/4$は単位時間,単位面積あたりに壁面に衝突する気体の体積である.
+したがって排気速度$S$は導管の断面積$A$を用いて
+\begin{align}
+  S=\frac{1}{4}\overline{v}A
+\end{align}
+である.特に$T=293\ \si{\kelvin}$の空気においては
+\begin{align}
+  S=11.6\times A\ \si{\liter.\second^{-1}}
+\end{align}
+となる.排気速度$S$を用いて圧力$p$における流速$Q$は
+\begin{align}
+  Q=Sp
+\end{align}
+と表される.また導管中の流量は,導管の出口と入口の圧力差$\Delta p$を用いて
+\begin{align}
+  Q=C\Delta p
+\end{align}
+となる.ここで定数$C$は平均圧力$\overline{p}$及び導管の形状に依存する定数であり,コンダクタンスと呼ばれる.
+コンダクタンスは流路の流れやすさを表す指標である.
+流路におけるコンダクタンスは電気回路における電流の流れやすさの指標であるコンダクタンス(すなわち電気抵抗の逆数)と類推して考えることができる.
+すなわちコンダクタンスを直列に接続したときの合成コンダクタンスは
+\begin{align}
+  \label{equ:215-heiretu}
+  \frac{1}{C}=\sum_i\frac{1}{C_i}
+\end{align}
+並列に接続した場合は
+\begin{align}
+  C=\sum_iC_i
+\end{align}
+と表され,これは電気回路におけるコンダクタンスと同様である.
+また排気速度はコンダクタンスと同じ次元を持ち,上の関係を用いて合成できる.
+特に十分長い長さ$L$,
+半径$a$の円形断面の導管のコンダクタンスは以下で与えられる.
+したがって粘性流と分子流では導管の半径に対するコンダクタンスの依存性が変化する.
+\begin{align}
+  \label{equ:215-conduct}
+  \begin{array}{ll}
+    C=\cfrac{\pi}{8\eta L}a^4\overline{p}&(粘性流)\\
+    C=\cfrac{2\pi}{3}\cfrac{a^3\overline{v}}{L}&(分子流)
+  \end{array}
+\end{align}
+\subsubsection{圧力の時間変化}
+コンダクタンス$C$の導管を通して排気速度$S_0$のポンプで排気する場合,
+排気速度$S$は\ref{equ:215-heiretu}を用いて
+\begin{align}
+  \label{equ:216-conduct}
+  \begin{split}
+    \frac{1}{S}&=\frac{1}{S_0}+\frac{1}{C}\\
+    \therefore\ S&=\frac{S_0C}{S_0+C}
+  \end{split}
+\end{align}
+となる.したがって$C$が小さいと$S_0$によらず$S$は小さくなることがわかる.
+実際の流路における漏れや脱離ガスなど容器に流れ込む気体の流量を$Q_L$,ポンプの到達圧力$p_\infty$とすると
+圧力$p$に関して以下が成り立つ.
+\begin{align}
+  V\frac{{\rm d}p}{{\rm d}t}=-S(p-p_\infty)+Q_L
+\end{align}
+これは$p$に関する非同次微分方程式であり$Q_L$が一定ならば$p$の初期値$p_0$を用いて
+\begin{align}
+  \label{equ:216-pt}
+  p=p_\infty+\frac{Q_L}{S}+\left(p_0-p_\infty-\frac{Q_L}{S}\right){\rm e}^{-St/V}
+\end{align}
+となる.したがって圧力の時間変化の時定数を測定すればコンダクタンスを測定できる.
+\subsection{熱電子放出}
+熱電子放出とは加熱された物質が電子を放出する現象であり,ブラウン管や加速器などで電子ビーム源として用いられる.
+\subsubsection{Richardson-Dushmanの式}
+Fermiエネルギーを$E_f$,仕事関数を$\phi_0$とすると電子が熱電子放出を起こす条件は
+\begin{align}
+  \label{equ:221-condition}
+  \frac{p_x^2}{2m}\geq E_f+\phi_0
+\end{align}
+ただし等号が成立するときの運動量を$p_{x0}$とする.
+ここで図\ref{fig:fig/fig5.png}のように金属表面を$x$軸と垂直に取ると単位時間,単位面積あたりに金属表面に到達する運動量$\vec{p}$から$\vec{p}+{\rm d}^3\vec{p}$の電子の個数は
+運動量$\vec{p}$の電子数密度を$n(\vec{p})$とすれば
+\begin{align}
+  v_xn(\vec{p}){\rm d}^3\vec{p}
+\end{align}
+であるので熱電子の電流密度$I_S$は
+\begin{align}
+  \label{equ:221-Is1}
+  I_S=e\iiint v_xn(\vec{p}){\rm d}^3\vec{p}=\int_{p_{x0}}^\infty{\rm d}p_x\int_{-\infty}^\infty{\rm d}p_y\int_{-\infty}^\infty{\rm d}p_z\ v_xn(\vec{p})
+\end{align}
+ここで電子の準位はFermi分布$f(E)$に従うので,不確定性原理とスピン自由度を考慮すれば
+\begin{align}
+  n(\vec{p})=\frac{2}{h^3}f(E)
+\end{align}
+さらに$v_x=p_x/m$より(\ref{equ:221-Is1})は
+\begin{align}
+  I_S=\frac{2e}{mh^3}\int_{p_{x0}}^\infty{\rm d}p_x\int_{-\infty}^\infty{\rm d}p_y\int_{-\infty}^\infty{\rm d}p_z\ \frac{p_x}{1+\exp\left(\beta\left(\frac{p^2}{2m}-E_f\right)\right)}
+\end{align}
+ここで熱電子放出が起きる状況では$\beta(p^2/2m-E_f)\gg 1$とできるので
+\begin{align}
+  \begin{split}
+    I_S&\simeq\frac{2e}{mh^3}\int_{p_{x0}}^\infty{\rm d}p_x\int_{-\infty}^\infty{\rm d}p_y\int_{-\infty}^\infty{\rm d}p_z\ p_x\exp\left(-\beta\left(\frac{p^2}{2m}-E_f\right)\right)\\
+    &=\int_{p_{x0}}^\infty p_x\exp\left(-\beta\left(\frac{p_x^2}{2m}-E_f\right)\right){\rm d}p_x\iint\exp\left(-\beta\frac{p_y^2+p_z^2}{2m}\right){\rm d}p_y{\rm d}p_z
+  \end{split}
+\end{align}
+ここで$\beta/2m=\alpha$と置くと
+\begin{align}
+  \begin{split}
+    I_S&=\frac{\pi}{\alpha}\int_{p_{x0}}^\infty p_x\exp\left(-\alpha p_x^2+\beta E_f\right){\rm d}p_x\\
+    &=-\frac{\pi}{\alpha}\frac{1}{2\alpha}\left[\exp(-\alpha p_x^2+\beta E_f)\right]_{p_{x0}}^\infty\\
+    &=\frac{\pi}{2\alpha^2}\exp(-\alpha p_{x0}^2+\beta E_f)
+  \end{split}
+\end{align}
+最後に(\ref{equ:221-condition})を用いれば
+\begin{align}
+  \label{equ:221-RDmann}
+  \begin{split}
+    I_S&=\frac{\pi}{2}(2mk_BT)^2\exp\left(-\frac{\phi_0}{k_BT}\right)\\
+    &=AT^2\exp\left(-\frac{\phi_0}{k_BT}\right)
+  \end{split}
+\end{align}
+となる.これはRichardson-Dushmanの式として知られる.
+\mfig[width=6cm]{fig/fig5.png}{金属表面に到達する電子}
+\subsubsection{温度制限領域}
+前節でRichardson-Dushmanの式を導出したが実際のセットアップにおいてはアノードには電圧がかけられており,これを考慮する必要がある.
+この効果をSchottky効果と呼ぶ.
+図\ref{fig:fig/fig6.png}のように$x$の原点にアノードを$x=d$にフィラメントを配置し,アノードに引き込み電圧$V_A$をかける.
+このとき引き出し電圧に依るポテンシャルは$d$が十分小さいならば
+\begin{align}
+  W_A=-e\frac{V_A}{d}x
+\end{align}
+またアノードは導体なので鏡像ポテンシャルが生じ,その大きさは
+\begin{align}
+  W_F=-\frac{e^2}{16\pi\varepsilon_0x}
+\end{align}
+よって位置$x$における陽極の存在に依るポテンシャルは
+\begin{align}
+  e\phi(x)=-eEx-\frac{e^2}{16\pi\varepsilon_0x}
+\end{align}
+である.これは$\partial \phi(x)/\partial x=0$なる点$x_m$で最大になる.
+ここで
+\begin{align}
+  x_m=\sqrt{\frac{e}{16\pi\varepsilon_0E}}
+\end{align}
+より電磁ポテンシャルは以下が最大になる.
+\begin{align}
+  e\phi(x_m)=-\sqrt{\frac{e^3E}{4\pi\varepsilon_0}}
+\end{align}
+これが真空準位の低下分であるのでSchottky効果を考慮した熱電子電流は以下のようになる.
+\begin{align}
+  \begin{split}
+    I_P&=AT^2\exp\left(-\beta\left(\phi_0-\sqrt{\frac{e^3E}{4\pi\varepsilon_0}}\right)\right)\\
+    &=I_S\exp\left(\beta\sqrt{\frac{e^3V_A}{4\pi\varepsilon_0d}}\right)    
+  \end{split}
+\end{align}
+したがって横軸を$\sqrt{V_A}$,縦軸を$\log I_P$としてプロットすると平坦なグラフが現れ,その$y$切片が$I_S$となる.
+このグラフをSchottkyプロットと呼ぶ.
+\mfig[width=5cm]{fig/fig6.png}{フィラメントとアノードの配置}

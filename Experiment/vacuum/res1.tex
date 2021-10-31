@@ -1,0 +1,81 @@
+\section{結果}
+\subsection{コンダクタンスの測定}
+図\ref{fig:graph/nopipe/all.tex}から図\ref{fig:graph/thick/all.tex}にコンダクタンス管なし,
+コンダクタンス管あり(細,太)の場合の圧力の時間変化を示す.
+Fitting曲線はソースコードのスクリプトで生成した.
+Fit範囲は指数関数の時定数の標準偏差が最小となるように決定されている.
+以上からそれぞれの場合の排気速度とコンダクタンスは表\ref{tab:conduct}のように算出された.
+\begin{table}[h]
+\caption{排気速度とコンダクタンス}
+\label{tab:conduct}
+\centering
+\begin{tabular}{ccc}
+\hline
+&排気速度 / $\si{\liter.\second^{-1}}$&コンダクタンス / $\si{\liter.\second^{-1}}$\\
+\hline \hline
+コンダクタンス管なし&$(2.308\pm 0.005)\times10^0$\\
+コンダクタンス管($\phi=10\ \si{\milli\metre}$)&$(3.721\pm0.000)\times10^{-1}$&$(4.437\pm0.014)\times10^{-1}$\\
+コンダクタンス管($\phi=15\ \si{\milli\metre}$)&$(9.601\pm0.002)\times10^{-1}$&$(1.644\pm0.007)\times10^0$\\
+\hline
+\end{tabular}
+\end{table}
+\gnu{コンダクタンス管なし}{graph/nopipe/all.tex}
+\gnu{コンダクタンス管($\phi=10\ \si{\milli\metre}$)}{graph/thin/all.tex}
+\gnu{コンダクタンス管($\phi=15\ \si{\milli\metre}$)}{graph/thick/all.tex}
+\newpage
+\subsection{熱電子電流の測定}
+図\ref{fig:graph/thermion/all.tex}に各フィラメント電流におけるSchottkyプロットを示す.
+点線は温度制限領域の直線部の外挿曲線である.外挿曲線はソースコードのスクリプトで生成した.
+Fit範囲は直線の傾きの標準偏差が最小となるように決定されている.
+赤いデータ点はFittingに用いられたデータであり,温度制限領域であると言える.
+それぞれの直線の$y$切片がその温度における熱電子電流$I_S$であり,その値は表\ref{tab:is}のようになった.
+これに基づいて$\log(I_S/T^2)$と$1/T$の関係は図\ref{fig:graph/thermion/wf.tex}のようになる.
+したがって仕事関数は以下のようになった.ただしボルツマン定数は\cite{rika44:online}を用いた.
+\begin{align}
+  \phi_0=4.394\pm0.082\ \si{\electronvolt}
+\end{align}
+\begin{table}[h]
+\caption{各フィラメント電流における熱電子電流$I_S$とフィラメント温度}
+\label{tab:is}
+\centering
+\begin{tabular}{ccl}
+\hline
+フィラメント電流$I_f$ / $\si{\ampere}$&フィラメント温度 / $\si{\kelvin}$&熱電子電流$I_S$ / $\si{\micro\ampere}$\\
+\hline \hline
+5.0 & 1724 &  $20.49\times(1\pm 0.0014)$ \\
+5.2 & 1767 &  $40.79\times(1\pm 0.0004)$ \\
+5.4 & 1811 &  $81.42\times(1\pm 0.0007)$ \\
+5.6 & 1853 &  $161.6\times(1\pm 0.0012)$ \\ 
+5.8 & 1895 &  $318.1\times(1\pm 0.0018)$ \\ 
+6.0 & 1936 &  $630.0\times(1\pm 0.0017)$ \\ 
+6.2 & 1977 &  $1163 \times(1\pm 0.0025)$ \\  
+\hline
+\end{tabular}
+\end{table}
+\gnu{熱電子放出}{graph/thermion/all.tex}
+\gnu{仕事関数の計算}{graph/thermion/wf.tex}
+\newpage
+\subsection{質量分析}
+%2, 18 ,28, 44
+図\ref{fig:graph/mass/mass.tex}に質量スペクトルを示す.
+図\ref{fig:graph/mass/mass.tex}から分子量2, 18, 28, 44にピークがあることがわかる.
+分子量2は水素分子(${\rm H}_2$)または重水素原子($\rm D$)以外ありえないが,
+重水素は天然存在比が少なく,また原子単体では安定でないため分子量2のピークは水素分子と考えられる.
+以下では丸善 化学資料館\cite{kagaku:online}の化合物検索機能を用いて各ピークを同定した.
+分子量18の気体分子は水(${\rm H}_2{\rm O}$)とアルゴン(${\rm Ar}$)がある.
+水の室温($25\ \si{\degreeCelsius}$)における蒸気圧は$23.8\ \si{Torr}$である.\cite{kagakuMizu:online}
+一方でアルゴンは大気中に$0.93\ vol\%$存在し,大気圧$760\ \si{Torr}$における分圧は$7.07\ \si{Torr}$である.\cite{rikaAr:online}
+このためどちらの分子も大気中には同程度の分圧で存在しているように思える.
+しかしアルゴンは希ガスであり,吸着やアウトガスが起こりにくいと考えられる.
+対して水はオイルやグリスなどからアウトガスとして発生したり,金属表面に吸着していると考えられる.
+したがってこのピークは水と考えられる.
+分子量28の気体分子は一酸化炭素(${\rm CO}$)のみである.
+分子量44の分子は二酸化炭素(${\rm CO}_2$)と一酸化二窒素(${\rm N}_2{\rm O}$)がある.
+大気中に二酸化炭素は$350\ \si{ppm}$程度存在するのに対して一酸化二窒素は$270\ \si{ppb}$程度であり,
+大気中には二酸化炭素遥かに多く存在することからこのピークは二酸化炭素と考えられる.\cite{Japan53:online}
+\gnu{質量スペクトル}{graph/mass/mass.tex}
+\subsection{吸着,脱離}
+図\ref{fig:graph/mass/ab.tex},図\ref{fig:graph/mass/de.tex}に吸着,脱離時の圧力の時間変化のグラフ示す.
+それぞれ圧力が急進に変化し始めるタイミングが吸着,脱離の開始タイミングと考えグラフに矢印で吸着,脱離の開始タイミングを示した.
+\gnu{吸着時の圧力変化}{graph/mass/ab.tex}
+\gnu{脱離時の圧力変化}{graph/mass/de.tex}
