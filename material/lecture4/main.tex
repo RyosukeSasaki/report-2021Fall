@@ -1,0 +1,154 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+\usepackage{braket}
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{物性物理学 No.4}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{問1}
+\mfig[width=6cm]{fig/fig1.png}{$H_1$のグラフ}
+\subsubsection*{問2}
+$V=0$のとき$H_1=0$なのでSchr\"{o}dinger方程式は
+\begin{align}
+  \begin{split}
+    -\frac{\hbar^2}{2m}\frac{{\rm d}^2}{{\rm d}x^2}\psi_{\pm}(x)&=-\frac{\hbar^2}{2m}\frac{{\rm d}^2}{{\rm d}x^2}\frac{1}{\sqrt{L}}{\rm e}^{\pm i(\pi/a)x}\\
+    &=\frac{\hbar^2}{2m}\left(\frac{\pi}{a}\right)^2\frac{1}{\sqrt{L}}{\rm e}^{\pm i(\pi/a)x}\\
+    &=E\psi_{\pm}(x)
+  \end{split}
+\end{align}
+よって
+\begin{align}
+  E=\frac{\hbar^2}{2m}\left(\frac{\pi}{a}\right)^2
+\end{align}
+\newpage
+\subsubsection*{問3}
+\begin{align}
+  \begin{split}
+    0&=(H_0+H_1-E)(A\psi_-(x)+B\psi_+(x))\\
+    &=\left(E_0-E+2V\left(1+\sin\frac{2\pi}{a}x\right)\right)(A\psi_-(x)+B\psi_+(x))\\
+    &=\left(E_0-E+2V+\frac{V}{i}({\rm e}^{i(2\pi/a)x}-{\rm e}^{-i(2\pi/a)x})\right)(A\psi_-(x)+B\psi_+(x))\\
+    &=(E_0-E+2V)(A\psi_-(x)+B\psi_+(x))\\
+    &\qquad+\frac{V}{i\sqrt{L}}\left(A{\rm e}^{i(\pi/a)x}+B{\rm e}^{i(3\pi/a)x}-A{\rm e}^{-i(3\pi/a)x}-B{\rm e}^{-i(\pi/a)x}\right)
+  \end{split}
+\end{align}
+ここで${\rm e}^{ik(\pi/a)x}/\sqrt{L}=\ket{k}$と表記する.このとき$\braket{k'|k}=\delta_{kk'}$である.
+\begin{align}
+  0&=(E_0-E+2V)(A\ket{-1}+B\ket{1})+\frac{V}{i}(A\ket{1}+B\ket{3}-A\ket{-3}-B\ket{-1})
+\end{align}
+両辺に$\bra{-1}$を掛けると
+\begin{align}
+  0=(E_0-E+2V)A-\frac{V}{i}B
+\end{align}
+両辺に$\bra{1}$を掛けると
+\begin{align}
+  0=(E_0-E+2V)B+\frac{V}{i}A
+\end{align}
+すなわち
+\begin{align}
+  \left(
+    \begin{array}{cc}
+      E_0-E+2V&-V/i\\
+      V/i&E_0-E+2V
+  \end{array}\right)\left(
+    \begin{array}{c}
+      A\\B
+    \end{array}
+  \right)={\bm 0}
+\end{align}
+これが非自明な解を持つ時
+\begin{align}
+  \left|
+  \begin{array}{cc}
+    E_0-E+2V&-V/i\\
+    V/i&E_0-E+2V
+  \end{array}
+  \right|=0
+\end{align}
+\begin{align}
+  \begin{split}
+    E_1&=E_0+V\\
+    E_2&=E_0+3V
+  \end{split}
+\end{align}
+\subsubsection*{問4}
+$E_1$に対応する固有ベクトルは
+\begin{align}
+  \left(\begin{array}{c}
+    A\\B
+  \end{array}\right)=
+  \left(\begin{array}{c}
+    1\\i
+  \end{array}\right)
+\end{align}
+このとき固有関数は
+\begin{align}
+  \psi_1(x)=\frac{1}{\sqrt{L}}({\rm e}^{-i(\pi/a)x}+i{\rm e}^{i(\pi/a)x})
+\end{align}
+したがって
+\begin{align}
+  |\psi_1(x)|^2&=\frac{1}{L}({\rm e}^{-i(\pi/a)x}+i{\rm e}^{i(\pi/a)x})({\rm e}^{i(\pi/a)x}-i{\rm e}^{-i(\pi/a)x})\\
+  &=2\left(1-\sin\frac{2\pi}{a}x\right)
+\end{align}
+同様に$E_2$に対応する固有ベクトルは
+\begin{align}
+  \left(\begin{array}{c}
+    A\\B
+  \end{array}\right)=
+  \left(\begin{array}{c}
+    1\\-i
+  \end{array}\right)
+\end{align}
+このとき固有関数は
+\begin{align}
+  \psi_2(x)=\frac{1}{\sqrt{L}}({\rm e}^{-i(\pi/a)x}-i{\rm e}^{i(\pi/a)x})
+\end{align}
+したがって
+\begin{align}
+  |\psi_2(x)|^2&=2\left(1+\sin\frac{2\pi}{a}x\right)
+\end{align}
+である.
+$|\psi(x)|^2$のグラフは下図のようになる.
+\mfig[width=6cm]{fig/fig2.png}{$|\psi(x)|^2$のグラフ(青:$|\psi_1|^2$,赤:$|\psi_2|^2$)}
+\subsubsection*{問5}
+図1と図2から$|\psi_2|^2$と$H_1$は同位相,
+$|\psi_1|^2$と$H_1$は逆位相とわかる.
+すなわち$|\psi_1|^2$はエネルギーが高い場所に局在し,
+$|\psi_2|^2$はエネルギーが低い場所に局在している.
+これによって2つの準位にエネルギー差が生じていると言える.
+\end{document}
