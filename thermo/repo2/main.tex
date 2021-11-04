@@ -1,0 +1,162 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{熱統計力学2 レポートNo.2}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{問1}
+$\langle x_1x_2\rangle_C$は$n_1=n_2=1$なので
+\begin{align}
+  \begin{split}
+    1&=\sum_jk_jm_{j1}=k_1m_{11}+k_2m_{21}\\
+    1&=\sum_jk_jm_{j2}=k_1m_{12}+k_2m_{22}
+  \end{split}
+\end{align}
+$\sum_jk_j=k_1+k_2=1$に対しては
+\begin{align}
+  \begin{split}
+    (k_1,k_2)&=(1,0)\\
+    {\bm m}_1=(m_{11},m_{12})&=(1,1)
+  \end{split}
+\end{align}
+$\sum_jk_j=k_1+k_2=2$に対しては
+\begin{align}
+  \begin{split}
+    (k_1,k_2)&=(1,1)\\
+    {\bm m}_1=(m_{11},m_{12})&=(1,0)\\
+    {\bm m}_2=(m_{21},m_{22})&=(0,1)
+  \end{split}
+\end{align}
+したがって
+\begin{align}
+  \begin{split}
+    \langle x_1x_2\rangle_C&=(-1)^0(0)!\frac{1}{1!}\frac{\langle x_1^1x_2^1\rangle}{1!\cdot 1!}+(-1)^1(1)!\frac{1}{1!}\frac{\langle x_1^1x_2^0\rangle}{1!\cdot 0!}\frac{1}{1!}\frac{\langle x_1^0x_2^1\rangle}{0!\cdot 1!}\\
+    &=\langle x_1x_2\rangle-\langle x_1\rangle\langle x_2\rangle
+  \end{split}
+\end{align}
+\subsubsection*{問2}
+$\langle x_1x_2x_3\rangle_C$は$n_1=n_2=n_3=1$なので
+\begin{align}
+  \begin{split}
+    1&=\sum_jk_jm_{j1}=k_1m_{11}+k_2m_{21}+k_2m_{31}\\
+    1&=\sum_jk_jm_{j2}=k_1m_{12}+k_2m_{22}+k_2m_{32}\\
+    1&=\sum_jk_jm_{j3}=k_1m_{13}+k_2m_{23}+k_2m_{33}
+  \end{split}
+\end{align}
+$\sum_jk_j=k_1+k_2+k_3=1$に対しては
+\begin{align}
+  \begin{split}
+    (k_1,k_2,k_3)&=(1,0,0)\\
+    {\bm m}_1=(m_{11},m_{12},m_{13})&=(1,1,1)
+  \end{split}
+\end{align}
+$\sum_jk_j=k_1+k_2+k_3=2$に対しては
+\begin{align}
+  \begin{split}
+    \left\{
+      \begin{array}{c}
+      (k_1,k_2,k_3)=(1,1,0)\\
+      {\bm m}_1=(1,1,0)\\
+      {\bm m}_2=(0,0,1)
+    \end{array}\right.
+  \end{split}\\
+  \begin{split}
+    \left\{
+      \begin{array}{c}
+        (k_1,k_2,k_3)=(1,0,1)\\
+        {\bm m}_3=(1,0,1)\\
+        {\bm m}_4=(0,1,0)
+      \end{array}\right.
+  \end{split}\\
+  \begin{split}
+    \left\{
+      \begin{array}{c}
+        (k_1,k_2,k_3)=(0,1,1)\\
+        {\bm m}_5=(0,1,1)\\
+        {\bm m}_6=(1,0,0)
+      \end{array}\right.
+  \end{split}
+\end{align}
+また$\sum_jk_j=k_1+k_2+k_3=3$に対しては
+\begin{align}
+  \begin{split}
+    (k_1,k_2,k_3)&=(1,1,1)\\
+    {\bm m}_1&=(1,0,0)\\
+    {\bm m}_2&=(0,1,0)\\
+    {\bm m}_3&=(0,0,1)
+  \end{split}
+\end{align}
+以上から
+\begin{align}
+  \begin{split}
+    \langle x_1x_2x_3\rangle_C&=(-1)^0(0)!\frac{1}{1!}\frac{\langle x_1x_2x_3\rangle}{1!\cdot1!\cdot1!}\\
+    &+(-1)^1(1)!\frac{1}{1!}\frac{\langle x_1^1x_2^1x_3^0\rangle}{1!\cdot1!\cdot0!}\frac{1}{1!}\frac{\langle x_1^0x_2^0x_3^1\rangle}{0!\cdot0!\cdot1!}\\
+    &+(-1)^1(1)!\frac{1}{1!}\frac{\langle x_1^1x_2^0x_3^1\rangle}{1!\cdot0!\cdot1!}\frac{1}{1!}\frac{\langle x_1^0x_2^1x_3^0\rangle}{0!\cdot1!\cdot0!}\\
+    &+(-1)^1(1)!\frac{1}{1!}\frac{\langle x_1^0x_2^1x_3^1\rangle}{0!\cdot1!\cdot1!}\frac{1}{1!}\frac{\langle x_1^1x_2^0x_3^0\rangle}{1!\cdot0!\cdot0!}\\
+    &+(-1)^2(2)!\frac{1}{1!}\frac{\langle x_1^1x_2^0x_3^0\rangle}{1!\cdot0!\cdot0!}
+    \frac{1}{1!}\frac{\langle x_1^0x_2^1x_3^0\rangle}{0!\cdot1!\cdot0!}
+    \frac{1}{1!}\frac{\langle x_1^0x_2^0x_3^1\rangle}{0!\cdot0!\cdot1!}
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    \therefore\ \langle x_1x_2x_3\rangle_C&=\langle x_1x_2x_3\rangle-\langle x_1x_2\rangle\langle x_3\rangle-\langle x_1x_3\rangle\langle x_2\rangle\\
+    &-\langle x_2x_3\rangle\langle x_1\rangle+2\langle x_1\rangle\langle x_2\rangle\langle x_3\rangle
+  \end{split}
+\end{align}
+\subsubsection*{問3}
+$U(\beta)$を展開した際の3次項は
+\begin{align}
+  \begin{split}
+    T_\tau\left(-\frac{1}{3!}\int_0^\beta{\rm d}\tau\int_0^\beta{\rm d}\tau'\int_0^\beta{\rm d}\tau''V(\tau)V(\tau')V(\tau'')\right)
+    =&-\frac{1}{6}\int_0^\beta{\rm d}\tau\int_0^\tau{\rm d}\tau'\int_0^{\tau'}{\rm d}\tau''V(\tau)V(\tau')V(\tau'')\\
+    &-\frac{1}{6}\int_0^\beta{\rm d}\tau\int_0^\tau{\rm d}\tau''\int_0^{\tau''}{\rm d}\tau'V(\tau)V(\tau'')V(\tau')\\
+    &-\frac{1}{6}\int_0^\beta{\rm d}\tau'\int_0^{\tau'}{\rm d}\tau\int_0^{\tau}{\rm d}\tau''V(\tau')V(\tau)V(\tau'')\\
+    &-\frac{1}{6}\int_0^\beta{\rm d}\tau'\int_0^{\tau'}{\rm d}\tau''\int_0^{\tau''}{\rm d}\tau V(\tau')V(\tau'')V(\tau)\\
+    &-\frac{1}{6}\int_0^\beta{\rm d}\tau''\int_0^{\tau''}{\rm d}\tau\int_0^{\tau}{\rm d}\tau' V(\tau'')V(\tau)V(\tau')\\
+    &-\frac{1}{6}\int_0^\beta{\rm d}\tau''\int_0^{\tau''}{\rm d}\tau'\int_0^{\tau'}{\rm d}\tau V(\tau'')V(\tau')V(\tau)
+  \end{split}
+\end{align}
+積分の仮変数は任意なので
+\begin{align}
+  T_\tau\left(-\frac{1}{3!}\int_0^\beta{\rm d}\tau\int_0^\beta{\rm d}\tau'\int_0^\beta{\rm d}\tau''V(\tau)V(\tau')V(\tau'')\right)
+  =-\int_0^\beta{\rm d}\tau\int_0^\tau{\rm d}\tau'\int_0^{\tau'}{\rm d}\tau''V(\tau)V(\tau')V(\tau'')
+\end{align}
+\end{document}
