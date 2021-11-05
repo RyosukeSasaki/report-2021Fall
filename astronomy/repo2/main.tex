@@ -1,0 +1,102 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{天体物理学レポート No.2}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{問1}
+温度$T$,半径$R$の球体の光度$L$は
+\begin{align}
+  L=4\pi R^2\sigma T^4
+\end{align}
+ただし$\sigma$はStefan-Boltzmann定数である.
+したがってこの球体を距離$D$離れた位置からみたときの輻射流速$F$は
+\begin{align}
+  F=\frac{L}{4\pi D^2}=\frac{R^2}{D^2}\sigma T^4
+\end{align}
+となる.したがって地球の半径を$R_E$,太陽の半径を$\theta_\odot$,太陽の平均温度を$T_\odot$とすると
+地球が単位時間に受ける熱量$Q_{in}$は太陽からのエネルギーを断面積$\pi R_E^2$で受けることから
+\begin{align}
+  Q_{in}=\theta_\odot^2\sigma T_\odot^4\cdot \pi R_E^2
+\end{align}
+地球が単位時間あたりに放出する熱量$Q_{out}$は地球の平均温度を$T_E$とすると
+\begin{align}
+  Q_{out}=4\pi R_E^2\sigma T_E^4
+\end{align}
+熱平衡を仮定すると
+\begin{align}
+  \begin{split}
+    \theta_\odot^2\sigma T_\odot^4\cdot \pi R_E^2&=4\pi R_E^2\sigma T_E^4\\
+    \therefore\ T_E&=\left(\frac{\theta_\odot^2}{4}\right)^{1/4}T_\odot\\
+    &=\left(\frac{R_\odot^2}{4D^2}\right)^{1/4}T_\odot
+  \end{split}
+\end{align}
+となる.また,地球近傍を周回する人工衛星を考えると人工衛星(半径$r_s$)が受ける太陽からの輻射エネルギー$Q_{in-\odot}$は
+(3)と同様に求められるので
+\begin{align}
+  Q_{in-\odot}=\theta_\odot^2\sigma T_\odot^4\cdot\pi r_s^2
+\end{align}
+また,地球からの輻射エネルギー$Q_{in-E}$は衛星の軌道半径$\simeq R_E$であり地球の視半径$\theta_E\simeq 1$であることから
+\begin{align}
+  Q_{in-E}=\sigma T_E^4\cdot\pi r_s^2
+\end{align}
+また衛星が放出する輻射エネルギー$Q_{out}$は衛星の温度を$T_s$とすれば(4)と同様に
+\begin{align}
+  Q_{out}=4\pi r_s^2\sigma T_s^4
+\end{align}
+以上から熱平衡を仮定し
+\begin{align}
+  \begin{split}
+    Q_{out}&=Q_{in-\odot}+Q_{in-E}\\
+    T_s&=\left(\frac{1}{4}(\theta_\odot^2 T_\odot^4+T_E^4)\right)^{1/4}\\
+    &=\left(\frac{5\theta_\odot^2}{16}\right)^{1/4}T_\odot\simeq 295\ \si{\kelvin}
+  \end{split}
+\end{align}
+となる.
+\subsubsection*{問2}
+軌道上で半分の時間日陰にいるという状況は前問において$Q_{in-\odot}$の寄与が半分になった場合に相当するので
+熱平衡は
+\begin{align}
+  Q_{out}&=\frac{1}{2}Q_{in-\odot}+Q_{in-E}\\
+  T_s&=\left(\frac{1}{4}(\frac{\theta_\odot^2 T_\odot^4}{2}+T_E^4)\right)^{1/4}\\
+  &=\left(\frac{3\theta_\odot^2}{16}\right)^{1/4}T_\odot\simeq 260\ \si{\kelvin}
+\end{align}
+となる.
+\end{document}
