@@ -1,0 +1,146 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{相対性理論 レポートNo.4}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{Q27.(1)}
+示すべき式は$\eta_{\mu\nu}$が座標系に依らないことから
+\begin{align}
+  \eta_{\mu\nu}'=\eta_{\mu\nu}=\eta_{\rho\sigma}\frac{\partial x^{\rho}}{\partial x'^{\mu}}\frac{\partial x^{\sigma}}{\partial x'^{\nu}}
+\end{align}
+である.
+また$(5.1)'''$から
+\begin{align}
+  \frac{\partial x^{\rho}}{\partial x'^{\mu}}=a_\mu^{\ \rho}
+\end{align}
+なので(1)は
+\begin{align}
+  \eta_{\mu\nu}=\eta_{\rho\sigma}a_\mu^{\ \rho}a_\nu^{\ \sigma}
+\end{align}
+である.また
+\begin{align}
+  a^{\gamma}_{\ \rho}a_\mu^{\ \rho}=\delta^{\gamma}_{\ \mu}
+\end{align}
+であったことから(3)式の両辺に$a^{\gamma}_{\ \rho}a^{\kappa}_{\ \sigma}$を掛けると
+\begin{align}
+  \eta_{\mu\nu}a^{\gamma}_{\ \rho}a^{\kappa}_{\ \sigma}=\eta_{\rho\sigma}\delta^{\gamma}_{\ \mu}\delta^{\kappa}_{\ \nu}
+\end{align}
+となる.したがって
+\begin{align}
+  \eta_{\mu\nu}a^{\mu}_{\ \rho}a^{\nu}_{\ \sigma}=\eta_{\rho\sigma}
+\end{align}
+(5.3)式からLorentz変換に対して(6)は成り立つ.
+したがって(1)は成り立ち,
+$\eta_{\mu\nu}$は共変ベクトルであることが示された.
+\subsubsection*{Q33.}
+$A^\mu$をLorentz変換すると
+\begin{align}
+  A'^\mu=a^\mu_{\ \rho}A^\rho
+\end{align}
+であった.
+したがってLorentz変換した先でのノルムは
+\begin{align}
+  |A'^2|=\eta_{\mu\nu}'a^\mu_{\ \rho}a^\nu_{\ \sigma}A^\rho A^\sigma
+\end{align}
+である.ここで$\eta_{\mu\nu}'a^\mu_{\ \rho}a^\nu_{\ \sigma}=\eta_{\rho\sigma}$なので
+\begin{align}
+  |A'^2|=\eta_{\rho\sigma}A^\rho A^\sigma=|A^2|
+\end{align}
+となり,ノルムは保存した.
+\subsubsection*{Q41.}
+定義から
+\begin{align}
+  *f^{\mu\nu}=\frac{1}{2!}E^{\mu\nu\rho\sigma}f_{\rho\sigma}
+\end{align}
+したがって完全反対称テンソルの性質から$\mu=\nu$のとき
+\begin{align*}
+  *f^{\mu\mu}=\frac{1}{2}E^{\mu\mu\rho\sigma}f_{\rho\sigma}=0
+\end{align*}
+同様に
+\begin{align*}
+  *f^{01}&=\frac{1}{2}E^{01\rho\sigma}f_{\rho\sigma}\\
+  &=\frac{1}{2}\left(E^{0123}f_{23}+E^{0132}f_{32}\right)\\
+  &=f_{23}
+\end{align*}
+\begin{align*}
+  *f^{02}&=\frac{1}{2}E^{02\rho\sigma}f_{\rho\sigma}\\
+  &=\frac{1}{2}\left(E^{0213}f_{13}+E^{0231}f_{31}\right)\\
+  &=f_{31}
+\end{align*}
+\begin{align*}
+  *f^{03}&=\frac{1}{2}E^{03\rho\sigma}f_{\rho\sigma}\\
+  &=\frac{1}{2}\left(E^{0312}f_{12}+E^{0321}f_{21}\right)\\
+  &=f_{12}
+\end{align*}
+\begin{align*}
+  *f^{10}=f_{32}
+\end{align*}
+\begin{align*}
+  *f^{12}&=\frac{1}{2}E^{12\rho\sigma}f_{\rho\sigma}\\
+  &=\frac{1}{2}\left(E^{1203}f_{03}+E^{1230}f_{30}\right)\\
+  &=f_{03}
+\end{align*}
+\begin{align*}
+  *f^{13}&=\frac{1}{2}E^{13\rho\sigma}f_{\rho\sigma}\\
+  &=\frac{1}{2}\left(E^{1302}f_{02}+E^{1320}f_{20}\right)\\
+  &=f_{20}
+\end{align*}
+\begin{align*}
+  *f^{20}=f_{13}
+\end{align*}
+\begin{align*}
+  *f^{21}=f_{30}
+\end{align*}
+\begin{align*}
+  *f^{23}&=\frac{1}{2}E^{23\rho\sigma}f_{\rho\sigma}\\
+  &=\frac{1}{2}\left(E^{2301}f_{01}+E^{2310}f_{10}\right)\\
+  &=f_{01}
+\end{align*}
+\begin{align*}
+  *f^{30}=f_{21}
+\end{align*}
+\begin{align*}
+  *f^{31}=f_{02}
+\end{align*}
+\begin{align*}
+  *f^{32}=f_{10}
+\end{align*}
+\end{document}
