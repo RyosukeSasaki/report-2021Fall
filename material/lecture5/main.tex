@@ -1,0 +1,117 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{物性物理学 No.5}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{(1)}
+$E(k)=E_0-\alpha-2\gamma\cos kb$より
+\begin{align}
+  \begin{split}
+    \langle v(k)\rangle&=\frac{1}{\hbar}\frac{d E(k)}{d k}\\
+    &=\frac{2\gamma b}{\hbar}\sin kb
+  \end{split}
+\end{align}
+\mfig[width=6cm]{fig/fig1.jpg}{$k$-$\langle v(k)\rangle$グラフ}
+\subsubsection*{(2)}
+\begin{align}
+  \begin{split}
+    \langle a(k)\rangle&=\frac{d\langle v(k)\rangle}{dt}\\
+    &=\frac{1}{\hbar}\frac{dk}{dt}\frac{d}{dk}\left(\frac{dE(k)}{dk}\right)\\
+    &=\frac{1}{\hbar}\left(-\frac{eF}{\hbar}\right)\frac{d^2E(k)}{dk^2}\\
+    &=-eF\cdot\frac{2\gamma b^2}{\hbar^2}\cos kb
+  \end{split}
+\end{align}
+\mfig[width=6cm]{fig/fig2.jpg}{$k$-$\langle a(k)\rangle$グラフ}
+\subsubsection*{(3)}
+(2)式から
+\begin{align}
+  \begin{split}
+    \langle a(k)\rangle\frac{\hbar^2}{2\gamma b^2\cos kb}=-eF
+  \end{split}
+\end{align}
+なので
+\begin{align}
+  m^*(k)=\frac{\hbar^2}{2\gamma b^2\cos kb}
+\end{align}
+\mfig[width=6cm]{fig/fig3.jpg}{$k$-$m^*$グラフ}
+\subsubsection*{(4)}
+(1)式を$t$で積分すると
+\begin{align}
+  \begin{split}
+    \langle x(k)\rangle&=\int\langle v(k)\rangle\ dk\\
+    &=-\frac{2\gamma}{eF}\cos kb+x_0
+  \end{split}
+\end{align}
+ここで$k(t)=k_0-eFt/\hbar$なので
+\begin{align}
+  \begin{split}
+    \langle x(t)\rangle=-\frac{2\gamma}{eF}\cos \left(k_0-\frac{eF}{\hbar}t\right)b+x_0
+  \end{split}
+\end{align}
+となり電子が振動することがわかる.
+$k(t)\propto t$であることから図\ref{fig:fig/fig3.jpg}において$m^*$は時間経過と共に左へ単調に進行することがわかる.
+すなわち有効質量は$k_0$で最小をとり,その後$t$の経過と共に増加,
+$k(t)=\pi/b$で正から負に転じる,すなわち運動の方向が逆転する.
+$m^*$は周期関数なので以上を繰り返すことにより,電子が振動することがわかる.
+\subsubsection*{(5)}
+(6)式から振動の角振動数$\omega$は
+\begin{align}
+  \omega=\frac{eF}{\hbar}b
+\end{align}
+したがって周期$T$は
+\begin{align}
+  T=\frac{2\pi\hbar}{eFb}
+\end{align}
+\subsubsection*{(6)}
+(8)式からBloch振動が安定して起きるためには
+\begin{align}
+  b\geq\frac{2\pi\hbar}{eFT_{lim}}
+\end{align}
+ここで$T_{lim}\simeq 10\ \si{\femto\second}$は散乱が起きるまでの平均時間である.
+これを計算すると
+\begin{align}
+  b\geq2.6\times10^{-6}\ \si{\metre}
+\end{align}
+となる.
+\subsubsection*{(7)}
+電子は原子核の熱振動によって散乱される.
+\bibliography{ref.bib}
+\end{document}
