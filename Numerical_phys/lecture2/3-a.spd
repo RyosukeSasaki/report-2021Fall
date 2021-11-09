@@ -1,0 +1,12 @@
+:terminal START
+t_end = 8d0
+:while do n=2,12
+	t=0d0
+	tau=1d0/2d0**dble(n)
+	:comment x(1)はx, x(2)はv
+	x(1)=0d0; x(2)=1d0
+	:while t<t_end
+		:comment fは微分方程式の右辺,2は連立数
+		:call x=runge_kutta(f,2,x,t,tau)
+	出力
+:terminal END

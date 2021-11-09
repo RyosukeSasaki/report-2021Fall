@@ -1,0 +1,53 @@
+\subsection*{3-A.}
+\subsubsection*{3-A-1.調和振動子の厳密解}
+調和振動子の微分方程式は以下の通りである.
+\begin{align}
+  \begin{split}
+    \frac{{\rm d}v}{{\rm d}t}&=-x\\
+    \frac{{\rm d}x}{{\rm d}t}&=v
+  \end{split}
+\end{align}
+すなわち
+\begin{align}
+  \frac{{\rm d}^2x}{{\rm d}t^2}=-x
+\end{align}
+であり初期条件を$x(0)=0$, $v(0)=1$とすれば解は以下のようになる.
+\begin{align}
+  \begin{split}
+    x(t)&=\sin t\\
+    v(t)&=\cos t
+  \end{split}
+\end{align}
+\subsubsection*{3-A-2.メインプログラムについて}
+図\ref{fig:fig/fig2.png}にメインプログラムのPAD図を示す.またソースコードは補遺に示す.
+このプログラムでは$2^{-2}$から$2^{-12}$までの各時間間隔$\tau$について,
+(1)式の微分方程式を$t=0$から$t_{\rm end}=8$までRunge-Kutta法で解く.
+Runge-Kutta法関数に関しては次節で説明する.
+ここで初期値は$x=0$, $v=1$としている.したがって微分方程式の厳密解は(3)式であり,
+出力段では時間間隔$\tau$及び時刻$t=8$での厳密解と数値解の差を出力している.
+\mfig[width=8cm]{fig/fig2.png}{メインプログラムのPAD図}
+\subsubsection*{3-A-3. Runge-Kutta関数について}
+図\ref{fig:fig/fig1.png}にRunge-Kutta法関数のPAD図を示す.またソースコードは補遺に示す.
+この関数では関数argを4段4次のRunge-Kutta法で1ステップ(時間間隔$\tau$)計算する.
+argは倍精度1次元配列型の関数であり以下のような微分方程式の右辺$\vec{f}(\vec{q},t)$に相当する.
+\begin{align}
+  \frac{{\rm d}\vec{q}}{{\rm d}t}=\vec{f}(\vec{q},t)
+\end{align}
+\mfig[width=8cm]{fig/fig1.png}{Runge-Kutta法のPAD図}
+\subsubsection*{3-A-4.出力結果}
+図\ref{fig:graph/3-a-2.tex}にプログラムの出力結果を示す.
+これは両対数グラフであり横軸は時間間隔$\tau$,縦軸は厳密解からの誤差である.
+また直線は誤差の線形な部分を最小二乗Fitした直線である.
+\gnu{3-A.の出力結果}{graph/3-a-2.tex}
+\subsubsection*{3-A-5.考察}
+図\ref{fig:graph/3-a-2.tex}において,
+各Fitting曲線${\rm err}_x$, ${\rm err}_v$は以下のようになった.
+\begin{align}
+  {\rm err}_x(\tau)&=0.00792(1\pm0.5)\times \tau^{3.96(1\pm0.0)}\\
+  {\rm err}_v(\tau)&=0.0662(1\pm0.0)\times \tau^{4.00(1\pm0.0)}
+\end{align}
+以上からRunge-Kutta法の誤差は$\tau$に対して4次で変化していることがわかる.
+今回実装したRunge-Kutta法は4段4次のものだったので,期待した通りの挙動をしていることがわかる.
+一方で$\tau$が小さい領域では誤差が直線の系列から離れていることがわかる.
+これは分割数が増えたことに依る丸め誤差の蓄積が原因であると考えられる.
+実際,倍精度浮動小数点の精度は10進数で$16$桁程度であり,近い桁で誤差が大きくなっていることがわかる.

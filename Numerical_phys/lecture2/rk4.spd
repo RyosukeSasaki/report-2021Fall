@@ -1,0 +1,13 @@
+:terminal START
+:comment RK4関数の定義
+a(1)=0d0; a(2)=0.5d0; a(3)=0.5d0; a(4)=1d0
+        b(1)=1d0/6d0; b(2)=1d0/3d0; b(3)=1d0/3d0; b(4)=1d0/6d0
+:while do i=1,4
+	delta(:) = arg(t+a(i)*tau, x(:) + a(i) * delta, n)*tau
+	s(:) = s(:) + b(i) * delta(:)
+x(:)=x(:)+s(:)
+:if present(bondary)
+	x(:)=boundary(x,n)
+t=t+tau
+runge_kutta(:) = x(:)
+:terminal END
