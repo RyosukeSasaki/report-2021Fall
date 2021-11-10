@@ -28,10 +28,40 @@
 図\ref{fig:fig/fig3.png}にメインプログラムのPAD図を示す.またソースコードは補遺に示す.
 このプログラムでは以下の振動的外力の加わった減衰振り子の微分方程式(10)をRunge-Kutta法で解く.
 Runge-Kutta法関数は前問で用いたものと同じものである.
-ここで定数$Q$, $G$, $\Omega$の値は表の値とする.
+ここで定数$Q$, $G$, $\Omega$の値は表\ref{tab:qgo}の値とする.
 時間刻みは$\tau=2\pi/\Omega\times10^{-3}$とし$\phi\in[0,2\pi)$, $\theta\in(-\pi,\pi]$の周期的境界条件を課している.
+\begin{table}[h]
+\caption{定数$Q$, $G$, $\Omega$}
+\label{tab:qgo}
+\centering
+\begin{tabular}{cccc}
+\hline
+条件&$Q$&$G$&$\Omega$\\
+\hline \hline
+(a)&2&0.9&$2/3$\\
+(b)&2&1.07&$2/3$\\
+(f)&2&1.47&$2/3$\\
+(g)&2&1.5&$2/3$\\
+\hline
+\end{tabular}
+\end{table}
 \mfig[width=8cm]{fig/fig3.png}{メインプログラムのPAD図}
 \subsubsection*{3-B-3.出力結果}
+図\ref{fig:graph/out/3-b-1.pdf}から図\ref{fig:graph/out/3-b-2.pdf}に各条件での出力結果を示す.
+1枚目の画像はAttractorの画像,
+2枚目はその$\theta$-$\omega$平面への射影,
+3枚目はPoincar\'{e}断面である.
+Attractorの画像は$50\times2\pi/\Omega<t\leq150\times2\pi/\Omega$の範囲で$2\pi/\Omega\times10^{-2}$ごとにプロットしている.
+またPoincar\'{e}断面の画像は$50\times2\pi/\Omega<t\leq1050\times2\pi/\Omega$の範囲で$2\pi/\Omega$ごとにプロットしている.
+\subsubsection*{3-B-4.考察}
+(a)の場合のPoincar\'{e}断面を見ると常に1点に集中していることがわかる.これは$\phi$の1周期ごとに周期的な運動をしていることを示している.
+もともと$\phi$は周期的な外力項の位相であったので,定常的な運動がその周期に沿って周期的であるということは運動が強制振動振り子のような挙動をとっていると理解できる.
+一方で(b), (f)の場合はPoincar\'{e}断面は2点, 4点に集中していることがわかる.これはそれぞれ$\phi$の2周期, 4周期で周期的な運動であることを示している.
+また(g)の場合はPoincar\'{e}断面は非常に多数の点が見えている.これは外力の周期に対して運動がほとんど周期性を持たず,カオスを示していることがわかる.
+\subsubsection*{3-B-4.感想}
+Runge-Kutta法の関数を汎用的に設計したので実装自体は容易だった.
+一方でこれだけシンプルな系とプログラムからカオスが現れるということからも,現実の複雑系のシミュレーションが非常に困難であることが想像できた.
+またカオスの数値計算においては浮動小数点の丸め誤差やプロセッサのアーキテクチャの差が問題になることも有りうると思い,定量的な議論が難しいと感じた.
 \newpage
 \mfig[width=8cm]{graph/out/3-b-1.pdf}{(a)の結果}
 \mfig[width=8cm]{graph/out/3-b-3.pdf}{(b)の結果}

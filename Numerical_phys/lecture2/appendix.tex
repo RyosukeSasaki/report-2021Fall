@@ -1,0 +1,174 @@
+\appendix
+\def\thesection{補遺\Alph{section}}
+\renewcommand*{\thelstlisting}{\Alph{section}.\arabic{lstlisting}}
+\section{ソースコード}
+\begin{lstlisting}[caption=Runge-Kutta関数のソースコード,label=srcRK4]
+module differential
+  implicit none
+    
+  contains
+  !runge_kutta の計算を 1 ステップ進める
+  !arg: 微分方程式; n: 連立する数; init: 初期値; t_begin: 計算開始; t_end: 計算終了; tau: 刻み幅;
+  !const: 定数(optional); boundary: 境界条件(optional)
+  function runge_kutta(arg, n, init, t_begin, tau, const, boundary)
+    implicit none
+    interface
+      !微分方程式
+      function arg(t, x, n, const)
+        INTEGER, INTENT(IN) :: n
+        DOUBLE PRECISION :: arg(n)
+        DOUBLE PRECISION, INTENT(IN) :: x(:), t
+        DOUBLE PRECISION, OPTIONAL :: const(:)
+      end function arg
+      ! 境界条件の計算関数
+      function boundary(x, n)
+        implicit none
+        INTEGER, INTENT(IN) :: n
+        DOUBLE PRECISION, INTENT(IN) :: x(:)
+        DOUBLE PRECISION, OPTIONAL :: boundary(n)
+      end function boundary
+    end interface
+    INTEGER :: i
+    ! 段数
+    INTEGER, PARAMETER :: order = 4
+    INTEGER, INTENT(IN) :: n
+    DOUBLE PRECISION, INTENT(in) :: init(:), tau
+    DOUBLE PRECISION, INTENT(INOUT) :: t_begin
+    DOUBLE PRECISION :: runge_kutta(n), x(n), t, s(n), delta(n)
+    DOUBLE PRECISION, OPTIONAL :: const(:)
+    DOUBLE PRECISION :: a(order), b(order)
+    a(1)=0d0; a(2)=0.5d0; a(3)=0.5d0; a(4)=1d0
+    b(1)=1d0/6d0; b(2)=1d0/3d0; b(3)=1d0/3d0; b(4)=1d0/6d0
+    x(:) = init(:)
+    t = t_begin
+
+    s = 0; delta = 0
+    do i = 1, order
+      ! optional の定数が与えられている場合はそれを含む計算を実行
+      if (PRESENT(const)) then 
+        delta(:) = arg(t+a(i)*tau, x(:) + a(i) * delta, n, const)*tau
+      else
+        delta(:) = arg(t+a(i)*tau, x(:) + a(i) * delta, n)*tau
+      end if
+      s(:) = s(:) + b(i) * delta(:)
+    end do
+    x(:) = x(:) + s(:)
+    t = t + tau
+    t_begin = t
+    ! optional の境界条件が与えられている場合はそれを考慮
+    if (PRESENT(boundary)) then
+      x(:) = boundary(x, n)
+    end if
+    runge_kutta(:) = x(:)
+  end function runge_kutta
+end module differential
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption=3-Aのソースコード,label=src3a]
+program main
+  use differential
+  implicit none
+  DOUBLE PRECISION :: t = 0d0, x(2), tau = 0.01d0, t_end = 8d0
+  INTEGER :: n, i
+  x(1) = 0d0; x(2) = 1d0
+
+  do n = 2, 12
+    t = 0d0
+    tau = 1d0 / 2d0**dble(n)
+    x(1) = 0d0; x(2) = 1d0
+    do while (t < t_end)
+        x = runge_kutta(f, 2, x, t, tau)
+    end do
+    WRITE(*, *) tau, t, abs(x(1) - x_true(t)), abs(x(2) - v_true(t))
+  end do    
+
+  contains
+  function f(tp, xp, n, const)
+    implicit none
+    INTEGER, INTENT(IN) :: n
+    DOUBLE PRECISION :: f(n)
+    DOUBLE PRECISION, INTENT(IN) :: xp(:), tp
+    DOUBLE PRECISION, OPTIONAL :: const(:)
+    f(1) = xp(2)
+    f(2) = -xp(1)
+  end function f
+  function x_true(tp)
+    implicit none
+    DOUBLE PRECISION :: x_true
+    DOUBLE PRECISION, INTENT(IN) :: tp
+    x_true = sin(tp)
+  end function x_true
+  function v_true(tp)
+    implicit none
+    DOUBLE PRECISION :: v_true
+    DOUBLE PRECISION, INTENT(IN) :: tp
+    v_true = cos(tp)
+  end function v_true
+end program main
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption=3-bのソースコード,label=src3b]
+program main
+  use differential
+  implicit none
+  DOUBLE PRECISION, PARAMETER :: pi = 4d0*atan(1d0)
+  DOUBLE PRECISION :: t_begin = 0d0, t_end
+  DOUBLE PRECISION :: tau, t = 0d0, x(3) = 0d0
+  DOUBLE PRECISION :: const(3)
+  INTEGER :: interval = 10, i = 0
+  !const(:) : (Q, G, Omega)
+  !xp(:) : (omega, theta, phi)
+  const(1) = 2d0; const(3) = 2d0/3d0;
+  t_end = 150d0*2d0*pi/const(3)
+  tau = 2d0*pi/const(3)*10d0**(-3d0)
+
+  const(2) = 1.47d0
+  do while (t < 50d0*2d0*pi/const(3))
+    x = runge_kutta(f, 3, x, t, tau, const, boundary)
+  end do
+  do while (t <= t_end)
+    x = runge_kutta(f, 3, x, t, tau, const, boundary)
+    i = i + 1
+    if (mod(i, interval) == 0) then
+      WRITE(*, *) x(3), x(2), x(1)
+    end if
+  end do
+  
+  contains
+  function f(tp, xp, n, const)
+    implicit none
+    INTEGER, INTENT(IN) :: n
+    DOUBLE PRECISION :: f(n)
+    DOUBLE PRECISION, INTENT(IN) :: xp(:), tp
+    DOUBLE PRECISION, OPTIONAL :: const(:)
+    !xp(:) : (omega, theta, phi)
+    !const(:) : (Q, G, Omega, pi)
+    f(1) = -1.0/const(1)*xp(1) - sin(xp(2)) + const(2)*cos(xp(3))
+    f(2) = xp(1)
+    f(3) = const(3)
+  end function f
+  function boundary(xp, n)
+    implicit none
+    INTEGER, INTENT(IN) :: n
+    DOUBLE PRECISION, INTENT(IN) :: xp(:)
+    DOUBLE PRECISION :: boundary(n)
+    !xp(:) : (omega, theta, phi)
+    boundary(1) = xp(1)
+
+    if (xp(2) > pi) then
+      boundary(2) = xp(2) - 2*pi
+    elseif (xp(2) <= -pi) then
+      boundary(2) = xp(2) + 2*pi
+    else
+      boundary(2) = xp(2)
+    end if
+    if (xp(3) >= 2*pi) then
+      boundary(3) = xp(3) - 2*pi
+    elseif (xp(3) < 0) then
+      boundary(3) = xp(3) + 2*pi
+    else
+      boundary(3) = xp(3)
+    end if
+  end function boundary
+end program main
+\end{lstlisting}
