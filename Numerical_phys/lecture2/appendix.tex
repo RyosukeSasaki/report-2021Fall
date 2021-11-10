@@ -13,7 +13,7 @@ module differential
   function runge_kutta(arg, n, init, t_begin, tau, const, boundary)
     implicit none
     interface
-      !微分方程式
+      ! 微分方程式
       function arg(t, x, n, const)
         INTEGER, INTENT(IN) :: n
         DOUBLE PRECISION :: arg(n)
