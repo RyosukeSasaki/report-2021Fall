@@ -9,4 +9,7 @@ t_end = 8d0
 		:comment fは微分方程式の右辺,2は連立数
 		:call x=runge_kutta(f,2,x,t,tau)
 	出力
+:call f
+	f(1)=x(2)
+	f(2)=-x(1)
 :terminal END

@@ -20,23 +20,23 @@
 \end{align}
 \subsubsection*{3-A-2.メインプログラムについて}
 図\ref{fig:fig/fig2.png}にメインプログラムのPAD図を示す.またソースコードは補遺に示す.
-このプログラムでは$2^{-2}$から$2^{-12}$までの各時間間隔$\tau$について,
+このプログラムでは$2^{-2}$から$2^{-12}$までの各時間刻み$\tau$について,
 (1)式の微分方程式を$t=0$から$t_{\rm end}=8$までRunge-Kutta法で解く.
 Runge-Kutta法関数に関しては次節で説明する.
 ここで初期値は$x=0$, $v=1$としている.したがって微分方程式の厳密解は(3)式であり,
-出力段では時間間隔$\tau$及び時刻$t=8$での厳密解と数値解の差を出力している.
-\mfig[width=8cm]{fig/fig2.png}{メインプログラムのPAD図}
+出力段では時間刻み$\tau$及び時刻$t=8$での厳密解と数値解の差を出力している.
+\mfig[width=7cm]{fig/fig2.png}{メインプログラムのPAD図}
 \subsubsection*{3-A-3. Runge-Kutta関数について}
 図\ref{fig:fig/fig1.png}にRunge-Kutta法関数のPAD図を示す.またソースコードは補遺に示す.
-この関数では関数argを4段4次のRunge-Kutta法で1ステップ(時間間隔$\tau$)計算する.
+この関数では関数argを4段4次のRunge-Kutta法で1ステップ(時間刻み$\tau$)計算する.
 argは倍精度1次元配列型の関数であり以下のような微分方程式の右辺$\vec{f}(\vec{q},t)$に相当する.
 \begin{align}
   \frac{{\rm d}\vec{q}}{{\rm d}t}=\vec{f}(\vec{q},t)
 \end{align}
-\mfig[width=8cm]{fig/fig1.png}{Runge-Kutta法のPAD図}
+\mfig[width=10cm]{fig/fig1.png}{Runge-Kutta法のPAD図}
 \subsubsection*{3-A-4.出力結果}
 図\ref{fig:graph/3-a-2.tex}にプログラムの出力結果を示す.
-これは両対数グラフであり横軸は時間間隔$\tau$,縦軸は厳密解からの誤差である.
+これは両対数グラフであり横軸は時間刻み$\tau$,縦軸は厳密解からの誤差である.
 また直線は誤差の線形な部分を最小二乗Fitした直線である.
 \gnu{3-A.の出力結果}{graph/3-a-2.tex}
 \subsubsection*{3-A-5.考察}

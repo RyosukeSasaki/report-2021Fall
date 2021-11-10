@@ -1,12 +1,31 @@
 :terminal START
 :comment const(1):Q, const(2):G, const(3):Omega
 :comment  x(1):omega, x(2):theta, x(3):phi
-:while t<50d0*pi/const(3)
-	:comment fは微分方程式の右辺, boundaryは境界条件
+:while t<50*π/const(3)
+	:comment constは定数, boundaryは境界条件
 	x=runge_kutta(f,3,x,t,tau,const,boundary)
 :while t<=t_end
 	x=runge_kutta(f,3,x,t,tau,const,boundary)
 	i=i+1
 	:if mod(i, 10) == 0
 		出力
+:call f
+	f(1)=-1.0/const(1)*x(1)-sin(x(2))+const(2)*cos(x(3))
+	f(2)=x(1)
+	f(3)=const(3)	
+:call boundary
+	:switch x(2)
+	:case >π
+		boundary(2)=x(2)-2*pi
+	:case <= -π
+		boundary(2)=x(2)+2*pi
+	:case else
+		boundary(2)=x(2)
+	:switch x(3)
+	:case >=2π
+		boudary(3)=x(3)-2π
+	:case <0
+		boudary(3)=x(3)+2π
+	:case else
+		boundary(3)=x(3)
 :terminal END

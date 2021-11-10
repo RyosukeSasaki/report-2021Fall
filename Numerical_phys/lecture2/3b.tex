@@ -1,4 +1,34 @@
 \subsection*{3-B.}
-\subsubsection*{3-B-1.メインプログラムについて}
-図にメインプログラムのPAD図を示す.またソースコードは補遺に示す.
-2
+\subsubsection*{3-B-1.振動的外力の加わった減衰振り子}
+外力,減衰の無い振り子の微分方程式は
+\begin{align}
+  ml\frac{{\rm d}^2\theta}{{\rm d}t^2}+mg\sin \theta=0
+\end{align}
+である.これに減衰項($k{\rm d}\theta/{\rm d}t$)及び角振動数$\omega_e$の周期的な外力が加わったとすると微分方程式は
+\begin{align}
+  ml\frac{{\rm d}^2\theta}{{\rm d}t^2}+k\frac{{\rm d}\theta}{{\rm d}t}+mg\sin \theta=F\cos\omega_et
+\end{align}
+となる.ここで$\hat{t}=t\sqrt{g/l}$と無次元化すると
+\begin{align}
+  \begin{split}
+    \frac{{\rm d}^2\theta}{{\rm d}\hat{t}^2}+\frac{k}{m}\sqrt{\frac{1}{lg}}\frac{{\rm d}\theta}{{\rm d}\hat{t}}+\sin\theta&=\frac{F}{mg}\cos\omega_e\sqrt{\frac{l}{g}}\hat{t}\\
+    \frac{{\rm d}^2\theta}{{\rm d}\hat{t}^2}+\frac{1}{Q}\frac{{\rm d}\theta}{{\rm d}\hat{t}}+\sin\theta&=G\cos\Omega\hat{t}
+  \end{split}
+\end{align}
+と無次元化される.これは1階の微分方程式に分解すると$\omega=\dot{\theta}$, $\phi=\Omega\hat{t}$として
+\begin{align}
+  \begin{split}
+    \frac{{\rm d}\omega}{{\rm d}\hat{t}}&=-\frac{1}{Q}\omega-\sin\theta+G\cos\phi\\
+    \frac{{\rm d}\theta}{{\rm d}\hat{t}}&=\omega\\
+    \frac{{\rm d}\phi}{{\rm d}\hat{t}}&=\Omega
+  \end{split}
+\end{align}
+を得る.
+\subsubsection*{3-B-2.メインプログラムについて}
+図\ref{fig:fig/fig3.png}にメインプログラムのPAD図を示す.またソースコードは補遺に示す.
+このプログラムでは以下の振動的外力の加わった減衰振り子の微分方程式(10)をRunge-Kutta法で解く.
+Runge-Kutta法関数は前問で用いたものと同じものである.
+ここで定数$Q$, $G$, $\Omega$の値は表の値とする.
+時間刻みは$\tau=2\pi/\Omega\times10^{-3}$とし$\phi\in[0,2\pi)$, $\theta\in(-\pi,\pi]$の周期的境界条件を課している.
+\mfig[width=8cm]{fig/fig3.png}{メインプログラムのPAD図}
+\subsubsection*{3-B-3.出力結果}
