@@ -1,0 +1,115 @@
+\section{原理}
+\subsection{磁気モーメント}
+\subsubsection{定義}
+磁気モーメント$\bm m$は図\ref{fig:fig/fig1.png}のように面積$\bm S$の周囲を囲む電流$I$を用いて
+\begin{align}
+  {\bm m}=I{\bm S}
+\end{align}
+で定義される.磁気双極子モーメントは図\ref{fig:fig/fig2.png}のように磁気単極子$\pm m$を用いて定義されたが,
+磁気単極子は未発見であり,磁気モーメントがより現実に即した定義だと言える.
+ここで電流$I$が点電荷の円運動によって生じていると解釈すると,電荷を$q$,
+円運動の半径を$a$,速度を$v$とすると
+\begin{align}
+  I=\frac{v}{2\pi a}q
+\end{align}
+ここで角運動量は$L=mva$なので
+\begin{align}
+  {\bm m}=\frac{qv{\bm S}}{2\pi a}=\frac{qv\cdot\pi a^2}{2\pi a}=\frac{q{\bm L}}{2m}
+\end{align}
+となる.
+\begin{figure}[htbp]
+  \begin{minipage}{0.5\hsize}
+    \mfig[width=4cm]{fig/fig1.png}{磁気モーメントの定義}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \mfig[width=4cm]{fig/fig2.png}{磁気双極子モーメントの定義}
+  \end{minipage}
+\end{figure}
+\subsubsection{電子,陽子,中性子の磁気モーメント}
+電子や核子において,軌道角運動量$\bm L$は量子化され
+\begin{align}
+  {\bm L}=\hbar\sqrt{L(L+1)}
+\end{align}
+と表される.したがってこれらの磁気モーメントの基本量は$q\hbar/2m$となる.
+特に$m$を電子の質量$m_e$としたとき$\mu_B=e\hbar/2m_e$はBohr磁子とよばれ,磁気モーメントの基本単位として使われる..
+また電子や核子には軌道角運動量の他にスピン角運動量${\bm s}=\pm1/2$が存在し,
+スピン角運動量に由来する磁気モーメントは
+\begin{align}
+  {\bm m}=g\mu_B|{\bm s}|
+\end{align}
+で与えられる.ここで$g$はg因子と呼ばれ量子電磁気学によれば電子の場合は$g_e\simeq-2.00232$,
+陽子の場合は$g_p\simeq5.586$,中性子の場合は$g_n\simeq-3.826$となることが知られている.
+すなわち軌道角運動量に由来する磁気モーメントの表式に比べて,
+スピン角運動量に由来する磁気モーメントは定数倍されていることがわかる.
+
+一般には原子核は複数の核子から構成されており,磁気モーメントはそれぞれの核子が持つスピン角運動量の和
+${\bm J}=\hbar{\bm I}$に依存する.
+${\bm I}$を用いて原子核の磁気モーメントは
+\begin{align}
+  {\bm m}_n=\gamma{\bm J}=\gamma\hbar{\bm I}
+\end{align}
+で与えられる.ここで$\gamma$は磁気角運動量比と呼ばれ,核種に依存する定数である.
+\subsection{磁気共鳴の古典的説明}
+\subsubsection{ラーモア歳差運動}
+前節でみたように磁気モーメントは角運動量${\bm J}$に対して
+\begin{align}
+  {\bm m}=\gamma{\bm J}
+\end{align}
+という関係にあった.磁気モーメントに磁場${\bm B}$を掛けたとき,磁気モーメントが受けるトルク${\bm N}$は一般に
+\begin{align}
+  {\bm N}={\bm m}\times {\bm B}
+\end{align}
+である.したがって角運動量に対する運動方程式$\dot{{\bm L}}={\bm N}$を用いれば
+\begin{align}
+  \begin{split}
+    \frac{d{\bm J}}{dt}&={\bm m}\times {\bm B}\\
+    \frac{d{\bm m}}{dt}&=\gamma{\bm m}\times {\bm B}
+  \end{split}
+\end{align}
+となることがわかる.ここで磁場を
+\begin{align}
+  {\bm B}=\left(\begin{array}{c}
+    0\\0\\B_0
+  \end{array}\right)
+\end{align}
+とすると
+\begin{align}
+  \frac{d}{dt}\left(\begin{array}{c}
+    m_x\\m_y\\m_z
+  \end{array}\right)=
+  \gamma B_0\left(\begin{array}{c}
+    m_y\\-m_x\\0
+  \end{array}\right)
+\end{align}
+となるので一般解は
+\begin{align}
+  \begin{split}
+    m_x&=A\cos(\omega_0 t+\alpha)\\
+    m_y&=-A\sin(\omega_0 t+\alpha)\\
+    m_z&={\rm Const}
+  \end{split}
+\end{align}
+となる.ここで$\omega_0=B_0\gamma$である.
+以上から磁気モーメントは$z$方向の磁場中では$z$軸回りで回転することがわかる.この運動がラーモア歳差運動である.
+\mfig[width=4cm]{fig/fig3.png}{ラーモア歳差運動}
+\subsection{磁気共鳴の量子論による解釈}
+前節では古典的な磁気モーメントが定常磁場の元では歳差運動を示すことが示された.
+これを量子系で考える.磁場${\bm B}$中にある磁気モーメント${\bm m}$のハミルトニアンは
+\begin{align}
+  H=-{\bm m}\cdot{\bm B}
+\end{align}
+である.ここで磁気モーメントとして(6)式を,磁場として(10)式を用いると
+\begin{align}
+  \begin{split}
+    H&=-\gamma {\bm J}\cdot{\bm B}\\
+    &=-\gamma B_0J_z\\
+    &=-\omega_0 J_z
+  \end{split}
+\end{align}
+となる.ここで角運動量としてスピン$s_{\pm}=\pm\hbar/2$を考えるとエネルギー固有値は
+\begin{align}
+  E_{\pm}=\pm\frac{\hbar\omega_0}{2}
+\end{align}
+となり縮退が解けている.また準位間のエネルギーは$\hbar\omega_0$となり,
+これはラーモア歳差運動の各振動数と同じ角振動数の光のエネルギーに相当する.
+このことから磁場中にあるスピン由来の磁気モーメントは角振動数$\omega_0$の光を吸収し,励起状態に遷移できることが示唆される.

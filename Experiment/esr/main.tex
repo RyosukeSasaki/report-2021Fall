@@ -1,0 +1,65 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+\usepackage{chemfig}
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+\usepackage{multirow}
+
+% 使用する括弧を定義
+\newcommand\setpolymerdelim[2]{\def\delimleft{#1}\def\delimright{#2}}
+% 実際に括弧を描くコマンドの定義
+\def\makebraces[#1,#2]#3#4#5{%
+  \edef\delimhalfdim{\the\dimexpr(#1+#2)/2}%
+  \edef\delimvshift{\the\dimexpr(#1-#2)/2}%
+  \chemmove{%
+    \node[at=(#4),yshift=(\delimvshift)]
+    {$\left\delimleft\vrule height\delimhalfdim depth\delimhalfdim
+        width0pt\right.$};%
+    \node[at=(#5),yshift=(\delimvshift)]
+    {$\left.\vrule height\delimhalfdim depth\delimhalfdim
+        width0pt\right\delimright_{\rlap{$\scriptstyle#3$}}$};}}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\section{目的}
+スピン共鳴装置は医療や物質の分析などにおいて広く用いられる手法である.
+当実験では電子スピン共鳴を用いて1-ジフェニル-2-ピクリルヒドラジルのg因子の測定,
+共鳴曲線の決定,温度依存性の測定,地磁気の測定,またヘルムホルツコイル内の磁場分布の測定を行う.
+また$^{1}{\rm H}$, $^{19}{\rm H}$の核磁気共鳴を測定し,それぞれのg因子を測定する.
+\input{theory1.tex}
+\input{method1.tex}
+\input{method2.tex}
+\input{res1.tex}
+\bibliography{ref.bib}
+\end{document}
