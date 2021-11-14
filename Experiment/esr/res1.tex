@@ -1,35 +1,39 @@
 \section{結果}
 \subsection{g因子の測定}
-図に$17\ \si{\mega\hertz}$, $20\ \si{\mega\hertz}$, $23\ \si{\mega\hertz}$の場合の吸収曲線を示す.
-ただし$17\ \si{\mega\hertz}$の場合は雑音が大きいためウィンドウサイズ8での移動平均を掛けた場合を図に示す.
-各周波数について測定結果は表のようになる.
+図\ref{fig:graph/out/g_factor_17M.pdf}から図\ref{fig:graph/out/g_factor_23M.pdf}に$17\ \si{\mega\hertz}$, $20\ \si{\mega\hertz}$, $23\ \si{\mega\hertz}$の場合の吸収曲線を示す.
+ただし$17\ \si{\mega\hertz}$の場合は雑音が大きいためウィンドウサイズ8での移動平均を掛けた場合を図\ref{fig:graph/out/g_factor_17M_mean.pdf}に示す.
+各周波数について測定結果は表\ref{tab:ginsi}のようになる.
 \begin{table}[h]
 \caption{g因子の測定結果}
 \label{tab:ginsi}
 \centering
 \begin{tabular}{ccccc}
 \hline
-\multirow{2}{*}{共振周波数 / MHz}&\multicolumn{2}{c}{ピーク電圧 / mV}&\multirow{2}{*}{ピーク電圧(外部磁場除去後) / mV}&\multirow{2}{*}{g因子}\\
+\multirow{2}{*}{共振周波数 / MHz}&\multicolumn{2}{c}{ピーク電圧 / mV}&\multirow{2}{*}{ピーク電圧(外部磁場除去後) / mV}&\multirow{2}{*}{g因子 / $\si{\joule.\tesla^{-1}}$}\\
 &ピーク1&ピーク2\\
 \hline \hline
-17.178&60&-58&59&1.7\\
-20.865&64&-70&67&1.9\\
-17.178&60&-58&59&1.8\\
+17.178&60&-58&59&-1.7\\
+20.865&64&-70&67&-1.9\\
+17.178&60&-58&59&-1.8\\
 \hline
 \end{tabular}
 \end{table}
+\newpage
 \begin{figure}[htbp]
   \begin{minipage}{0.5\hsize}
-    \gnu{$17\ \si{\mega\hertz}$での吸収曲線}{graph/g_factor_17M.tex}
+    \mfig[width=8cm]{graph/out/g_factor_17M.pdf}{$17\ \si{\mega\hertz}$の時の吸収曲線}
   \end{minipage}
   \begin{minipage}{0.5\hsize}
-    \gnu{$20\ \si{\mega\hertz}$での吸収曲線}{graph/g_factor_20M.tex}
+    \mfig[width=8cm]{graph/out/g_factor_20M.pdf}{$20\ \si{\mega\hertz}$の時の吸収曲線}
   \end{minipage}
 \end{figure}
+\mfig[width=8cm]{graph/out/g_factor_23M.pdf}{$23\ \si{\mega\hertz}$の時の吸収曲線}
+\newpage
+\mfig[width=8cm]{graph/out/g_factor_17M_mean.pdf}{$17\ \si{\mega\hertz}$の時の吸収曲線(移動平均)}
 \subsection{地球磁場の測定}
 表に各$\theta$での測定結果を示す.ここでは地磁気以外の外部磁場は存在しないものとした.
-また図に$\theta$と地磁気の関係,並びに余弦波でのfitting結果を示す.
-fittingにより地磁気の絶対値はとなった.
+また図に$\theta$と地磁気の関係,並びにcos関数でのfitting結果を示す.
+fittingにより地磁気の絶対値は$(-2.9\pm0.2)\times10^4\ \si{\nano\tesla}$となった.
 \begin{table}[h]
 \caption{$\theta$と地磁気の関係}
 \label{tab:tijiki}
@@ -49,5 +53,4 @@ fittingにより地磁気の絶対値はとなった.
 \hline
 \end{tabular}
 \end{table}
-\subsection{ヘルムホルツコイル内の磁場分布の測定}
-\subsection{共鳴吸収曲線の測定}
+\gnu{方位と磁場強度の関係}{graph/azimuth.tex}

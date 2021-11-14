@@ -1,0 +1,79 @@
+\section{考察}
+\subsection{1回の磁場掃引で吸収信号が2回現れる理由}
+共鳴条件(20)式を再掲すると
+\begin{align}
+  |B_0|=\frac{\nu_0 h}{g\mu_B}
+\end{align}
+であり,磁場の絶対値のみに依存し符号には依存しないことがわかる.
+今回磁場は交流信号によって生成されており,正から負までを掃引している.
+したがって磁場の絶対値が共鳴条件を満たすのは明らかに正と負の2回になる.
+\subsection{g因子の測定}
+自由電子のg因子は$g=-2.0023\ \si{\joule.\tesla^{-1}}$である.\cite{rika}
+一方で今回の測定値の平均は$g=-1.7924\ \si{\joule.\tesla^{-1}}$であり桁では一致しているが,相対誤差は$10\%$程度低いことがわかる.
+一般にセラミック抵抗では抵抗値の許容誤差は$5\%$であり,
+今回オシロスコープの電流測定用に用いられたシャント抵抗の誤差が伝搬しているという可能性が考えられる.
+\subsection{地球磁場の測定}
+矢上キャンパス周辺の地磁気の水平成分は図\ref{fig:fig/fig6.png}のように$3.02\times10^4\ \si{\nano\tesla}$程度であった.\cite{tijiki}
+一方で測定値は$(-2.9\pm0.2)\times10^4\ \si{\nano\tesla}$であり,非常に良く一致している.
+\mfig[width=8cm]{fig/fig6.png}{水平方向の磁気図(青旗が日吉)\cite{tijiki}}
+\subsection{ヘルムホルツコイル内の磁場分布の測定}
+\subsubsection{測定結果の比較}
+図\ref{fig:graph/axial.tex}からヘルムホルツコイルの作る電流あたりの磁場分布は測定値と概ね一致していることがわかる.
+またヘルムホルツコイル中央での磁場は
+\begin{align}
+  B=2\times\frac{R^2I\mu_0}{2}\left(\frac{1}{(R^2+(R/2)^2)^{3/2}}\right)\simeq0.000815
+\end{align}
+である.一方で測定値は
+\begin{align}
+  B=\left(\frac{4}{5}\right)^{3/2}\frac{\mu_0\cdot2000\cdot0.068}{R}\simeq0.000815
+\end{align}
+であり非常に良く一致している.
+\subsubsection{ヘルムホルツコイルの磁場の導出}
+図のように半径$R$の電流ループがその軸上の点$P$に作る磁場の大きさを考える.
+円周上の線要素$ds$が$P$につくる磁場の大きさは
+\begin{align}
+  dB=\frac{\mu_0Ids}{4\pi(R^2+x^2)}
+\end{align}
+ここで図のように$\phi$を定義すると$\sin\phi=a/r$であるので軸方向の成分$dB_1$は
+\begin{align}
+  dB_1=\frac{\mu_0IRds}{4\pi(R^2+x^2)^{3/2}}
+\end{align}
+一方で動径成分は対称性から明らかに存在しない.したがって残るのは軸方向の成分のみであり,積分を行うと
+\begin{align}
+  B_1=\int_0^{2\pi R}\frac{\mu_0IRds}{4\pi(R^2+x^2)^{3/2}}=\frac{\mu_0IR^2}{2(R^2+x^2)^{3/2}}
+\end{align}
+ヘルムホルツコイルはこれを2つ重ね合わせたものであるので,
+$x$の基準をヘルムホルツコイルの中心に合わせると
+\begin{align}
+  B=\frac{\mu_0IR^2}{2}\left(\frac{1}{(R^2+(R/2+x))^{3/2}}+\frac{1}{(R^2+(R/2-x))^{3/2}}\right)
+\end{align}
+が得られる.
+
+一方で軸上以外での磁場についてはベクトルポテンシャルを考える.
+ベクトルポテンシャルは電流密度$\bm J$を用いて
+\begin{align}
+  {\bm A}({\bm r})=\frac{\mu_0}{4\pi}\int_V\frac{{\bm J({\bm r}')}}{|{\bm r}-{\bm r}'|}dV'
+\end{align}
+で与えられた,ここで円筒座標
+\begin{align}
+  |{\bm r}-{\bm r}'|&=\sqrt{r^2+z^2+R^2-2rR\cos\theta'}\\
+  {\bm J}({\bm r}')&=(-J\sin\theta',J\cos\theta')\\
+  dV'&=Rd\theta'
+\end{align}
+を用いる.ただし$R$は電流ループの半径である.
+このとき
+\begin{align}
+  A_r({\bm r})&=\frac{\mu_0}{4\pi}\int_0^{2\pi}\frac{-J\sin\theta'}{\sqrt{r^2+z^2+R^2-2rR\cos\theta'}}Rd\theta'\\
+  A_\theta({\bm r})&=\frac{\mu_0}{4\pi}\int_0^{2\pi}\frac{J\cos\theta'}{\sqrt{r^2+z^2+R^2-2rR\cos\theta'}}Rd\theta'
+\end{align}
+となる.この積分を実行し,回転を取ることで磁場の分布を得る.
+\subsection{共鳴吸収曲線の測定}
+図\ref{fig:graph/out/curve_room.pdf}から図\ref{fig:graph/out/curve_n2.pdf}よりそれぞれの曲線はLorentz型により近いということがわかる.
+このことから磁場の不均一や不純物による不均一広がりは十分小さく,緩和による影響が大きいと考えられる.
+
+また図\ref{fig:graph/t-width.tex}を見ると半値全幅は温度に対して正の相関を持っていることが読み取れる.
+ここで不均一広がりの半値全幅は縦緩和時間$T_1$, 横緩和時間$T_2$を用いて
+\begin{align}
+  \Delta\omega=\frac{2}{T_2}\sqrt{1+\omega_1^2T_1T_2}
+\end{align}
+となっていた.緩和時間は磁化が熱平衡に至るまでの時間だったので,温度の上昇に伴い緩和時間が伸び,半値全幅が増大したとして定性的に理解できる.

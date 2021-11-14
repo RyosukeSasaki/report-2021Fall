@@ -1,0 +1,71 @@
+\subsection{ヘルムホルツコイル内の磁場分布の測定}
+図\ref{fig:graph/axial.tex}にヘルムホルツコイル内の電流あたりの磁場の軸方向の分布及びその理論値を示す.
+また図\ref{fig:graph/radical.tex}にヘルムホルツコイル内の電流あたり磁場の動径方向の分布を示す.
+ここで電流あたりの磁場は共鳴条件(20)式から
+\begin{align}
+  \frac{B}{I}=\frac{\nu_0 h}{g\mu_B I}
+\end{align}
+として計算している.
+g因子は4.1の結果の平均を用いた.
+またヘルムホルツコイル内の軸上の磁場分布は以下で与えられる.
+ただし$x$は中心からの距離である.
+\begin{align}
+  B=\frac{R^2I\mu_0}{2}\left(\frac{1}{(R^2+(R/2+x)^2)^{3/2}}+\frac{1}{(R^2+(R/2-x)^2)^{3/2}}\right)
+\end{align}
+\gnu{軸方向の分布}{graph/axial.tex}
+\gnu{動径方向の分布}{graph/radical.tex}
+\newpage
+\subsection{共鳴吸収曲線の測定}
+図\ref{fig:graph/out/curve_room.pdf}から図\ref{fig:graph/out/curve_n2.pdf}
+に室温, 氷水温度, 液体窒素温度における吸収曲線及び半値全幅とピーク高さを一致させたLorentz曲線とGauss曲線を示す.
+3つすべての場合においてLorentz曲線の方がGauss曲線に比べてよく一致していることがわかる.
+これらの半値全幅とピーク高さは表のようになった.
+ここで(20)式を用いて半値全幅を磁場から周波数に変換した.
+また図\ref{fig:graph/t-width.tex}に半値全幅の温度依存性を示す.
+\begin{table}[h]
+\caption{半値全幅とピーク高さ}
+\label{tab:hanti_peak}
+\centering
+\begin{tabular}{c|ccc}
+\hline
+温度&ピーク高さ / mV&半値全幅(磁場) / T&半値全幅(周波数) / Hz\\
+\hline \hline
+室温&103&$1.63\times10^{-4}$&$4.08\times10^6$\\
+氷水温度&105&$1.44\times10^{-4}$&$3.61\times10^6$\\
+液体窒素温度&194&$1.15\times10^{-4}$&$2.89\times10^6$\\
+\hline
+\end{tabular}
+\end{table}
+\newpage
+\mfig[width=10cm]{graph/out/curve_room.pdf}{室温での吸収曲線}
+\mfig[width=10cm]{graph/out/curve_ice.pdf}{氷水温度での吸収曲線}
+\mfig[width=10cm]{graph/out/curve_n2.pdf}{液体窒素温度での吸収曲線}
+\gnu{半値全幅の温度依存性}{graph/t-width.tex}
+\newpage
+\subsection{NMR測定}
+表\ref{tab:nmr}に測定結果を示す.ここでg因子は以下の表式で計算した.
+ここで中性子のg因子は$g_n=-3.826\ \si{\joule.\tesla^{-1}}$,陽子のg因子は$g_n=5.586\ \si{\joule.\tesla^{-1}}$であったので
+測定されたNMR信号は共に陽子由来だと考えられる.このことは$^1{\rm H}$は明らかに陽子のみを持ち,
+また$^{19}{\rm F}$は中性子10個,陽子9個であることとも整合する.
+
+ここで同一の磁場を掛けた際の核種ごとの共鳴周波数の比を相対感度と呼び,
+$^1{\rm H}$に対して$^{19}{\rm F}$の相対感度は0.832である.\cite{kakujiki}
+一方でNo.1の測定値に対するNo.2の相対感度は0.928となった.
+このことからNo.1の測定が$^1{\rm H}$に由来する吸収信号であり,
+No.2の測定が$^{19}{\rm F}$に由来する吸収信号であると考えられる.
+\begin{align}
+  g=\frac{\nu h}{|B|\mu_p}
+\end{align}
+\begin{table}[h]
+\caption{NMR測定結果}
+\label{tab:nmr}
+\centering
+\begin{tabular}{cccc}
+\hline
+No.&共鳴周波数 / MHz&磁場 / T&g因子\\
+\hline \hline
+1&19.30&0.4862&5.209\\
+2&19.30&0.4515&5.571\\
+\hline
+\end{tabular}
+\end{table}

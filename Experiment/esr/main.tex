@@ -2,6 +2,7 @@
 \usepackage{listings,jvlisting}
 \bibliographystyle{jplain}
 
+\usepackage{standalone}
 \usepackage{url}
 \usepackage{chemfig}
 \usepackage{graphicx}
@@ -41,6 +42,12 @@
 \fgcaption{#3 \label{fig:#2}}
 \end{center}
 }
+\newcommand{\mfis}[3][width=15cm]{
+\begin{center}
+\includestandalone[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
 \newcommand{\gnu}[2]{
 \begin{figure}[hptb]
 \begin{center}
@@ -61,5 +68,8 @@
 \input{method1.tex}
 \input{method2.tex}
 \input{res1.tex}
+\newpage
+\input{res2.tex}
+\input{consider1.tex}
 \bibliography{ref.bib}
 \end{document}
