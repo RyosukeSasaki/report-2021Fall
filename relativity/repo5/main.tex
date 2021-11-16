@@ -1,0 +1,185 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{相対性理論 レポートNo.5}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{Q44.}
+$f_{\mu\nu}$は反対称テンソルなので$f_{\mu\nu}=-f_{\nu\mu}$, $f_{\mu\mu}=0$である.
+したがって$\mu<\nu$だけ考えれば良い.
+まず$\mu=0$かつ$\nu\neq 0$のとき
+\begin{align}
+  \begin{split}
+    f_{0\nu}&=\partial_0A_\nu-\partial_\nu A_0\\
+    &=\frac{1}{c}\frac{\partial A_\nu}{\partial t}-\frac{\partial }{\partial x_\nu}\eta_{0\rho}A^\rho\\
+    &=\frac{1}{c}\left(\eta_{\nu\rho}\frac{\partial A^\rho}{\partial t}+\frac{\partial \phi}{\partial x_\nu}\right)\\
+    &=\frac{1}{c}\left(\frac{\partial A^\nu}{\partial t}+\frac{\partial \phi}{\partial x_\nu}\right)
+  \end{split}
+\end{align}
+ここで$E=-\frac{\partial {\bm A}}{\partial t}-{\rm grad}\phi$だったので
+\begin{align}
+  \begin{split}
+    f_{0\nu}&=\frac{1}{c}\left(\frac{\partial {\bm A}}{\partial t}+{\rm grad}\phi\right)_\nu\\
+    &=-\frac{E_\nu}{c}
+  \end{split}
+\end{align}
+$\mu=1$, $\nu=2$のとき
+\begin{align}
+  \begin{split}
+    f_{12}&=\partial_1A_2-\partial_2A_1\\
+    &=\frac{\partial}{\partial x}\eta_{2\rho}A^\rho-\frac{\partial}{\partial y}\eta_{1\sigma}A^\sigma\\
+    &=\frac{\partial}{\partial x}({\bm A})_y-\frac{\partial}{\partial y}({\bm A})_x\\
+    &=({\rm rot}{\bm A})_z=B_z
+  \end{split}
+\end{align}
+同様に$\mu=1$, $\nu=3$のとき
+\begin{align}
+  \begin{split}
+    f_{13}&=\partial_1A_3-\partial_3A_1\\
+    &=-\left(\frac{\partial}{\partial z}({\bm A})_x-\frac{\partial}{\partial x}({\bm A})_z\right)\\
+    &=-({\rm rot}{\bm A})_y=-B_y
+  \end{split}
+\end{align}
+$\mu=2$, $\nu=3$のとき
+\begin{align}
+  \begin{split}
+    f_{23}&=\partial_2A_3-\partial_3A_2\\
+    &=\frac{\partial}{\partial y}({\bm A})_z-\frac{\partial}{\partial z}({\bm A})_y\\
+    &=B_x
+  \end{split}
+\end{align}
+となる.
+\subsubsection*{Q52.}
+%\begin{align}
+%  \begin{split}
+%    &E_x=E_x',\ E_y=\gamma(E_y'+\beta cB_z'),\ E_z=\gamma(E_z'-\beta cB_y')\\
+%    &B_x=B_x',\ B_y=\gamma(B_y'-\frac{\beta}{c}E_z'),\ B_z=\gamma(B_z'+\frac{\beta}{c}E_y')
+%  \end{split}
+%\end{align}
+$S'$系の原点に固定された電荷$e$の作る電場$\bm E'$は
+\begin{align}
+  {\bm E}'=\frac{e}{4\pi\varepsilon_0r'^2}({\bm e}_x',{\bm e}_y',{\bm e}_z')
+\end{align}
+である.また$f'^{\mu\nu}$は$\alpha=E'/c={e}/{4\pi\varepsilon_0cr'^2}$を用いて
+\begin{align}
+  f'^{\mu\nu}\overset{\text{r}}{=}\left(\begin{array}{cccc}
+    0&\alpha&\alpha&\alpha\\
+    -\alpha&0&0&0\\
+    -\alpha&0&0&0\\
+    -\alpha&0&0&0
+  \end{array}\right)={\bm F}'
+\end{align}
+である.
+ここで$S$系が$S'$系に対して$-x$方向に速度$v$で移動する場合の特殊Lorentz変換において変換は
+\begin{align}
+  a^\mu_{\ \nu}\overset{\text{r}}{=}\left(\begin{array}{cc}
+    \gamma\left(\begin{array}{cc}
+      1&\beta\\
+      \beta&1
+    \end{array}\right)&{\bm 0}\\
+    {\bm 0}&{\bm 1}
+  \end{array}\right)={\bm A}
+\end{align}
+で表される.このとき$S$系では$f^{\mu\nu}=a^\mu_{\ \rho}a^\nu_{\ \sigma}f^{\rho\sigma}\overset{\text{r}}{=}{\bm F}={\bm A}^T{\bm F}'{\bm A}$なので
+\begin{align}
+  \begin{split}
+    &f^{\mu\nu}\overset{\text{r}}{=}{\bm A}^T{\bm F}'{\bm A}\\
+    =&\left(\begin{array}{cc}
+      \gamma\left(\begin{array}{cc}
+        1&\beta\\
+        \beta&1
+      \end{array}\right)&{\bm 0}\\
+      {\bm 0}&{\bm 1}
+    \end{array}\right)
+    \left(\begin{array}{cccc}
+      0&\alpha&\alpha&\alpha\\
+      -\alpha&0&0&0\\
+      -\alpha&0&0&0\\
+      -\alpha&0&0&0
+    \end{array}\right)
+    \left(\begin{array}{cc}
+      \gamma\left(\begin{array}{cc}
+        1&\beta\\
+        \beta&1
+      \end{array}\right)&{\bm 0}\\
+      {\bm 0}&{\bm 1}
+    \end{array}\right)\\
+    =&
+    \left(\begin{array}{cccc}
+      -\alpha\beta\gamma&\alpha\gamma&\alpha\gamma&\alpha\gamma\\
+      -\alpha\gamma&\alpha\beta\gamma&\alpha\beta\gamma&\alpha\beta\gamma\\
+      -a&0&0&0\\
+      -a&0&0&0
+    \end{array}\right)
+    \left(\begin{array}{cc}
+      \gamma\left(\begin{array}{cc}
+        1&\beta\\
+        \beta&1
+      \end{array}\right)&{\bm 0}\\
+      {\bm 0}&{\bm 1}
+    \end{array}\right)\\
+    &=\left(\begin{array}{cccc}
+      0&\alpha\gamma^2(1-\beta^2)&\alpha\gamma&\alpha\gamma\\
+      -\alpha\gamma^2(1-\beta^2)&0&\alpha\gamma\beta&\alpha\gamma\beta\\
+      -\alpha\gamma&-\alpha\beta\gamma&0&0\\
+      -\alpha\gamma&-\alpha\beta\gamma&0&0\\
+    \end{array}\right)\\
+    &=\left(\begin{array}{cccc}
+      0&\alpha&\alpha\gamma&\alpha\gamma\\
+      -\alpha&0&\alpha\gamma\beta&\alpha\gamma\beta\\
+      -\alpha\gamma&-\alpha\beta\gamma&0&0\\
+      -\alpha\gamma&-\alpha\beta\gamma&0&0\\
+    \end{array}\right)
+  \end{split}
+\end{align}
+よって
+\begin{align}
+  {\bm E}=\left(\begin{array}{c}
+    E'\\\gamma E'\\\gamma E'
+  \end{array}\right),\ 
+  {\bm B}=\left(\begin{array}{c}
+    0\\-\frac{E'}{c}\gamma\beta\\\frac{E'}{c}\gamma\beta    
+  \end{array}\right)
+\end{align}
+なので
+\begin{align}
+  {\bm B}=\frac{1}{c^2}{\bm E}\times{\bm v}
+\end{align}
+\end{document}
