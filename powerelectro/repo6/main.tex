@@ -1,0 +1,58 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{パワーエレクトロニクス No.5}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{(1)}
+オン電圧が$1\ \si{\volt}$のとき$V_R=99\ \si{\volt}$であり流れる電流は$9.9\ \si{\ampere}$である.
+したがってオン損失は
+\begin{align}
+  P_{on}=1\times9.9=9.9\ \si{\watt}
+\end{align}
+\subsubsection*{(2)}
+$\Delta T=1\ \si{\micro\second}$のとき
+\begin{align}
+  \begin{split}
+    P_{sw}=\frac{EI}{6}\Delta T\times 2f&=\frac{100\times 10}{6}\times10^{-6}\times 2\times25\times10^3\\
+    &=8.3\ \si{\watt}
+  \end{split}
+\end{align}
+\end{document}
