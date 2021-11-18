@@ -1,0 +1,104 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{熱統計力学2 レポートNo.3}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{問1}
+$\Gamma_\triangle$は
+\begin{align}
+  \Gamma_\triangle=-\frac{\beta^3\rho^2}{6}\int d{\bm r}_2d{\bm r}_3\ v({\bm r}_1-{\bm r}_2)v({\bm r}_2-{\bm r}_3)v({\bm r}_3-{\bm r}_1)
+\end{align}
+である.ここで${\bm R}_{12}={\bm r}_1-{\bm r}_2$, ${\bm R}_{23}={\bm r}_2-{\bm r}_3$として,また$v$をFourier変換すると積分項は
+\begin{align}
+  \begin{split}
+    &\int d{\bm R}_{12}d{\bm R}_{23}\ \sum_{\bm p}\frac{v_{\bm p}}{V}{\rm e}^{i{\bm p}\cdot{\bm R}_{12}}
+    \sum_{\bm p'}\frac{v_{\bm p}'}{V}{\rm e}^{i{\bm p''}\cdot{\bm R}_{23}}
+    \sum_{\bm p''}\frac{v_{\bm p}''}{V}{\rm e}^{i{\bm p''}\cdot({\bm R}_{23}-{\bm R}_{12})}\\
+    =&\frac{1}{V^3}\sum_{{\bm p},{\bm p}',{\bm p}''}v_{\bm p}v_{\bm p'}v_{\bm p''}
+    \int d{\bm R}_{12}d{\bm R}_{23}\ {\rm e}^{i({\bm p}-{\bm p''}){\bm R}_{12}}{\rm e}^{i({\bm p'}+{\bm p''}){\bm R}_{23}}\\
+    =&\frac{1}{V}\sum_{{\bm p},{\bm p}',{\bm p}''}v_{\bm p}v_{\bm p'}v_{\bm p''}\delta_{{\bm p},{\bm p}''}\delta_{{\bm p'},-{\bm p}''}\\
+    =&\frac{1}{V}\sum_{\bm p}v_{\bm p}^3
+  \end{split}
+\end{align}
+以上から
+\begin{align}
+  \Gamma_\triangle=-\frac{\beta^3\rho^2}{6}\frac{1}{V}\sum_{\bm p}v_{\bm p}^3
+\end{align}
+となる.
+\subsubsection*{問2}
+\begin{align}
+  \Gamma=\frac{1}{4\rho\pi^2}\int_0^\infty dp\ p^2\left(\frac{\kappa^2}{p^2}-\log\left(1+\frac{\kappa^2}{p^2}\right)\right)
+\end{align}
+であった.ここで積分範囲を$[0,D]$までとし,計算後に$D\rightarrow\infty$とすることで計算を行う.すると積分項は
+\begin{align}
+  \begin{split}
+    &\lim_{D\rightarrow\infty}\left(\int_0^D dp\ \kappa^2-\int_0^D dp\ p^2\log\left(1+\frac{\kappa^2}{p^2}\right)\right)\\
+    =&\lim_{D\rightarrow\infty}\left(\kappa^2D-\int_0^D dp\ p^2\log\left(1+\frac{\kappa^2}{p^2}\right)\right)
+  \end{split}
+\end{align}
+ここで第2項について部分積分を行う.
+\begin{align}
+  \begin{split}
+    \int_0^D dp\ p^2\log\left(1+\frac{\kappa^2}{p^2}\right)=&\left[\frac{p^3}{3}\log\left(1+\frac{\kappa^2}{p^2}\right)\right]_0^D+\int_0^Ddp\ \frac{2}{3}\frac{\kappa^2p^2}{\kappa^2+p^2}\\
+    =&\frac{D^3}{3}\log\left(1+\frac{\kappa^2}{D^2}\right)+\frac{2\kappa^2}{3}\left[p-\kappa\arctan\frac{p}{\kappa}\right]_0^D\\
+    =&\frac{D^3}{3}\log\left(1+\frac{\kappa^2}{D^2}\right)+\frac{2\kappa^2D}{3}-\frac{2\kappa^3}{3}\arctan\frac{D}{\kappa}
+  \end{split}
+\end{align}
+第1項を展開すると
+\begin{align}
+  \begin{split}
+    \frac{D^3}{3}\log\left(1+\frac{\kappa^2}{D^2}\right)=&\frac{D^3}{3}\left(\frac{\kappa^2}{D^2}+O(D^{-4})\right)\\
+    =&\frac{\kappa^2D}{3}+O(D^{-1})
+  \end{split}
+\end{align}
+したがって(5)式は
+\begin{align}
+  \begin{split}
+    &\lim_{D\rightarrow\infty}\left(k^2D-\frac{\kappa^2D}{3}-\frac{2\kappa^2D}{3}+\frac{2\kappa^3}{3}\arctan\frac{D}{\kappa}+O(D^{-1})\right)\\
+    =&\frac{\kappa^3\pi}{3}
+  \end{split}
+\end{align}
+以上より
+\begin{align}
+  \Gamma=\frac{1}{4\rho\pi^2}\frac{\kappa^3\pi}{3}=\frac{\kappa^3}{12\rho\pi}
+\end{align}
+となる.
+\end{document}
