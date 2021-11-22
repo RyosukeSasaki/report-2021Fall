@@ -1,0 +1,73 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{天体物理学レポート No.3}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+炭素原子の微細構造線の光度は
+\begin{align}
+  L_{10}=\frac{N_cg_1}{Z}{\rm e}^{-\beta h\nu_{10}}A_{10}h\nu_{10}\\
+  L_{21}=\frac{N_cg_2}{Z}{\rm e}^{-\beta h\nu_{21}}A_{21}h\nu_{21}
+\end{align}
+ここで$A_{10}=7.93\time10^{-8}\ \si{\second^{-1}}$, $A_{21}=2.68\time10^{-7}\ \si{\second^{-1}}$はアインシュタインのA係数,
+$\nu_{10}=492\ \si{\giga\hertz}$, $\nu_{21}=809\ \si{\giga\hertz}$は微細構造線のスペクトルである.
+(1), (2)式から
+\begin{align}
+  \begin{split}
+    \frac{L_{10}}{L_{21}}=5&=\frac{g_1{\rm e}^{-\beta h\nu_{10}}c}{g_2{\rm e}^{-\beta h\nu_{21}}A_{21}h\nu_{21}}\\
+    {\rm e}^{-\beta(E_1-E_2)}&=\frac{25}{3}\frac{A_{21}\nu_{21}}{A_{10}\nu_{10}}\\
+    \beta&=\frac{1}{E_2-E_1}\log\left(\frac{25}{3}\frac{A_{21}\nu_{21}}{A_{10}\nu_{10}}\right)\\
+    &\simeq1.826\times10^{22}
+  \end{split}
+\end{align}
+したがって(1)式から炭素原子数は
+\begin{align}
+  \begin{split}
+    N_C&=L_{10}\frac{g_1{\rm e}^{-\beta E_1}+g_2{\rm e}^{-\beta E_2}}{g_1{\rm e}^{-\beta E_1}A_{10}h\nu_{10}}\\
+    &=4.629\times10^{58}
+  \end{split}
+\end{align}
+また炭素原子数$N_C$に対する水素原子数$N_H$の比は$N_H/N_C=10^4$なので全原子数は$N\simeq N_C\times10^4$とする.
+水素原子質量を$1.674\times10^{-27}$, 平均分子量を1.36とすれば全質量$M$は
+\begin{align}
+  M=1.054\times 10^{36}=5.299\times10^5 M_{\odot}
+\end{align}
+となる.
+\end{document}

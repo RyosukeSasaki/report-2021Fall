@@ -1,0 +1,111 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{相対性理論 レポートNo.6}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{(1)}
+荷電粒子の受ける力は
+\begin{align}
+  \vec{F}=q\vec{E}+q\vec{v}\times\vec{B}
+\end{align}
+であった.慣性系$S'$において速度の空間成分は$0$であった.したがって4元力の空間成分は
+\begin{align}
+  F'^i=eE'^i
+\end{align}
+となる.また時間成分は定義から
+\begin{align}
+  F'^0=0
+\end{align}
+である.
+\subsubsection*{(2)}
+$f'_{\mu\nu}$は
+\begin{align}
+  f'_{\mu\nu}=\left(\begin{array}{cccc}
+    0     & -E_x'/c  & -E_y'/c  & -E_z'/c\\
+    E_x'/c & 0       & B_z'     & -B_y'\\
+    E_y'/c & -B_z'    & 0       & B_x'\\
+    E_z'/c & B_y'     & -B_x'    & 0\\
+  \end{array}\right)
+\end{align}
+なので$f'^{\mu\nu}=f'_{\rho\sigma}\eta'^{\rho\mu}\eta'^{\sigma\nu}$は
+\begin{align}
+  f'^{\mu\nu}=\left(\begin{array}{cccc}
+    0     & E_x'/c   & E_y'/c   & E_z'/c\\
+    -E_x'/c& 0       & B_z'     & -B_y'\\
+    -E_y'/c& -B_z'    & 0       & B_x'\\
+    -E_z'/c& B_y'     & -B_x'    & 0\\
+  \end{array}\right)
+\end{align}
+したがって(2)式, (3)式は
+\begin{align}
+  F'^\mu=-ecf'^{\mu0}=ecf'^{0\mu}
+\end{align}
+である.
+\subsubsection*{(3)}
+$S\rightarrow S'$のLorentz変換係数を$a^\mu_{\ \nu}$,逆変換を$b^\mu_{\ \nu}$とする.
+このとき$\delta^\mu_{\ \nu}=a^\mu_{\ \rho}b^{\rho}_{\ \nu}$である.以上より(6)式は
+\begin{align}
+  \begin{split}
+    F^\mu&=b^\mu_{\ \nu}F'^{\nu}\\
+    &=ecb^\mu_{\ \nu}a^0_{\ \rho}a^\nu_{\ \sigma}f^{\rho\sigma}\\
+    &=ec\delta^\mu_{\ \sigma}a^0_{\ \rho}f^{\rho\sigma}\\
+    &=eca^0_{\ \rho}f^{\rho\mu}
+  \end{split}
+\end{align}
+ここで$u^\mu=ca_0^{\ \mu}$だった.
+$a_0^{\ \mu}=-a^0_{\ \mu}$より
+\begin{align}
+  u_\mu=-ca^0_{\ \mu}
+\end{align}
+なので
+\begin{align}
+  \begin{split}
+    F^\mu&=-ef^{\rho\mu}u_\rho\\
+    &=ef^{\mu\rho}u_\rho
+  \end{split}
+\end{align}
+となる.
+\subsubsection*{(4)}
+(9)式の空間成分は
+\begin{align}
+  F^i=ef^{i0}u_0+ef^{i1}u_1+ef^{i2}u_2+ef^{i3}u_3
+\end{align}
+\end{document}
