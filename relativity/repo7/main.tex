@@ -1,0 +1,84 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{相対性理論 レポートNo.7}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{Q59.}
+\begin{align}
+  W=c\sqrt{m^2c^2+|p|^2}=mc^2\sqrt{1+\frac{|p|^2}{m^2c^2}}
+\end{align}
+ここで$|p|/mc\ll 1$であるならば2次まで展開すると
+\begin{align}
+  W\simeq mc^2(1+\frac{|p|^2}{2m^2c^2})=mc^2+\frac{|p|^2}{2m}
+\end{align}
+となる.
+\subsubsection*{Q62.}
+Lagrangian $L_0$は
+\begin{align}
+  L_0=-\sum_i m_ic^2\sqrt{1-\left|\frac{v(i)}{c}\right|^2}
+\end{align}
+であったのでHamiltonian $H_0$は
+\begin{align}
+  \begin{split}
+    H_0&=\sum_ip_k(i)v^k(i)+\sum_im_ic^2\sqrt{1-\left|\frac{v(i)}{c}\right|^2}\\
+    &=\sum_ip_k(i)v^k(i)+m_ic^2\sqrt{1-\left|\frac{v(i)}{c}\right|^2}
+  \end{split}
+\end{align}
+となり,各$i$について計算すれば十分である.
+$i$に関するHamiltonianを$H_0(i)$とすると
+\begin{align}
+  \begin{split}
+    H_0(i)&=p_kv^k+mc^2\sqrt{1-\left|\frac{v}{c}\right|^2}\\
+    &=c\left(\frac{p^2}{mc}+mc\right)\sqrt{1-\left|\frac{v}{c}\right|^2}
+  \end{split}
+\end{align}
+ここでQ61.の結果を用いると
+\begin{align}
+  \begin{split}
+    H_0(i)&=c\left(\frac{p^2}{mc}+mc\right)\frac{mc}{\sqrt{p^2+m^2c^2}}\\
+    &=c\sqrt{p^2+m^2c^2}
+  \end{split}
+\end{align}
+以上から
+\begin{align}
+  H_0=\sum_iH_0(i)=\sum_ic\sqrt{p^2+m^2c^2}
+\end{align}
+\end{document}
