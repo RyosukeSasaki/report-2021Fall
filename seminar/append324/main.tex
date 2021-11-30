@@ -1,0 +1,52 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\subsection*{3.2.5 補足}
+元の問題
+\begin{align}
+  {\bm S}\cdot\hat{\bm n}|\alpha\rangle=\frac{\hbar}{2}|\alpha\rangle
+\end{align}
+はスピン1/2が$\hat{\bm n}$の方向を向いている固有状態$|\alpha\rangle$を求めることにほかならない.
+したがってこの問題を行列表現した
+\begin{align}
+  {\bm \sigma}\cdot\hat{\bm n}\chi=\chi
+\end{align}
+においても$\chi$は$\hat{\bm n}$を向いているべきである.したがって$\chi$は教科書(2.52)の方法で求まる.
+\bibliography{ref.bib}
+\end{document}
