@@ -1,0 +1,102 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{セキュリティ総論D レポートNo.2}
+\author{慶應義塾大学 61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsection*{事案}
+株式会社ヴァンドームヤマダが運営するECサイト
+「ヴァンドームジュエリーオンラインストア」が何者かによる不正アクセス攻撃を受け,
+ECサイト利用者のクレジットカード番号,有効期限,
+カード名義人,セキュリティコードなどのクレジットカード情報2715点が流出した可能性がある.
+攻撃はECサイトに内在する脆弱性を利用しサーバー内に不正ファイルを設置,
+アプリケーションを改竄することで行われた.
+この攻撃によりECサイト利用者の個人情報が格納されたディレクトリが外部からアクセス可能な状態になっていた.\cite{vendome:online}
+\subsection*{問題点}
+当事案ではECサイトに内在する脆弱性を利用しサーバーに対して不正な指令を与え攻撃を行ったことから可用性の問題があると言える.
+同時に,本来秘匿されるべきクレジットカード情報を不正に流出したことによる機密性に対する問題があると言える.
+\subsection*{法令}
+\subsubsection*{不正指令電磁的記録作成等(刑法168条の2)}
+不正指令電磁的記録作成等は
+\begin{enumerate}
+  \item 正当な理由がないのに
+  \item 人の電子計算機における実行の用に供する目的で
+  \item (168条の2)第1号又は第2号に掲げる電磁的記録その他の記録を
+  \item 作成,または提供した 
+\end{enumerate}
+場合に成立するものである.\cite{5461726F7:online}
+ここでECサイトに内在する脆弱性はシステムのバグに当たるものであり,これは不正指令電磁的記録には当たらない.\cite{5461726F7:online}
+一方で攻撃者は脆弱性を利用してサーバー内にスパイウェアのようなものを正当な理由なく挿入,実行したことから1, 2, 4については明らかに成り立っている.
+また168条の2第1号では「人が電子計算機を使用するに際してその意図に沿うべき動作をさせず,又はその意図に反する動作をさせるべき不正な指令を与える電磁的記録」
+とあり,カード情報を不正に流出させることは意図に沿った動作ではないので,
+3も同様に成り立っている.以上からこの事案では168条の2が成立すると考えられる.
+\subsubsection*{電子計算機損壊等業務妨害罪(刑法234条の2)}
+電子計算機損壊等業務妨害罪の構成要件は
+\begin{enumerate}
+  \item 電子計算機に向けた加害行為
+  \item 電子計算機の動作阻害
+  \item 業務妨害
+\end{enumerate}
+の3つであり,これらが故意で貫かれていることである.\cite{IPAwagakuni:online}
+1について,これは「電子計算機に虚偽の情報もしくは不正の指令を与える」等が該当する.\cite{IPAwagakuni:online}
+等事案ではサーバーにスパイウェアを挿入していることから,明らかに成り立っている.
+2について「『他人のパスワードを用いて,データベースの情報を不正に入手すること,あるいは
+他人の電子計算機を無断で使用することなどは,電子計算機による情報の提供ということ自体
+は行われており,業務遂行の外形的妨害は生じていない』として『使用目的に反する動作をさ
+せて業務を妨害したことにはならない』と記述されており,動作の効率の低下・若干の混乱を
+『動作阻害』とは,いえないものと考えられる.」\cite{IPAwagakuni:online}とあり,
+当事案においても業務遂行の外形的妨害は生じていないと考えられる.
+したがって当事案においては234条の2は成立しないと考えられる.
+\subsubsection*{不正アクセス行為の禁止等に関する法律(不正アクセス禁止法)}
+不正アクセス禁止法2条4項では不正アクセス行為は以下のように定義される.\cite{1kaisets92:online}
+\begin{enumerate}
+  \item 他人の識別符号を悪用することにより,アクセス制御機能により制限された特定電子計算機の機能を利用しうる状態にする行為
+  \item いわゆるセキュリティホールを攻撃し,アクセス制御機能により制限された特定電子計算機の機能を利用しうる状態にする行為
+\end{enumerate}
+ここで特定電子計算機とは何らかのネットワークに接続された電子計算機のことであり,
+アクセス制御機能とは特定電子計算機のある機能の利用を識別符号などを用いて制限する機能である.
+当事案においてECサイトに内在する脆弱性を攻撃したことにより,
+本来アクセスが制限されているディレクトリやアプリケーションに介入した.
+したがって2条4項2号の不正アクセスに該当し,当事案は不正アクセス禁止法に該当すると考えられる.
+\subsection*{私法／行政法／刑事法のうちいずれの側面が問題となっているのか}
+前節で検討した通り,当事案では刑法168条の2と不正アクセス行為の禁止等に関する法律に抵触しており,
+いずれも刑事法であるから刑事法の側面が問題になっていると言える.
+\bibliography{ref.bib}
+\end{document}
