@@ -1,0 +1,106 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{物性物理学 No.8}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{(1)}
+\begin{align}
+  \begin{split}
+    N&=\int_0^{E_F}D(E){\rm d}E\\
+    &=\int_0^{E_F}C\sqrt{E}{\rm d}E\\
+    &=\frac{2}{3}CE^{3/2}=\frac{2}{3}D(E_F)E_F
+  \end{split}
+\end{align}
+より
+\begin{align}
+  D(E_F)=\frac{3}{2}\frac{N}{E_F}
+\end{align}
+\subsubsection*{(2)}
+商の微分則から
+\begin{align}
+  \begin{split}
+    \frac{{\rm d}f(E)}{{\rm d}E}&=\frac{0-1\cdot{\rm e}^{(E-E_F)\beta}}{({\rm e}^{(E-E_F)\beta}+1)^2}\frac{{\rm d}}{{\rm d}E}(E-E_F)\beta\\
+    &=\frac{-{\rm e}^{(E-E_F)\beta}}{({\rm e}^{(E-E_F)\beta}+1)^2}\beta
+  \end{split}
+\end{align}
+したがって
+\begin{align}
+  \frac{{\rm d}f(E_F)}{{\rm d}E}=\frac{-1}{(1+1)^2}\beta=-\frac{1}{4k_BT}
+\end{align}
+\subsubsection*{(3)}
+図\ref{fig:fig1.png}のように$f(E)$を直線で近似するならば,前問から三角形の底辺は$2k_BT$高さは$1/2$となる.
+電子の状態密度が一定であるならば,温度変化に伴い高いエネルギー状態に遷移した電子数は
+\begin{align}
+  D(E_F)\times(三角形の面積)=D(E_F)\times\frac{1}{2}2k_BT\times\frac{1}{2}=\frac{1}{2}D(E_F)k_BT
+\end{align}
+また遷移した電子の平均エネルギーを三角形の重心におけるエネルギーで近似するならば,
+重心の$E$座標は$E_F\pm2/3k_BT$なのでエネルギーの増加分$\Delta U$は
+\begin{align}
+  \Delta U=\frac{1}{2}D(E_F)k_BT\times\frac{4}{3}k_BT=\frac{2}{3}(k_BT)^2D(E_F)
+\end{align}
+ここで問(1)の結果を用いれば
+\begin{align}
+  \Delta U=\frac{2}{3}(k_BT)^2\frac{3}{2}\frac{N}{E_F}
+\end{align}
+ここで$E_F=k_BT_F$なので
+\begin{align}
+  \Delta U=\frac{3}{2}k_BN\left(\frac{2}{3}\frac{T^2}{T_F}\right)
+\end{align}
+\mfig[width=8cm]{fig1.png}{直線による近似}
+\subsubsection*{(4)}
+よって電子ガスの全エネルギー$U$は
+\begin{align}
+  U=U_0+\Delta U
+\end{align}
+となる.ここで$U_0$は温度変化によって変化しない分である.
+したがって定積比熱は
+\begin{align}
+  \begin{split}
+    C_V&=\frac{{\rm d}U}{{\rm d}T}=\frac{{\rm d}\Delta U}{{\rm d}T}\\
+    &=\frac{3}{2}k_BN\left(\frac{4}{3}\frac{T}{T_F}\right)
+  \end{split}
+\end{align}
+となりSommerfeld展開の帰結と係数を除いて一致する.
+\subsubsection*{(5)}
+$T_F\simeq10^4\ \si{\kelvin}$に対して$T$は室温程度では$10^2\ \si{\kelvin}$程度になる.
+すなわち古典理想気体に対して電子比熱は非常に小さいことがわかる.
+また古典理想気体の比熱にはない温度依存性が現れている.
+\end{document}
