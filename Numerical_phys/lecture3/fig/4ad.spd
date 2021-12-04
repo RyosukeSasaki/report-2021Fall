@@ -1,0 +1,9 @@
+:terminal 開始
+宣言
+n1max = int(0.05d0/dt/dble(nmax))
+:while n=0,nmax
+	t = dt*n1max*n
+	xav = -0.5d0 + k0 * t
+	xs = sigma**2d0 +t**2d0 / 4d0 / sigma**2d0
+	出力
+:terminal 終了

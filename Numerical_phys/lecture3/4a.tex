@@ -1,0 +1,58 @@
+\subsection*{4-A.(e), (f)}
+\subsubsection*{プログラムについて}
+プログラムは基本的に教材として配布されたwave.f90を用いている.
+ただし標準入力によるデータ入力は使い勝手が悪かったため,定数はソースコードにベタ書きへ変更した
+変更したソースコードはソースコードに示す.また厳密解を出力するプログラムのPAD図は図のようになる.
+そのソースコードはソースコードである.
+\mfig[width=8cm]{fig/4ad.png}{厳密解の出力プログラムのPAD図}
+\subsubsection*{結果}
+表\ref{tab:4aef_cond}に計算条件を示す.ここで$dt$は数値解の安定性条件が最も厳しくなる条件3で安定となるように定めた.
+図\ref{fig:graph/4ae1.tex},図\ref{fig:graph/4ae2.tex}に各条件での$\langle x\rangle$, $\langle (x-\langle x\rangle)^2\rangle$の数値解及び厳密解を示す.
+また図\ref{fig:graph/4af1.tex},図\ref{fig:graph/4af2.tex}に$t=0.05$での$\Delta x^2$対$\langle x\rangle$, $\langle (x-\langle x\rangle)^2\rangle$
+の数値解及び厳密解のグラフを示す.
+\begin{table}[h]
+\caption{}
+\label{tab:4aef_cond}
+\centering
+\begin{tabular}{cccccc}
+\hline
+条件&$\Delta x$&$dt$&$\sigma$&$k_0$&$L$\\
+\hline \hline
+1&$1/64 $&$1.0\times 10^{-5}$&0.1&20&4\\
+2&$1/128$&〃&〃&〃&〃\\
+3&$1/256$&〃&〃&〃&〃\\
+\hline
+\end{tabular}
+\end{table}
+\gnu{$\langle x\rangle$の数値解と厳密解}{graph/4ae1.tex}
+\gnu{$\langle (x-\langle x\rangle)^2\rangle$の数値解と厳密解}{graph/4ae2.tex}
+\gnu{$\Delta x^2$対$\langle x\rangle$}{graph/4af1.tex}
+\gnu{$\Delta x^2$対$\langle (x-\langle x\rangle)^2\rangle$}{graph/4af2.tex}
+\newpage
+\subsubsection*{考察}
+Gauss波束の期待値,分散の厳密解は
+\begin{align}
+  \langle x\rangle=x_0+k_0t\\
+  \langle (x-\langle x\rangle)^2\rangle=\sigma^2\left(1+\frac{t^2}{4\sigma^4}\right)
+\end{align}
+であった.図\ref{fig:graph/4ae1.tex},図\ref{fig:graph/4ae2.tex}から
+期待値と分散がそれぞれ線形,二次曲線的な振る舞いをしていることがわかる.
+また$\Delta x$が小さくなるほど数値解が厳密解に近づいていることもわかる.
+
+また図\ref{fig:graph/4af1.tex}と図\ref{fig:graph/4af2.tex}を見ると数値解の誤差が$\Delta x^2$
+に比例している様子がわかる.また数値解と$\Delta x^2$の関係はそれぞれ最小二乗法により
+\begin{align}
+  y=-7.856\times10^3x+0.5000\\
+  y=-2.541\times10^3x+0.07247
+\end{align}
+となったので$\Delta x\rightarrow 0$での期待値と分散は
+\begin{align}
+  \langle x\rangle=0.5000\\
+  \langle (x-\langle x\rangle)^2\rangle=0.07247
+\end{align}
+となる.一方で厳密解から得られる期待値と分散は
+\begin{align}
+  \langle x\rangle=-0.5+20\times0.05=0.5\\
+  \langle (x-\langle x\rangle)^2\rangle=0.1^2\left(1+\frac{0.05^2}{4\times0.1^4}\right)=7.25\times10^{-2}
+\end{align}
+となり,それぞれ相対誤差は$0.000\ \%$, $4.138\times10^{-2}\ \%$となり,良く一致していることがわかる.
