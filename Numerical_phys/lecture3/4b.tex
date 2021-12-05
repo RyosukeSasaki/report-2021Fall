@@ -1,0 +1,73 @@
+\subsection*{4-B.}
+\subsubsection*{プログラムについて}
+ソースコードをソースコードに示す.
+またプログラムのPAD図は図\ref{fig:fig/4ba.png}に示す.
+ポテンシャルを含む離散Schr\"{o}dinger方程式は以下のようになる.
+\begin{align}
+  i\frac{\partial\psi_j}{\partial t}=-\frac{1}{2\Delta x^2}(\psi_{j+1}-2\psi_j+\psi_{j-1})+V\psi_j
+\end{align}
+ここでは配布されたwave.xを元にポテンシャルの導入に加えて抽象化を行い可読性を向上した.
+ポテンシャルは図のような形状のポテンシャルである.
+これをPAD図のポテンシャル生成部で離散化し,配列$V(j)$に格納している.
+また$k_0$, $\sigma$, $\Delta x$などの定数はソースコードに示したmoduleを用いて入力している.
+これによって透過率や反射率の計算を定数のすべての組み合わせについて総当り的に計算できるようになっている.
+
+Runge-Kutta法は第2回の授業で実装したRunge-Kutta関数を複素数型に拡張した関数を用いている.
+Runge-Kutta関数のソースコードはソースコードに示す.
+\mfig[width=12cm]{fig/4ba.png}{4-BのPAD図}
+\subsubsection*{結果}
+表\ref{tab:4ad_cond}に計算条件を示す.
+ここで$dt$は4-A.と同様に数値解の安定性条件を満たしている.
+表\ref{tab:4ad_res}に各条件での$P_{\rm left}$(反射率), $P_{\rm center}$, $P_{\rm right}$(透過率)及び全確率$P=P_{\rm left}+P_{\rm center}+P_{\rm right}$を示す.
+また図\ref{fig:graph/4ba2.tex},図\ref{fig:graph/4ba1.tex}に$\Delta x^2$対$P_{\rm left}$, $P_{\rm right}$のグラフを示す.
+\begin{table}[h]
+  \caption{計算条件}
+  \label{tab:4ad_cond}
+  \centering
+  \begin{tabular}{ccccccc}
+  \hline
+  条件&$\Delta x$&$dt$&$\sigma$&$k_0$&$L$&$x_0$\\
+  \hline \hline
+  1&$1/64 $&$1.0\times 10^{-5}$&0.6&30&5&$-2.5$\\
+  2&$1/96$&〃&〃&〃&〃&〃\\
+  3&$1/128$&〃&〃&〃&〃&〃\\
+  4&$1/160$&〃&〃&〃&〃&〃\\
+  5&$1/192$&〃&〃&〃&〃&〃\\
+  6&$1/224$&〃&〃&〃&〃&〃\\
+  7&$1/256$&〃&〃&〃&〃&〃\\
+  \hline
+  \end{tabular}
+\end{table}
+\begin{table}[h]
+  \caption{計算結果}
+  \label{tab:4ad_res}
+  \centering
+  \begin{tabular}{ccccc}
+  \hline
+  $\Delta x$&$P_{\rm left}$&$P_{\rm center}$&$P_{\rm right}$&$P$\\
+  \hline \hline
+  $1/64 $&$0.6671$&$0.01957$&$0.3132$&$1.000$\\
+  $1/96 $&$0.6672$&$0.01772$&$0.3149$&$1.000$\\
+  $1/128$&$0.6663$&$0.01856$&$0.3150$&$1.000$\\
+  $1/160$&$0.6657$&$0.01715$&$0.3170$&$1.000$\\
+  $1/192$&$0.6653$&$0.01621$&$0.3183$&$1.000$\\
+  $1/224$&$0.6650$&$0.01553$&$0.3192$&$1.000$\\
+  $1/256$&$0.6649$&$0.01489$&$0.3199$&$1.000$\\
+  \hline
+  \end{tabular}
+\end{table}
+\gnu{$\Delta x^2$対反射率}{graph/4ba2.tex}
+\gnu{$\Delta x^2$対透過率}{graph/4ba1.tex}
+\subsubsection*{考察}
+図\ref{fig:graph/4ba2.tex},図\ref{fig:graph/4ba1.tex}より,反射率,透過率は
+最小二乗法より$\Delta x^2$に対して以下のような線形関係になっている.
+\begin{align}
+  P_{\rm left}=2.500\times10^{-3}z+0.6647\\
+  P_{\rm right}=-1.061\times 10^2x+0.3214
+\end{align}
+よって$\Delta x\rightarrow 0$においては
+\begin{align}
+  P_{\rm left}\rightarrow 0.6647\\
+  P_{\rm right}\rightarrow 0.3214
+\end{align}
+となることがわかる.

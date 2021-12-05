@@ -1,9 +1,11 @@
 \subsection*{4-A.(e), (f)}
 \subsubsection*{プログラムについて}
 プログラムは基本的に教材として配布されたwave.f90を用いている.
-ただし標準入力によるデータ入力は使い勝手が悪かったため,定数はソースコードにベタ書きへ変更した
-変更したソースコードはソースコードに示す.また厳密解を出力するプログラムのPAD図は図のようになる.
-そのソースコードはソースコードである.
+ただし標準入力によるデータ入力は使い勝手が悪かったため,
+定数はソースコードにベタ書きへ変更した
+変更した.ソースコードはソースコード\ref{src4a}に示す.
+また厳密解を出力するプログラムのPAD図は図\ref{fig:fig/4ad.png}のようになる.
+そのソースコードはソースコード\ref{src4ad}である.
 \mfig[width=8cm]{fig/4ad.png}{厳密解の出力プログラムのPAD図}
 \subsubsection*{結果}
 表\ref{tab:4aef_cond}に計算条件を示す.ここで$dt$は数値解の安定性条件が最も厳しくなる条件3で安定となるように定めた.
@@ -11,18 +13,18 @@
 また図\ref{fig:graph/4af1.tex},図\ref{fig:graph/4af2.tex}に$t=0.05$での$\Delta x^2$対$\langle x\rangle$, $\langle (x-\langle x\rangle)^2\rangle$
 の数値解及び厳密解のグラフを示す.
 \begin{table}[h]
-\caption{}
-\label{tab:4aef_cond}
-\centering
-\begin{tabular}{cccccc}
-\hline
-条件&$\Delta x$&$dt$&$\sigma$&$k_0$&$L$\\
-\hline \hline
-1&$1/64 $&$1.0\times 10^{-5}$&0.1&20&4\\
-2&$1/128$&〃&〃&〃&〃\\
-3&$1/256$&〃&〃&〃&〃\\
-\hline
-\end{tabular}
+  \caption{計算条件}
+  \label{tab:4aef_cond}
+  \centering
+  \begin{tabular}{ccccccc}
+  \hline
+  条件&$\Delta x$&$dt$&$\sigma$&$k_0$&$L$&$x_0$\\
+  \hline \hline
+  1&$1/64 $&$1.0\times 10^{-5}$&0.1&20&4&$-0.5$\\
+  2&$1/128$&〃&〃&〃&〃&〃\\
+  3&$1/256$&〃&〃&〃&〃&〃\\
+  \hline
+  \end{tabular}
 \end{table}
 \gnu{$\langle x\rangle$の数値解と厳密解}{graph/4ae1.tex}
 \gnu{$\langle (x-\langle x\rangle)^2\rangle$の数値解と厳密解}{graph/4ae2.tex}
@@ -56,3 +58,32 @@ Gauss波束の期待値,分散の厳密解は
   \langle (x-\langle x\rangle)^2\rangle=0.1^2\left(1+\frac{0.05^2}{4\times0.1^4}\right)=7.25\times10^{-2}
 \end{align}
 となり,それぞれ相対誤差は$0.000\ \%$, $4.138\times10^{-2}\ \%$となり,良く一致していることがわかる.
+\newpage
+\subsection*{4-A.追加問題}
+\subsubsection*{プログラムについて}
+基本的には前問のプログラムを流用しているが,出力部をソースコード\ref{src4aADD}のように変更し
+各離散点における$|\psi(x)|^2$, ${\rm Re}(\psi(x))$, ${\rm Im}(\psi(x))$を出力するようにした.
+また出力も$t=0$と$t=0.05$でのみ行うように変更した.
+\begin{lstlisting}[caption=出力部の改変,label=src4aADD]
+  do j=1, jmax+1
+    write(*,'(4e18.8e3)') x(j), r(j), real(cp(j)), aimag(cp(j))
+  end do
+\end{lstlisting}
+\subsubsection*{結果}
+図\ref{fig:graph/out/4aADD1.pdf},図\ref{fig:graph/out/4aADD2.pdf}に$t=0$と$t=0.05$におけるグラフを示す.
+計算条件は表\ref{tab:4aef_cond}の条件3と同等である.
+それぞれ高さ方向に実軸,奥行き方向に虚軸を取っている.
+\mfig[width=12cm]{graph/out/4aADD1.pdf}{$t=0$での波形}
+\mfig[width=12cm]{graph/out/4aADD2.pdf}{$t=0.05$での波形}
+\subsubsection*{考察}
+図\ref{fig:graph/out/4aADD1.pdf},図\ref{fig:graph/out/4aADD2.pdf}から時間発展に伴って
+波束が進行しながら,広がり鈍くなっていることがわかる.
+これは(1), (2)式において期待値が時間とともに進行し,分散が広がることと整合する.
+
+このことはGauss波束をFourier変換することで様々な波数$k$を持った平面波に展開できることから説明できる.
+平面波の位相速度は
+\begin{align}
+  v_k=\frac{\hbar k}{m}
+\end{align}
+であり,波数ごとに異なった位相速度を持つことがわかる.これにより時間発展と共に波数の大きい成分と小さい成分が
+空間的に分離することによってGauss波束の広がりが大きくなる.

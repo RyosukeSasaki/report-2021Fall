@@ -1,0 +1,213 @@
+\appendix
+\def\thesection{補遺\Alph{section}}
+\renewcommand*{\thelstlisting}{\Alph{section}.\arabic{lstlisting}}
+\section{ソースコード}
+\begin{lstlisting}[caption=4-Aのソースコード,label=src4a]
+program wave
+  !=======================================================-
+  !  sengen
+  !=======================================================-
+  implicit none
+  integer,parameter:: idim=4097
+  real(kind=8)::  a(4), b(4), r(idim), x(idim)
+  complex(kind=8)::  cp(idim), cs(idim), cps(idim), cdp(idim)
+  !
+  integer:: iok,jmax,nmax,n1max,j,n,n1,m
+  real(kind=8):: rl,sig,rk,x0,dt,dx,w,xj,sum,rnf,xav,xs
+  complex(kind=8):: ci
+  !=======================================================-
+  !  nyuuryoku
+  !=======================================================-
+  Nmax = 100
+  rl = 4d0
+  sig = 0.1d0
+  rk = 20d0
+  x0 = -0.5d0
+  jmax = 2*int(rl)*256
+  dt = 1d0*10d0**(-5d0)
+  n1max = int(0.05d0/dt/dble(nmax))
+  write(*,'(''# Jmax  = '',i12)') jmax
+  write(*,'(''# Nmax  = '',i12)') nmax
+  write(*,'(''# N1max = '',i12)') n1max
+  write(*,'(''# L     = '',e18.8e3)') rl
+  write(*,'(''# sig   = '',e18.8e3)') sig
+  write(*,'(''# k0    = '',e18.8e3)') rk
+  write(*,'(''# x0    = '',e18.8e3)') x0
+  write(*,'(''# dt    = '',e18.8e3)') dt
+  !=======================================================-
+  ! junbi
+  !=======================================================-
+  a(1)=0.0d0
+  a(2)=0.5d0
+  a(3)=0.5d0
+  a(4)=1.0d0
+  b(1)=1.0d0/6.0d0
+  b(2)=1.0d0/3.0d0
+  b(3)=1.0d0/3.0d0
+  b(4)=1.0d0/6.0d0
+  dx=2.0d0*rl/dble(jmax)
+  w =0.5d0/dx**2
+  ci=(0.0d0,1.0d0)
+  do j=1,jmax+1
+    x(j)=dx*dble(j-1)-rl
+  enddo
+  !=======================================================-
+  ! shoki-jooken
+  !=======================================================-
+  sum=0.0d0
+  do j=2,jmax
+    xj=x(j)
+    cp(j)=cdexp(ci*rk*xj-((xj-x0)/(2.0d0*sig))**2)
+    sum=sum+cp(j)*dconjg(cp(j))
+  enddo
+  cp(1)     =(0.d0,0.d0)
+  cp(jmax+1)=(0.d0,0.d0)
+  rnf=1.0d0/dsqrt(sum*dx)
+  do j=2,jmax
+    cp(j)=rnf*cp(j)
+  enddo
+  !
+  n=0
+  write(*,'( ''#''/ ''# time'',12x,''  <x> '',12x, ''  <(x-<x>)**2>'' )')
+  !=======================================================-
+  ! shuukei
+  !=======================================================-
+  ! r=:|psi|^2, cp=:psi
+  do j=2,jmax
+    r(j)=cp(j)*dconjg(cp(j))
+  enddo
+  ! mean x
+  xav=0.0d0
+  do j=2,jmax
+    xav=xav+x(j)*r(j)*dx
+  enddo
+  ! variance x
+  xs=0.0d0
+  do j=2,jmax
+    xs=xs+((x(j)-xav)**2)*r(j)*dx
+  enddo
+  write(*,'(3e18.8e3)') dt*n1max*n,xav,xs
+  !
+  cdp(:)=0.0d0
+  !=======================================================-
+  do n=1,Nmax
+    do n1=1,N1max
+      !==============================================-
+      ! 1 step sekibun
+      !==============================================-
+      do j=2,jmax
+        cs(j)=(0.0d0,0.0d0)
+      enddo
+      do m=1,4
+        do j=2,jmax
+          cps(j)=cp(j)+a(m)*cdp(j)
+        enddo
+        do j=2,jmax
+          cdp(j)=(cps(j+1)-2.0d0*cps(j)+cps(j-1))*w*ci*dt
+        enddo
+        do j=2,jmax
+          cs(j)=cs(j)+b(m)*cdp(j)
+        enddo
+      enddo
+      do j=2,jmax
+        cp(j)=cp(j)+cs(j)
+      enddo
+    enddo
+    !=======================================================-
+    ! shuukei
+    !=======================================================-
+    do j=2,jmax
+      r(j)=cp(j)*dconjg(cp(j))
+    enddo
+    xav=0.0d0
+    do j=2,jmax
+      xav=xav+x(j)*r(j)*dx
+    enddo
+    xs=0.0d0
+    do j=2,jmax
+      xs=xs+((x(j)-xav)**2)*r(j)*dx
+    enddo
+    write(*,'(3e18.8e3)') dt*n1max*n,xav,xs
+  enddo
+end program wave
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption=厳密解の計算プログラム,label=src4ad]
+program main
+  implicit none
+  DOUBLE PRECISION, PARAMETER :: dt = 1d0*10d0**(-5d0)
+  DOUBLE PRECISION, PARAMETER :: x0 = -0.5d0, k0 = 20d0, sigma=0.1d0
+  DOUBLE PRECISION :: xav, xs, t
+  INTEGER, PARAMETER :: nmax = 100
+  INTEGER :: n1max = int(0.05d0/dt/dble(nmax)), n
+  write(*,'( ''#''/ ''# time'',12x,''  <x> '',12x, ''  <(x-<x>)**2>'' )')
+  do n=0,nmax
+    t = dt*n1max*n
+    xav = -0.5d0 + k0 * t
+    xs = sigma**2d0 +t**2d0 / 4d0 / sigma**2d0
+    write(*,'(3e18.8e3)') t,xav,xs
+  end do
+end program main
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption=Runge-Kutta関数のソースコード,label=srcRK4]
+module differential
+  implicit none
+    
+  contains
+  !runge_kutta の計算を 1 ステップ進める
+  !arg: 微分方程式; n: 連立する数; init: 初期値; t_begin: 計算開始; t_end: 計算終了; tau: 刻み幅;
+  !const: 定数(optional); boundary: 境界条件(optional)
+  function runge_kutta(arg, n, init, t_begin, tau, const, boundary)
+    implicit none
+    interface
+      ! 微分方程式
+      function arg(t, x, n, const)
+        INTEGER, INTENT(IN) :: n
+        DOUBLE PRECISION :: arg(n)
+        DOUBLE PRECISION, INTENT(IN) :: x(:), t
+        DOUBLE PRECISION, OPTIONAL :: const(:)
+      end function arg
+      ! 境界条件の計算関数
+      function boundary(x, n)
+        implicit none
+        INTEGER, INTENT(IN) :: n
+        DOUBLE PRECISION, INTENT(IN) :: x(:)
+        DOUBLE PRECISION, OPTIONAL :: boundary(n)
+      end function boundary
+    end interface
+    INTEGER :: i
+    ! 段数
+    INTEGER, PARAMETER :: order = 4
+    INTEGER, INTENT(IN) :: n
+    DOUBLE PRECISION, INTENT(in) :: init(:), tau
+    DOUBLE PRECISION, INTENT(INOUT) :: t_begin
+    DOUBLE PRECISION :: runge_kutta(n), x(n), t, s(n), delta(n)
+    DOUBLE PRECISION, OPTIONAL :: const(:)
+    DOUBLE PRECISION :: a(order), b(order)
+    a(1)=0d0; a(2)=0.5d0; a(3)=0.5d0; a(4)=1d0
+    b(1)=1d0/6d0; b(2)=1d0/3d0; b(3)=1d0/3d0; b(4)=1d0/6d0
+    x(:) = init(:)
+    t = t_begin
+
+    s = 0; delta = 0
+    do i = 1, order
+      ! optional の定数が与えられている場合はそれを含む計算を実行
+      if (PRESENT(const)) then 
+        delta(:) = arg(t+a(i)*tau, x(:) + a(i) * delta, n, const)*tau
+      else
+        delta(:) = arg(t+a(i)*tau, x(:) + a(i) * delta, n)*tau
+      end if
+      s(:) = s(:) + b(i) * delta(:)
+    end do
+    x(:) = x(:) + s(:)
+    t = t + tau
+    t_begin = t
+    ! optional の境界条件が与えられている場合はそれを考慮
+    if (PRESENT(boundary)) then
+      x(:) = boundary(x, n)
+    end if
+    runge_kutta(:) = x(:)
+  end function runge_kutta
+end module differential
+\end{lstlisting}

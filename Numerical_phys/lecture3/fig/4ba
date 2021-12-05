@@ -1,0 +1,24 @@
+:terminal 開始
+
+:while p=1,7
+	jmax = 2*int(L)*x_division(p)
+	:comment ⊿xの変更			x(j)の生成
+	:call ポテンシャルの生成
+		:while j=1,jmax
+			:switch 条件
+			:case abs(x(j)-x1)<eps
+				V(j)=0.5*V0
+			:case abs(x(j)-x2)<eps
+				V(j)=0.5*V0
+			:case x1<x(j)<x2
+				V(j)=V0
+			:case else
+				V(j)=0
+	初期条件の生成
+	:call 時間発展
+		:while n=1,nmax
+			cp = runge_kutta(f, idim, cp, t, dt)
+			:comment fは微分方程式の右辺
+	出力
+
+:terminal 終了
