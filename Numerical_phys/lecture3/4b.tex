@@ -1,19 +1,20 @@
 \subsection*{4-B.}
 \subsubsection*{プログラムについて}
-ソースコードをソースコードに示す.
+ソースコードをソースコード\ref{src4b}に示す.
 またプログラムのPAD図は図\ref{fig:fig/4ba.png}に示す.
 ポテンシャルを含む離散Schr\"{o}dinger方程式は以下のようになる.
 \begin{align}
   i\frac{\partial\psi_j}{\partial t}=-\frac{1}{2\Delta x^2}(\psi_{j+1}-2\psi_j+\psi_{j-1})+V\psi_j
 \end{align}
 ここでは配布されたwave.xを元にポテンシャルの導入に加えて抽象化を行い可読性を向上した.
-ポテンシャルは図のような形状のポテンシャルである.
+ポテンシャルは図\ref{fig:fig/potential.png}のような形状のポテンシャルである.
 これをPAD図のポテンシャル生成部で離散化し,配列$V(j)$に格納している.
-また$k_0$, $\sigma$, $\Delta x$などの定数はソースコードに示したmoduleを用いて入力している.
+また$k_0$, $\sigma$, $\Delta x$などの定数はソースコード\ref{srcConsts}に示したmoduleを用いて入力している.
 これによって透過率や反射率の計算を定数のすべての組み合わせについて総当り的に計算できるようになっている.
 
 Runge-Kutta法は第2回の授業で実装したRunge-Kutta関数を複素数型に拡張した関数を用いている.
-Runge-Kutta関数のソースコードはソースコードに示す.
+Runge-Kutta関数のソースコードはソースコード\ref{srcRK4}に示す.
+\mfig[width=6cm]{fig/potential.png}{ポテンシャルの形状}
 \mfig[width=12cm]{fig/4ba.png}{4-BのPAD図}
 \subsubsection*{結果}
 表\ref{tab:4ad_cond}に計算条件を示す.
@@ -24,17 +25,17 @@ Runge-Kutta関数のソースコードはソースコードに示す.
   \caption{計算条件}
   \label{tab:4ad_cond}
   \centering
-  \begin{tabular}{ccccccc}
+  \begin{tabular}{cccccccccc}
   \hline
-  条件&$\Delta x$&$dt$&$\sigma$&$k_0$&$L$&$x_0$\\
+  条件&$\Delta x$&$dt$&$\sigma$&$k_0$&$L$&$x_0$&$x_1$&$x_2$&$V_0$\\
   \hline \hline
-  1&$1/64 $&$1.0\times 10^{-5}$&0.6&30&5&$-2.5$\\
-  2&$1/96$&〃&〃&〃&〃&〃\\
-  3&$1/128$&〃&〃&〃&〃&〃\\
-  4&$1/160$&〃&〃&〃&〃&〃\\
-  5&$1/192$&〃&〃&〃&〃&〃\\
-  6&$1/224$&〃&〃&〃&〃&〃\\
-  7&$1/256$&〃&〃&〃&〃&〃\\
+  1&$1/64 $&$1.0\times 10^{-5}$&0.6&30&5&$-2.5$&0&1&800\\
+  2&$1/96 $&〃&〃&〃&〃&〃&〃&〃&〃\\
+  3&$1/128$&〃&〃&〃&〃&〃&〃&〃&〃\\
+  4&$1/160$&〃&〃&〃&〃&〃&〃&〃&〃\\
+  5&$1/192$&〃&〃&〃&〃&〃&〃&〃&〃\\
+  6&$1/224$&〃&〃&〃&〃&〃&〃&〃&〃\\
+  7&$1/256$&〃&〃&〃&〃&〃&〃&〃&〃\\
   \hline
   \end{tabular}
 \end{table}
