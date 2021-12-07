@@ -1,0 +1,79 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{相対性理論 レポートNo.8}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsection*{Q65.}
+\subsubsection*{(1)}
+非相対論的な極限で問題の系は以下のように座標変換される.
+\begin{align}
+  \begin{cases}
+    \begin{split}
+      x&=x'\\
+      z&=z'+h-\frac{1}{2}\alpha t^2\\
+      t&=t'
+    \end{split}
+  \end{cases}
+\end{align}
+\subsubsection*{(2)}
+$\{x'^\mu\}$は無重力系であり,一般相対性原理から慣性系とみなせる.
+したがって$\{x'^\mu\}$での光線の軌跡は
+\begin{align}
+  (x',z')=(ct',a)
+\end{align}
+となる.
+\subsubsection*{(3)}
+(1)の座標変換に基づき(3)の結果を$\{x^\mu\}$系に変換すると
+\begin{align}
+  (x,z)=(ct, a+h-\frac{1}{2}\alpha t^2)
+\end{align}
+\subsubsection*{(4)}
+(3)の結果から$t$を削除する.すなわち
+\begin{align}
+  t&=\frac{x}{c}\\
+  z&=a+h-\frac{1}{2}\alpha t^2
+\end{align}
+より
+\begin{align}
+  z=a+h-\frac{1}{2}\alpha\left(\frac{x}{c}\right)^2
+\end{align}
+となる.このことから地上の座標系においては光線が湾曲することがわかる.
+\end{document}
