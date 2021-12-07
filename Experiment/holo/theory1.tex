@@ -20,3 +20,184 @@
 \end{description}
 これらの特徴を用いてホログラフィは貨幣の偽造防止や物体の測定などに応用されている.
 \subsection{フレネルホログラムの原理}
+\subsubsection{撮像方法}
+図にホログラフィ撮像のセットアップの概略図を示す.
+ここで参照光レーザーのような位相が揃った単色光であり物体からの散乱光に対して角度$\theta$で入射する.
+
+ここで乾板表面における散乱光は位相分布$\alpha(x,y)$と振幅分布$A_S(x,y)$を用いて
+\begin{align}
+  E_S=A_S(x,y){\rm e}^{i\alpha(x,y)}
+\end{align}
+また参照光は一様なので,波数を$k$振幅を$A_R$とすると
+\begin{align}
+  E_R=A_R{\rm e}^{ikx\sin\theta}
+\end{align}
+となる.したがって乾板上での光の強度分布は
+\begin{align}
+  \begin{split}
+    I(x,y)&=|E_S+E_R|^2\\
+    &=|E_S|^2+|E_R|^2+E_SE_R^*+E_S^*E_R\\
+    &=|A_S(x,y)|^2+|A_R|^2+A_S(x,y)A_R\left({\rm e}^{i(\alpha(x,y)-kx\sin\theta)}+{\rm e}^{-i(\alpha(x,y-kx\sin\theta)}\right)\\
+    &=:I_0(x,y)+I_1(x,y)\left({\rm e}^{i\delta(x,y)}+{\rm e}^{-i\delta(x,y)}\right)\\
+    &=I_0(x,y)+2I_1(x,y)\cos\delta(x,y)
+  \end{split}
+\end{align}
+となり,乾板にはこの光の強度分布が記録される.
+散乱光の位相分布は干渉項の位相$\delta$に含まれて記録されることがわかる.
+\subsubsection{再生方法}
+記録の方法は乾板の素子によって異なるが,ここでは電場の透過率分布として記録されるものと考える.
+すなわち透過率$T$は
+\begin{align}
+  T=a+bI(x,y)
+\end{align}
+と表される.ここで$a$は乾板の素材固有の,
+$bI(x,y)$は光の強度分布に依存した項である.
+ここに再生光として参照光と同等の電場$E_R$を入射する.
+このとき乾板を透過した直後の電場分布$E$は
+\begin{align}
+  \begin{split}  
+    E=TE_R&=aE_R+bE_R\left(I_0(x,y)+I_1(x,y)\left({\rm e}^{i\delta(x,y)}+{\rm e}^{-i\delta(x,y)}\right)\right)\\
+    &=\left(a+bI_0(x,y)\right)E_R+bE_R\left(E_SE_R^*+E_S^*E_R\right)\\
+    &=\left(a+bI_0(x,y)\right)E_R+b|E_R|^2E_S+bE_S^*E_R^2
+  \end{split}
+\end{align}
+ここで第1項は参照光に比例した電場であり,散乱光の情報は含まない.
+第2項は散乱光に比例した電場であり,このことからホログラフィを覗き込むと元々物体があった位置にその像が見えることがわかる.
+また第3項は$bE_S^*E_R^2=bA_S{\rm e}^{-i\alpha(x,y)}A_R^2{\rm e}^{i2kx\sin\theta}$より$2\theta$の方向に伝搬する光である.
+この光は逆位相の散乱光の情報を含んでいるため$2\theta$方向からも像が見えることがわかる.これは位相共役項と呼ばれる.
+\subsection{ホログラフィ干渉}
+\subsubsection{基本原理}
+ホログラフィ干渉とは多重記録されたホログラフィが同時に再生される際に互いが干渉することで像に干渉縞が現れる現象である.
+まず位置$\vec{r}$にある粒子による散乱を考える.図のように散乱前の波数が$\vec{k_0}$,
+散乱後の波数が$\vec{k_1}$とする.このとき散乱直前,直後の電場の位相は
+\begin{align}
+  \begin{cases}
+    \begin{split}
+      &\vec{k_0}\vec{r}-\omega t\\
+      &\vec{k_1}\vec{r}-\omega t+\phi(\vec{r})
+    \end{split}
+  \end{cases}
+\end{align}
+である.散乱によってずれた位相が$\delta$であったとき
+\begin{align}
+  \begin{split} 
+    \delta&=\vec{k_1}\vec{r}-\omega t+\phi(\vec{r})-(\vec{k_0}\vec{r}-\omega t)\\
+    \therefore\ \phi(\vec{r})&=(\vec{k_0}-\vec{k_1})\vec{r}+\delta
+  \end{split}
+\end{align}
+である.
+ここで図のように粒子が領域$V$に密度$\rho(\vec{r})$で分布するとする.
+観測点が$\vec{R}$の位置にあるとき,観測点における全散乱波は
+\begin{align}
+  E\propto\int_Vd\vec{r}\ \rho(\vec{r}){\rm exp}\left(i\left(\vec{k_1}(\vec{r})\left(\vec{R}-\vec{r}\right)-\omega t+\phi(\vec{r})\right)\right)
+\end{align}
+となる.ここで観測点と領域$V$の距離は$V$の典型的な大きさに対して十分大きいならば$\vec{R}-\vec{r}\sim\vec{R}$,
+$\vec{k_1}(\vec{r})=一定$と近似できるので
+\begin{align}
+  E\propto\int_Vd\vec{r}\ \rho(\vec{r}){\rm exp}\left(i\left(\vec{k_1}\vec{R}-\omega t+\phi(\vec{r})\right)\right)
+\end{align}
+となる.
+
+ここで粒子が同時に$\vec{d}$微小変位したと考える.変位後の粒子の位置を$\vec{r'}=\vec{r}+\vec{d}$とすれば
+変位後の電場は
+\begin{align}
+  E'\propto\int_Vd\vec{r}\ \rho(\vec{r'}){\rm exp}\left(i\left(\vec{k_1}\vec{R}-\omega t+\phi(\vec{r'})\right)\right)
+\end{align}
+よって変位前後の電場を重ね合わせた光強度は$\vec{k_0}-\vec{k_1}=\vec{K}$とすると
+\begin{align}
+  \begin{split}
+    I=|E+E'|^2&=|E|^2+|E'|^2+EE'^*+E^*E'\\
+    &=|E|^2+|E'|^2+\iint d\vec{r}d\vec{r'}\ \rho(\vec{r})\rho(\vec{r'}){\rm e}^{i\left(\phi(\vec{r})-\phi(\vec{r'})\right)}\\
+    &+\iint d\vec{r}d\vec{r'}\ \rho(\vec{r})\rho(\vec{r'}){\rm e}^{-i\left(\phi(\vec{r})-\phi(\vec{r'})\right)}\\
+    &=|E|^2+|E'|^2+\iint d\vec{r}d\vec{r'}\ \rho(\vec{r})\rho(\vec{r'}){\rm e}^{i\vec{K}\left(\vec{r'}-\vec{r}\right)}\\
+    &+\iint d\vec{r}d\vec{r'}\ \rho(\vec{r})\rho(\vec{r'}){\rm e}^{-i\vec{K}\left(\vec{r'}-\vec{r}\right)}\\
+    &=|E|^2+|E'|^2+\iint d\vec{r}d\vec{r'}\ \rho(\vec{r})\rho(\vec{r'})\cdot 2\cos\vec{K}\cdot\vec{d}
+  \end{split}
+\end{align}
+ここで
+\begin{align}
+  \begin{split}
+    |E|^2=|E'|^2&=EE^*\\
+    &=\iint d\vec{r}d\vec{r'}\ \rho(\vec{r})\rho(\vec{r'})=:A
+  \end{split}
+\end{align}
+とおくと
+\begin{align}
+  \begin{split}
+    I&=2A+2A\cos\vec{K}\cdot\vec{d}\\
+    &=4A\cos^2\left(\frac{1}{2}(\vec{k_0}-\vec{k_1})\cdot\vec{d}\right)
+  \end{split}
+\end{align}
+となる.ここで図のように波数の接線ベクトルを$\vec{e}_0$, $\vec{e}_1$と置けば,
+干渉縞の明線条件は整数$m$を用いて
+\begin{align}
+  \begin{split}
+    \frac{1}{2}(\vec{k_0}-\vec{k_1})\cdot\vec{d}&=m\pi\\
+    \frac{\pi}{\lambda}(\vec{e}_0-\vec{e}_1)\cdot\vec{d}&=m\pi\\
+    \therefore\ (\vec{e}_0-\vec{e}_1)\cdot\vec{d}&=m\lambda
+  \end{split}
+\end{align}
+となる.このことからホログラフィ干渉における干渉縞の明線は波長程度の微小変位に相当することがわかる.
+これを用いることでごく僅かな物体の変位を測定できる.
+\subsubsection{微小回転の場合}
+図のような平板を散乱体として,平板を微少量回転させたときの干渉パターンを計算する.
+
+まず$z$軸周りの回転について考える.
+$z$軸周りに$\theta\ll 1$回転させたとき,回転行列$R_z(\theta)$は
+\begin{align}
+  R_z(\theta)=
+  \left(\begin{array}{ccc}
+    1&-\theta&0\\
+    \theta&1&0\\
+    0&0&1
+  \end{array}\right)
+\end{align}
+なので微小変位ベクトル$\vec{d}$は
+\begin{align}
+  \vec{d}=R_z(\theta)\vec{r}-\vec{r}=\left(\begin{array}{c}
+    -y\theta\\x\theta\\0    
+  \end{array}\right)
+\end{align}
+また図より
+\begin{align}
+  \vec{e}_0-\vec{e}_1=\frac{1}{0.2}
+  \left(\begin{array}{c}
+    0.2/\sqrt{2}\\0.03\\-0.2\sqrt{2}  
+  \end{array}\right)-\frac{1}{0.2}\left(\begin{array}{c}
+    0\\0.03\\0.2
+  \end{array}\right)=\left(\begin{array}{c}
+    1/\sqrt{2}\\0\\-1/\sqrt{2}-1
+  \end{array}\right)
+\end{align}
+よって明線条件は
+\begin{align}
+  (\vec{e}_0-\vec{e}_1)\cdot\vec{d}=-\frac{y\theta}{\sqrt{2}}=m\lambda
+\end{align}
+このことから$z$軸周りの微小回転により生じるホログラフィ干渉は図のような$y$にのみ依存する干渉縞になると予想される.
+ここで平板上に20本の干渉縞が見える条件を求めておく.これは$y=0.06$において$m=20$となる条件なので
+\begin{align}
+  \theta=-\frac{\sqrt{2}\cdot20\cdot\lambda}{0.06}\simeq2.98\times10^{-4}
+\end{align}
+である.ここで$\lambda$はHe-Neレーザーの$632.8\ \si{\nano\metre}$とした.
+
+同様に$y$軸周りの回転について考える.
+回転行列$R_y(\theta)$は
+\begin{align}
+  R_y(\theta)=\left(\begin{array}{ccc}
+    1&0&-\theta\\
+    0&1&0\\
+    \theta&0&1
+  \end{array}\right)
+\end{align}
+なので明線条件は
+\begin{align}
+  \begin{split}
+    -\frac{z\theta}{\sqrt{2}}-\left(\frac{1}{\sqrt{2}}+1\right)x\theta=m\lambda
+  \end{split}
+\end{align}
+同様に平板上に20本の干渉縞が見える条件は,
+平板上では$z=0$として$x=\pm0.04$で
+\begin{align}
+  \theta=\frac{\sqrt{2}\cdot20\cdot\lambda}{(1+\sqrt{2})x}\simeq9.27\times10^{-5}
+\end{align}
+である.
