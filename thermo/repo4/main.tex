@@ -1,0 +1,148 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{熱統計力学2 レポートNo.4}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{問1}
+$\log(2\cosh f(x))$を$x$で微分すると
+\begin{align}
+  \frac{d}{dx}\log(2\cosh f(x))=\frac{df(x)}{dx}\frac{1}{2\cosh f(x)}\frac{d(2\cosh f(x))}{dx}=\frac{df(x)}{dx}\tanh f(x)
+\end{align}
+となるので自由エネルギーの極値条件は
+\begin{align}
+  \begin{split}
+    0&=JNd\langle S_z\rangle-Nk_BT\times\frac{\beta g\mu_B}{2}\frac{Jd}{g\mu_B}\tanh\left(\frac{1}{2}\beta g\mu_B\left(H+\frac{Jd}{g\mu_B}\langle S_z\rangle\right)\right)\\
+    &=\langle S_z\rangle-\frac{1}{2}\tanh\left(\frac{1}{2}\beta g\mu_B\left(H+\frac{Jd}{g\mu_B}\langle S_z\rangle\right)\right)\\
+    \therefore\ \langle S_z\rangle&=\frac{1}{2}\tanh\left(\frac{1}{2}\beta g\mu_B\left(H+\frac{Jd}{g\mu_B}\langle S_z\rangle\right)\right)
+  \end{split}
+\end{align}
+となり自己無撞着方程式が得られた.
+\subsubsection*{問2}
+低席比熱は
+\begin{align}
+  \begin{split}
+    C_V=\frac{\alpha^2}{2b}T
+  \end{split}
+\end{align}
+であった.ここで
+\begin{align}
+  \alpha&=\frac{JNd}{T_C}\\
+  b&=\frac{1}{48}\frac{NJ^4d^4}{k_B^3T^3}
+\end{align}
+なので,代入すると
+\begin{align}
+  C_V=24\frac{Nk_B^3}{J^2d^2}\frac{T^4}{T_C^2}
+\end{align}
+ここで$T\rightarrow T_C-0$とすると$T_C=Jd/4k_B$より
+\begin{align}
+  \begin{split}
+    C_V&\rightarrow24\frac{Nk_B^3}{J^2d^2}T_c^2\\
+    &=24\frac{Nk_B^3}{J^2d^2}\frac{J^2d^2}{16k_B^2}\\
+    &=\frac{3}{2}Nk_B
+  \end{split}
+\end{align}
+また$T\rightarrow T_C+0$では$C_V=0$なので
+\begin{align}
+  \Delta C_V=\frac{3}{2}Nk_B
+\end{align}
+\subsubsection*{問3}
+Ising模型でのHamiltonianは
+\begin{align}
+  H=-\frac{J}{2}\sum_{(i,j)}\sigma_i\sigma_j-h\sum_{i=1}^N\sigma_i
+\end{align}
+である.
+各サイトでの$\sigma$を$\sigma_i=\langle\sigma\rangle+\delta\sigma_i$と表す.
+このとき相互作用項は
+\begin{align}
+  \begin{split}
+    \sum_{(i,j)}\sigma_i\sigma_j&=\sum_{(i,j)}(\langle\sigma_i\rangle+\delta\sigma_i)(\langle\sigma_i\rangle+\delta\sigma_j)\\
+    &=\sum_{(i,j)}\left(\langle\sigma\rangle^2+\langle\sigma\rangle(\delta\sigma_i+\delta\sigma_j)+\delta\sigma_i\delta\sigma_j\right)\\
+    &\simeq\sum_{(i,j)}\left(\langle\sigma\rangle^2+\langle\sigma\rangle(\sigma_i-\langle\sigma\rangle+\sigma_j-\langle\sigma_j\rangle)\right)\\
+    &=\sum_{(i,j)}\left(\langle\sigma\rangle(\sigma_i+\sigma_j)-\langle\sigma\rangle^2\right)
+  \end{split}
+\end{align}
+ここで$\delta\sigma_i$の2乗項は無視した.また和は近接する対を重複を許して足し合わせているので
+\begin{align}
+  \sum_{(i,j)}=Nd,\qquad \sum_{(i,j)}=d\sum_{i=1}^N
+\end{align}
+とできるので
+\begin{align}
+  \sum_{(i,j)}\sigma_i\sigma_j&=2d\langle\sigma\rangle\sum_{i=1}^N\sigma_i-Nd\langle\sigma\rangle^2
+\end{align}
+したがって平均場近似を用いたHamiltonianは
+\begin{align}
+  \begin{split}
+    H_{平}&=-Jd\langle\sigma\rangle\sum_{i=1}^N\sigma_i+\frac{1}{2}JNd\langle\sigma\rangle^2-h\sum_{i=1}^N\sigma_i\\
+    &=:-h_{\rm eff}\sum_{i=1}^N\sigma_i+\frac{1}{2}JdN\langle\sigma\rangle^2
+  \end{split}
+\end{align}
+したがって分配関数は
+\begin{align}
+  \begin{split}
+    Z_{平}&=\sum_{\{\sigma_i\}=\pm1}{\rm e}^{-\beta H_{平}}\\
+    &={\rm e}^{-\beta JdN\langle\sigma\rangle^2/2} \sum_{\{\sigma_i\}=\pm1} {\rm e}^{\beta h_{\rm eff}(\sigma_1+\sigma_2+\cdots+\sigma_N)}\\
+    &={\rm e}^{-\beta JdN\langle\sigma\rangle^2/2}\left({\rm e}^{\beta h_{\rm eff}}+{\rm e}^{-\beta h_{\rm eff}}\right)^N\\
+    &={\rm e}^{-\beta JdN\langle\sigma\rangle^2/2}\left(2\cosh (\beta h_{\rm eff})\right)^N
+  \end{split}
+\end{align}
+これを用いて$\sigma_l$の期待値を計算する
+\begin{align}
+  \begin{split}
+    \langle\sigma_l\rangle&=\frac{1}{Z_{平}}\sum_{\{\sigma_i\}=\pm1}\sigma_l{\rm e}^{-\beta H_{平}}\\
+    &=\frac{{\rm e}^{-\beta JdN\langle\sigma\rangle^2/2}}{{\rm e}^{-\beta JdN\langle\sigma\rangle^2/2}\left(2\cosh (\beta h_{\rm eff})\right)^N}\sum_{\{\sigma_i\}=\pm1}\sigma_l{\rm e}^{\beta h_{\rm eff}(\sigma_1+\sigma_2+\cdots+\sigma_N)}\\
+    &=\frac{1}{(2\cosh(\beta h_{\rm eff}))^N}\left({\rm e}^{\beta h_{\rm eff}}+{\rm e}^{-\beta h_{\rm eff}}\right)^{N-1}\left({\rm e}^{\beta h_{\rm eff}}-{\rm e}^{-\beta h_{\rm eff}}\right)\\
+    &=\frac{(2\cosh(\beta h_{\rm eff}))^{N-1}(2\sinh(\beta h_{\rm eff}))}{(2\cosh(\beta h_{\rm eff}))^N}\\
+    &=\tanh(\beta h_{\rm eff})=\tanh(\beta(h+Jd\langle\sigma\rangle))
+  \end{split}
+\end{align}
+ここでサイト$l$における期待値が平均場に等しいとすると
+\begin{align}
+  \langle\sigma\rangle=\tanh(\beta(h+Jd\langle\sigma\rangle))
+\end{align}
+となり,自己無撞着方程式を得る.
+ここで$x\ll1$で$\tanh x\simeq x$なので, $h=0$かつ$\langle\sigma\rangle\rightarrow0$で(16)は
+\begin{align}
+  \begin{split}
+    \langle\sigma\rangle&=\beta Jd\langle\sigma\rangle\\
+    \therefore\ T&=\frac{Jd}{k_B}:=T_C
+  \end{split}
+\end{align}
+\end{document}
