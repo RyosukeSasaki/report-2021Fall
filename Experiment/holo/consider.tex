@@ -1,0 +1,120 @@
+\section{考察}
+\subsection{平板回転($z$軸)}
+\subsubsection{課題1について}
+ホログラフィ上に明線が20本現れる条件は(\ref{equ:132_zrot})式に示した通りである.
+3.1節でも見たとおり,実際にホログラフィ上である$x$座標について切り出したとき,明線は20本現れており,妥当である.
+\subsubsection{課題2について}
+明線条件(18)式を再掲する.
+\begin{align*}
+  \frac{y\theta}{\sqrt{2}}=-m\lambda
+\end{align*}
+ここで$\theta$, $\lambda$は実験装置に由来する既知の数値なので,
+ある$m$が与えられれば$y$が一定に決まる.
+このことから明線条件によれば干渉縞は水平な縞になるべきである.
+
+しかし実際には干渉縞は斜めになっている.
+シミュレーション用のpythonスクリプトの関連部分をソースコード\ref{src_zrot}に示す.
+ここで変数thetaが$\theta$, v\_dが変位ベクトル$\vec{d}$,
+v\_objectが平板上の各点の座標,
+v\_e0が$\vec{e}_0$,
+v\_e1が$\vec{e}_1$に対応する.
+このプログラムと1.3.2節の計算を比べると,
+1.3.2節では$\vec{e}_0$, $\vec{e}_1$が常に一定であるとしたのに対して,
+シミュレーションでは平板上の各点について独立に$\vec{e}_0$, $\vec{e}_1$を計算している.
+逆にそれ以外の計算は同等であることから(18)式からの予測とシミュレーション結果が異なるのはこの計算の違いであると考えられる.
+これは即ち(8)式において領域$V$の典型的な大きさに対して観測点との距離が十分離れているとした近似が成り立っていないと考えられる.
+実際に平板の典型的な大きさは図\ref{fig:fig/fig5.png}に示したように$\sim 10^1\ \si{\milli\metre}$程度であるのに対して,
+観測点との距離は$200\ \si{\milli\metre}$であり,近似が成り立たないことが考えられる.
+\newpage
+\begin{lstlisting}[caption=$z$軸回転関連のソースコード,label=src_zrot]
+  for i in range(NumX):
+    v_object[0] = deltaX*(i-NumX/2)
+    for j in range(NumY):
+      v_object[1] = deltaY*j
+      if num == 0: # z軸回転
+        v_d[0] = -theta*v_object[1]
+        v_d[1] = theta*v_object[0] 
+        v_d[2] = 0
+      # 光源から物体に向かう単位ベクトルを計算
+      v_e0 = (v_object-v_source)/np.linalg.norm(v_object-v_source)  
+      # 物体から目に向かう単位ベクトルを計算
+      v_e1 = (v_eye-v_object)/np.linalg.norm(v_eye-v_object)        
+      # 回転前後の光路差の変化から位相差を計算
+      dphase = (2*mt.pi/lamb)*np.dot(v_d, (v_e1-v_e0))              
+      HoloImage[j][i] = (1+mt.cos(dphase))/2
+\end{lstlisting}
+\subsubsection{その他の考察}
+ホログラフィー干渉の縞は微小変位によって生じた位相差によるものである.
+したがってホログラフィー像から位相成分を抽出すれば元の変位量を計算できると考えた.
+これを計算するためにホログラフィ像をフーリエ変換し,位相成分を抽出,画像化するスクリプトを作成した.
+ソースコードは補遺に示す.また作成にあたってはWebサイト\cite{Python}を参考にした.
+このプログラムでは位相変化を$z$軸に, 画像上での位置を$x-y$平面に取った3次元画像と,
+それを濃淡で表した画像を出力する.またフーリエ変換により得られたスペクトル画像と,それを逆変換して得た画像も同時に示している.
+更にノイズを除去するためにローパスフィルタを適用している.
+またnumpyライブラリでは位相が畳み込まれた状態で出力されるので,
+Scikit-imageライブラリの2次元unwrap関数を用いてunwrap処理を行っている.
+図\ref{fig:data/surface_zrot.png},図\ref{fig:data/phase_zrot.png}に出力画像を示す.
+図\ref{fig:data/surface_zrot.png}から位相は$z$軸周りに回転するような成分を持っていることがわかり,これは$z$軸回転により得られたホログラフィー像であることに整合する.
+\mfig[width=9cm]{data/surface_zrot.png}{位相の3次元画像}
+\mfig[width=9cm]{data/phase_zrot.png}{入力画像(左上),スペクトル画像(右上),逆変換された画像(左下),位相画像(右下)}
+\newpage
+\subsection{平板回転($y$軸)}
+\subsubsection{課題3について}
+ホログラフィ上に明線が20本現れる条件は(\ref{equ:132_yrot})式に示した通りである.
+3.1節でも見たとおり,実際にホログラフィ上である$y$座標について切り出したとき,明線は20本現れており,妥当である.
+\subsubsection{課題4について}
+明線条件(21)式において$z=0$とすると
+\begin{align}
+  x=\frac{\sqrt{2}m\lambda}{(1+\sqrt{2})\theta}
+\end{align}
+となり,ある$m$が与えられれば$x$が一定に定まる.
+このことから干渉縞は垂直な縞になるべきである.
+実際図\ref{fig:fig/yrot.png}からそのようになっていることがわかる.
+\subsubsection{その他の考察}
+4.1.3節で用いたものと同じスクリプトでこのホログラフィー像についても解析を試みた.
+図\ref{fig:data/surface_yrot.png},図\ref{fig:data/phase_yrot.png}に出力画像を示す.
+図\ref{fig:data/surface_yrot.png}から位相が確かに$y$軸周りに回転されている様子がわかり,妥当である.
+ただし画像には20本の明線が見えることから位相シフトは$20\times2\pi\simeq 125$程度になるべきだが,
+出力結果では$-50$から$200$までの$250$程度の位相シフトが出ている.
+\mfig[width=9cm]{data/surface_yrot.png}{位相の3次元画像}
+\mfig[width=12cm]{data/phase_yrot.png}{入力画像(左上),スペクトル画像(右上),逆変換された画像(左下),位相画像(右下)}
+\subsection{自由課題4}
+\subsubsection{選択の動機}
+自由課題4では平板などではなく実際に弾性体である消しゴムを変形させ,その変位に基づくホログラフィー像を作成している.
+したがってこの課題を扱うことにより,ホログラフィーを用いた変位測定を経験でき,
+これは工学での精密測定でも応用可能だと考えたため自由課題4を選択した.
+実際にホログラフィーは高分解能な測定方法であるフーリエ変換ホログラフィー法などで用いられており,
+考察に値すると考えた.\cite{ja64:online}
+\newpage
+\subsubsection{原理}
+2.3節で示した通り,消しゴムに力を加えたことによる変形を微小変形としてホログラフィー干渉を実現している.
+ここでは簡単のため,消しゴムの変位は図\ref{fig:fig/fig10.png}のように$z$方向に限定されていると考える.すなわち微小変位ベクトルは変位量$d$を用いて
+\begin{align}
+  \vec{d}=\left(\begin{array}{c}
+    0\\0\\-d
+  \end{array}\right)
+\end{align}
+よって1.3.2節と同様に明線条件を求めると
+\begin{align}
+  (\vec{e}_0-\vec{e}_1)\cdot d=\left(\frac{1}{\sqrt{2}}+1\right)d=m\lambda
+\end{align}
+したがって
+\begin{align}
+  d=n\frac{\sqrt{2}\lambda}{1+\sqrt{2}}\simeq 0.586\lambda\times m  
+\end{align}
+となる.すなわち1つの明線ごとに$0.6$波長程度の変位が起きていると考えられる.
+\mfig[width=3cm]{fig/fig10.png}{変形の仮定}
+\subsubsection{考察}
+図\ref{fig:fig/fig11.png}に得られたホログラフィ像の明線のナンバリングを示す.
+図\ref{fig:fig/fig11.png}から左右の端ほど明線の間隔が狭く,中心は広いことがわかる.
+また前節で求めたように1明線ごとに0.6波長程度の変位があると考えられることから,変位のモデルとして図\ref{fig:fig/fig12.png}のようなものが考えられる.
+ここで本来位相情報は畳み込まれており,本質的には波長以上の深度情報は得られないが,変位は連続的に変化するべきであることと,
+弾性体に対する洞察から図\ref{fig:fig/fig12.png}のように推測した.
+\mfig[width=12cm]{fig/fig11.png}{明線のナンバリング}
+\mfig[width=12cm]{fig/fig12.png}{変形モデルの推測}
+
+また前節で用いたスクリプトを用いて解析を行った.
+その結果を図\ref{fig:data/surface_free4_2.png},図\ref{fig:data/phase_free4.png}に示す.
+ただし推測した変形モデルと位相画像の形状が一致するように,中心付近を基準に折り返すようにunwrap処理をしている.
+\mfig[width=9cm]{data/surface_free4_2.png}{位相の3次元画像}
+\mfig[width=12cm]{data/phase_free4.png}{入力画像(左上),スペクトル画像(右上),逆変換された画像(左下),位相画像(右下)}

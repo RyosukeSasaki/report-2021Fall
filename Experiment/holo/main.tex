@@ -12,6 +12,26 @@
 \usepackage{bm}
 \usepackage{siunitx}
 
+\lstset{
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\smallitshape},
+keywordstyle={\small\bfseries},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=0zw,
+xleftmargin=3zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+lineskip=-0.5ex
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
 \makeatletter
 \def\fgcaption{\def\@captype{figure}\caption}
 \makeatother
@@ -39,5 +59,9 @@
 \begin{document}
 \input{theory1.tex}
 \input{method1.tex}
+\input{res1.tex}
+\input{consider.tex}
 \bibliography{ref.bib}
+\newpage
+\input{appendix.tex}
 \end{document}

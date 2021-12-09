@@ -21,7 +21,7 @@
 これらの特徴を用いてホログラフィは貨幣の偽造防止や物体の測定などに応用されている.
 \subsection{フレネルホログラムの原理}
 \subsubsection{撮像方法}
-図にホログラフィ撮像のセットアップの概略図を示す.
+図\ref{fig:fig/fig1.png}にホログラフィ撮像のセットアップの概略図を示す.
 ここで参照光レーザーのような位相が揃った単色光であり物体からの散乱光に対して角度$\theta$で入射する.
 
 ここで乾板表面における散乱光は位相分布$\alpha(x,y)$と振幅分布$A_S(x,y)$を用いて
@@ -44,9 +44,10 @@
 \end{align}
 となり,乾板にはこの光の強度分布が記録される.
 散乱光の位相分布は干渉項の位相$\delta$に含まれて記録されることがわかる.
+記録の方法は乾板の素子によって異なるが,以下では電場の透過率分布として記録されるものと考える.
+\mfig[width=6cm]{fig/fig1.png}{撮像セットアップの概略}
 \subsubsection{再生方法}
-記録の方法は乾板の素子によって異なるが,ここでは電場の透過率分布として記録されるものと考える.
-すなわち透過率$T$は
+透過率$T$は
 \begin{align}
   T=a+bI(x,y)
 \end{align}
@@ -68,7 +69,7 @@ $bI(x,y)$は光の強度分布に依存した項である.
 \subsection{ホログラフィ干渉}
 \subsubsection{基本原理}
 ホログラフィ干渉とは多重記録されたホログラフィが同時に再生される際に互いが干渉することで像に干渉縞が現れる現象である.
-まず位置$\vec{r}$にある粒子による散乱を考える.図のように散乱前の波数が$\vec{k_0}$,
+まず位置$\vec{r}$にある粒子による散乱を考える.図\ref{fig:fig/fig2.png}のように散乱前の波数が$\vec{k_0}$,
 散乱後の波数が$\vec{k_1}$とする.このとき散乱直前,直後の電場の位相は
 \begin{align}
   \begin{cases}
@@ -86,7 +87,8 @@ $bI(x,y)$は光の強度分布に依存した項である.
   \end{split}
 \end{align}
 である.
-ここで図のように粒子が領域$V$に密度$\rho(\vec{r})$で分布するとする.
+\mfig[width=3cm]{fig/fig2.png}{ホログラフィ干渉の原理}
+ここで図\ref{fig:fig/fig3.png}のように粒子が領域$V$に密度$\rho(\vec{r})$で分布するとする.
 観測点が$\vec{R}$の位置にあるとき,観測点における全散乱波は
 \begin{align}
   E\propto\int_Vd\vec{r}\ \rho(\vec{r}){\rm exp}\left(i\left(\vec{k_1}(\vec{r})\left(\vec{R}-\vec{r}\right)-\omega t+\phi(\vec{r})\right)\right)
@@ -128,7 +130,9 @@ $\vec{k_1}(\vec{r})=一定$と近似できるので
     &=4A\cos^2\left(\frac{1}{2}(\vec{k_0}-\vec{k_1})\cdot\vec{d}\right)
   \end{split}
 \end{align}
-となる.ここで図のように波数の接線ベクトルを$\vec{e}_0$, $\vec{e}_1$と置けば,
+となる.
+\mfig[width=8cm]{fig/fig3.png}{粒子の分布}
+ここで波数の接線ベクトルを$\vec{e}_0$, $\vec{e}_1$と置けば,
 干渉縞の明線条件は整数$m$を用いて
 \begin{align}
   \begin{split}
@@ -140,7 +144,7 @@ $\vec{k_1}(\vec{r})=一定$と近似できるので
 となる.このことからホログラフィ干渉における干渉縞の明線は波長程度の微小変位に相当することがわかる.
 これを用いることでごく僅かな物体の変位を測定できる.
 \subsubsection{微小回転の場合}
-図のような平板を散乱体として,平板を微少量回転させたときの干渉パターンを計算する.
+図\ref{fig:fig/fig5.png}のような平板を散乱体として,平板を微少量回転させたときの干渉パターンを計算する.
 
 まず$z$軸周りの回転について考える.
 $z$軸周りに$\theta\ll 1$回転させたとき,回転行列$R_z(\theta)$は
@@ -158,7 +162,7 @@ $z$軸周りに$\theta\ll 1$回転させたとき,回転行列$R_z(\theta)$は
     -y\theta\\x\theta\\0    
   \end{array}\right)
 \end{align}
-また図より
+また図\ref{fig:fig/fig5.png}より
 \begin{align}
   \vec{e}_0-\vec{e}_1=\frac{1}{0.2}
   \left(\begin{array}{c}
@@ -176,6 +180,7 @@ $z$軸周りに$\theta\ll 1$回転させたとき,回転行列$R_z(\theta)$は
 このことから$z$軸周りの微小回転により生じるホログラフィ干渉は図のような$y$にのみ依存する干渉縞になると予想される.
 ここで平板上に20本の干渉縞が見える条件を求めておく.これは$y=0.06$において$m=20$となる条件なので
 \begin{align}
+  \label{equ:132_zrot}
   \theta=-\frac{\sqrt{2}\cdot20\cdot\lambda}{0.06}\simeq2.98\times10^{-4}
 \end{align}
 である.ここで$\lambda$はHe-Neレーザーの$632.8\ \si{\nano\metre}$とした.
@@ -198,6 +203,8 @@ $z$軸周りに$\theta\ll 1$回転させたとき,回転行列$R_z(\theta)$は
 同様に平板上に20本の干渉縞が見える条件は,
 平板上では$z=0$として$x=\pm0.04$で
 \begin{align}
+  \label{equ:132_yrot}
   \theta=\frac{\sqrt{2}\cdot20\cdot\lambda}{(1+\sqrt{2})x}\simeq9.27\times10^{-5}
 \end{align}
 である.
+\mfig[width=7cm]{fig/fig5.png}{微小回転}

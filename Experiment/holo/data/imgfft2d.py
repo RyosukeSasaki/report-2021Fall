@@ -57,10 +57,8 @@ def main():
     i_f_xy = abs(i_f_xy_complex)
     f_xy_complex = np.fft.ifft2(i_f_xy)
     i_f_phase = np.angle(f_xy_complex)
-    #i_f_phase = np.unwrap(i_f_phase, period=pi*0.8, axis=0)
-    #i_f_phase = np.unwrap(i_f_phase, period=pi*0.8, axis=1)
     i_f_phase = skimage.restoration.unwrap_phase(i_f_phase)
-    #i_f_phase = abs(i_f_phase)
+    i_f_phase = abs(i_f_phase)
 
     x = np.array([x for x in range(shifted_f_uv.shape[1])])
     y = np.array([x for x in range(shifted_f_uv.shape[0])])
@@ -71,32 +69,31 @@ def main():
     ax.set_xlabel("x")
     ax.set_ylabel("y")
     ax.set_zlabel("Phase Shift")
-    #ax.contour3D(X,Y,i_f_phase,rstride=10,cstride=50)
     ax.plot_wireframe(X,Y,i_f_phase,rstride=10,cstride=50)
     plt.show()
 
-    fig, axes = plt.subplots(1, 2, figsize=(12, 12))
-    for ax in axes:
-        #for ax in axe:
+    fig, axes = plt.subplots(2, 2, figsize=(12, 12))
+    for axe in axes:
+        for ax in axe:
             for spine in ax.spines.values():
                 spine.set_visible(False)
             ax.set_xticks([])
             ax.set_yticks([])
     # 元画像
-    #axes[0,0].imshow(f_xy, cmap='gray')
-    #axes[0,0].set_title('Input Image')
+    axes[0,0].imshow(f_xy, cmap='gray')
+    axes[0,0].set_title('Input Image')
     ## フィルタ画像
     #axes[0,1].imshow(filter_array, cmap='gray')
     #axes[0,1].set_title('Filter Image')
     # フィルタされた周波数領域のパワースペクトル
-    #axes[0,1].imshow(magnitude_spectrum2d, cmap='gray')
-    #axes[0,1].set_title('Filtered Magnitude Spectrum')
+    axes[0,1].imshow(magnitude_spectrum2d, cmap='gray')
+    axes[0,1].set_title('Filtered Magnitude Spectrum')
     # FFT -> Band-pass Filter -> IFFT した画像
-    axes[0].imshow(i_f_xy, cmap='gray')
-    axes[0].set_title('Filtered Image')
+    axes[1,0].imshow(i_f_xy, cmap='gray')
+    axes[1,0].set_title('Inverted FFT Image')
     # FFT -> Band-pass Filter -> IFFT した画像
-    axes[1].imshow(i_f_phase, cmap='gray')
-    axes[1].set_title('Phase Image')
+    axes[1,1].imshow(i_f_phase, cmap='gray')
+    axes[1,1].set_title('Phase Image')
     # グラフを表示する
     plt.show()
 

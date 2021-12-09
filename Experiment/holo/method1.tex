@@ -1,1 +1,65 @@
 \section{方法}
+\subsection{光学系について}
+\subsubsection{光学系の構成}
+図\ref{fig:fig/fig4.png}にホログラフィ撮像,再生用の光学系を示す.
+光学系は光学定盤上にマグネットベースで設置されている.光源にはHe-Neレーザーを用いている.
+この光源の波長は$\lambda=632.8\ \si{\nano\metre}$, スペクトル幅$1\ \si{\giga\hertz}$, 出力は$10\ \si{\milli\watt}$である.
+ビームスプリッタで分離したレーザー光のうち,経路Aを通る光は参照光,経路Bを通る光は物体光になる.
+偏光子は参照光の強度を調整するためのものである.
+\mfig[width=10cm]{fig/fig4.png}{光学系の構成}
+\subsubsection{光学系の調整}
+光学系は以下のように調整した.
+\begin{enumerate}
+  \item 物体光と参照光の光路差を$5\ \si{\centi\metre}$以内にする
+  \item 物体光と参照光の角度を$45\si{\degree}$程度にする.
+\end{enumerate}
+条件1について,これは光路差がコヒーレンス長$L_C=c/\delta\nu\simeq0.3\ \si{\metre}$以下となるための条件である.
+条件2は参照光と物体光を空間的に分離するための条件である.
+実際の調整手順を図\ref{fig:fig/fig6.png}に示す.
+\mfig[width=10cm]{fig/fig6.png}{光学系の調整手順}
+\subsection{撮像手順}
+\subsubsection{露光時間の決定}
+露光計としてフィルムカメラでの撮影に用いられる一般的な露光計を用いた.
+まず参照光を遮ったときの乾板位置での物体光のEV値を測定し,これを${\rm EV}_O$とする.
+次に物体光を遮り,乾板位置での参照光のEV値を測定し,これを${\rm EV}_R$とする.
+ここで${\rm EV}_R={\rm EV}_O+1$となるように偏光子を調整した.
+最後に物体光と参照光を合わせた光強度${\rm EV}_{\rm total}$を測定し,
+露光時間$t$を以下で決定した.
+\begin{align}
+  t=\frac{240}{{\rm EV}_{\rm total}}
+\end{align}
+\subsubsection{撮像手順}
+図\ref{fig:fig/fig7.png}に撮像手順を示す.
+\mfig[width=6cm]{fig/fig7.png}{撮像手順}
+\subsubsection{現像の原理}
+ホログラフィ撮像で用いた乾板はガラス乾板上に感光剤を塗布したものである.
+感光剤はハロゲン化銀粒子を含んだもので,基本的な原理は銀塩フィルムと同等である.
+感光面に光が当たるとハロゲン化銀の結晶の一部が還元され,潜像核という銀粒子が生成する.
+これを塩基性の現像液に浸すと潜像核を持った結晶の中で還元が進み,像が拡大する.
+次に乾板を漂白剤に浸すと還元された銀粒子が再び酸化され,銀イオンになる.
+更に漂白を進めると銀イオンがハロゲン化する.
+このとき,一部の銀イオンは感光しなかったハロゲン化銀の結晶上に析出する.
+これによって感光したハロゲン化銀結晶は縮小し,感光しなかった結晶は成長することになる.
+これによって感光した部分と感光しなかった部分で屈折率の差が生じ,この屈折率の分布によってホログラフィを撮像する.
+\subsubsection{現像手順}
+図\ref{fig:fig/fig8.png}に現像手順を示す.
+用いた現像液,漂白液は表\ref{tab:siyaku}の通りである.
+\begin{table}[h]
+\caption{用いた試薬}
+\label{tab:siyaku}
+\centering
+\begin{tabular}{cc}
+\hline
+&名称\\
+\hline \hline
+現像液&SM-6\\
+漂白液&PBU Amidol\\
+\hline
+\end{tabular}
+\end{table}
+\mfig[width=6cm]{fig/fig8.png}{現像手順}
+\subsection{自由課題4について}
+自由課題4では図\ref{fig:fig/fig4.png}において被写体を消しゴムとした光学系を用いた.
+ここでは図\ref{fig:fig/fig9.png}のように消しゴムをただ設置した場合と,力を加えて変形させた場合のホログラフィを撮像することで,
+ホログラフィ干渉を実現している.
+\mfig[width=5cm]{fig/fig9.png}{自由課題の被写体}
