@@ -1,0 +1,79 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{天体物理学レポート No.4}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+Fermiエネルギーと電子数密度は
+\begin{align}
+  \begin{array}{ll}
+    n_{\rm NR}=\left(\cfrac{\sqrt{2m_e}}{\hbar^2}\right)^3\cfrac{g}{6\pi^2}(\varepsilon_F)^{3/2} & (非相対論)\\
+    n_{\rm UR}=\cfrac{g}{6\pi^2}\left(\cfrac{\varepsilon_F}{c\hbar}\right)^3 & (相対論)\\
+  \end{array}
+\end{align}
+であった.ここで縮退と非縮退の境界は
+\begin{align}
+  \varepsilon_F=kT
+\end{align}
+であり,また
+相対論的振る舞いをする条件は
+\begin{align}
+  T>\frac{m_ec^2}{k}\qquad または\qquad p_Fc>m_ec^2
+\end{align}
+である.ここで
+\begin{align}
+  p_F=\left(\frac{6\pi^2}{g}\right)^{1/3}\hbar n^{1/3}
+\end{align}
+なので2つ目の条件は
+\begin{align}
+  n>\left(\frac{m_ec}{\hbar}\right)^3\frac{g}{6\pi^2}
+\end{align}
+となる.
+以上の境界値は図\ref{fig:fig1.tex}のようになり,
+またそれぞれの領域を図示すると図\ref{fig:fig2.tex}のようになる.
+ここで各天体の状態は図\ref{fig:fig3.tex}のようになる.
+このことから白色矮星は相対論的な縮退状態にある.
+白色矮星は電子の縮退圧で保持している天体であるので,これは妥当である.
+赤色巨星中心は非相対論的な非縮退状態と相対論的な縮退状態との境界にある.
+その他の系は非相対論的な非縮退状態にある.
+\gnu{縮退/非縮退,相対論/非相対論の境界}{fig1.tex}
+\gnu{縮退/非縮退,相対論/非相対論の領域}{fig2.tex}
+\gnu{各天体の状態}{fig3.tex}
+\end{document}
