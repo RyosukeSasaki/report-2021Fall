@@ -1,0 +1,121 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{物性物理学 No.10}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{問1}
+$U(R)$の極値は
+\begin{align}
+  \begin{split}
+    \frac{dU(R)}{dR}=-12\varepsilon\sigma^6\left(\frac{\sigma^6}{R^{13}}-\frac{1}{R^7}\right)&=0\\
+    \therefore\ R&=\pm\sigma
+  \end{split}
+\end{align}
+ただし
+\begin{align}
+  U(\sigma)=-\varepsilon
+\end{align}
+また$R\rightarrow\infty$では$U(R)\rightarrow 0$, $R\rightarrow 0$では$U(R)\rightarrow\infty$なので
+ポテンシャルは図\ref{fig:fig/fig1.png}のような形になる.
+\mfig[width=8cm]{fig/fig1.png}{ポテンシャルの概形}
+\subsubsection*{問2}
+図\ref{fig:fig/fig2.png}のように面心立方格子の単位格子を考えると,
+青い原子の周りの赤い原子が最近接である.
+これは$(1/2,1/2,0)$にある原子であるので
+\begin{align}
+  N_1=_3C_1\times 2^2=12
+\end{align}
+となる.
+\mfig[width=8cm]{fig/fig2.png}{面心立方格子の配位数}
+\subsubsection*{問3}
+第2近接原子は$(1,0,0)$にある原子であるので,その数は
+\begin{align}
+  N_2=_3C_1\times2=6
+\end{align}
+また$\sqrt{(a/2)^2+(a/2)^2+0^2}=a/\sqrt{2}=R$としたので,
+\begin{align}
+  R_2=\sqrt{a^2+0^2+0^2}=a=\sqrt{2}R
+\end{align}
+となる.
+\subsubsection*{問4}
+第3近接原子は$(1,1/2,1/2)$にある原子であるので,その数は
+\begin{align}
+  N_3=_3C_1\times 2^3=24
+\end{align}
+またその距離は
+\begin{align}
+  R_3=\sqrt{1^2+\left(\frac{1}{2}\right)^2+\left(\frac{1}{2}\right)^2}a=\sqrt{\frac{3}{2}}a=\sqrt{3}R
+\end{align}
+となる.
+\subsubsection*{問5}
+(2)式の第1項について
+\begin{align}
+  \begin{split}
+    \sum_{j\neq i}\frac{\sigma^{12}}{R_{ij}^{12}}&=\sigma^{12}\left(12\frac{1}{R^{12}}+6\frac{1}{(\sqrt{2}R)^{12}}+24\frac{1}{(\sqrt{3}R)^{12}}\right)\\
+    &\simeq12.13\frac{\sigma^{12}}{R^{12}}
+  \end{split}
+\end{align}
+また第2項について
+\begin{align}
+  \begin{split}
+    \sum_{j\neq i}\frac{\sigma^{6}}{R_{ij}^{6}}&=\sigma^{6}\left(12\frac{1}{R^{6}}+6\frac{1}{(\sqrt{2}R)^{6}}+24\frac{1}{(\sqrt{3}R)^{6}}\right)\\
+    &\simeq13.64\frac{\sigma^{6}}{R^{6}}
+  \end{split}
+\end{align}
+となる.
+\subsubsection*{問6}
+問1と同様に極値を求めると
+\begin{align}
+  \begin{split}
+    \frac{dU_S(R)}{dR}=-12\frac{N\varepsilon\sigma^6}{2}\left(A_{12}\frac{\sigma^6}{R^{13}}-A_6\frac{1}{R^7}\right)=0\\
+    \therefore\ R=\pm\left(\frac{A_{12}}{A_6}\right)^{1/6}\sigma\simeq\pm0.9806\sigma
+  \end{split}
+\end{align}
+また$U_S(R)$の極値は
+\begin{align}
+  \begin{split}
+    U_S(R)&=\frac{N\varepsilon}{2}\left(A_{12}\left(\frac{A_6}{A_{12}}\right)^2-2A_6\left(\frac{A_6}{A_{12}}\right)^1\right)\\
+    &=-\frac{N\varepsilon}{2}\left(\frac{A_6^2}{A_{12}}\right)\simeq-7.669N\varepsilon
+  \end{split}
+\end{align}
+\subsubsection*{問7}
+もっともポテンシャルが低い状態が実現するならば(10)式から相互作用下での$R$は希ガス原子対に比べて小さいことがわかる.
+\end{document}
