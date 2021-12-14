@@ -92,10 +92,10 @@ $\partial_\sigma g_{\nu\rho}$は
 より
 \begin{align}
   \begin{split}
-    \partial_\sigma g_{\nu\rho}+\partial_\rho g_{\sigma\nu}+\partial_\nu g_{\rho\sigma}
+    \partial_\sigma g_{\nu\rho}+\partial_\rho g_{\sigma\nu}-\partial_\nu g_{\rho\sigma}
     &=\eta_{\alpha\beta}\left(\cancel{\frac{\partial X^\alpha}{\partial x^\sigma\partial x^\nu}\frac{\partial X^\beta}{\partial x^\rho}} + \frac{\partial X^\alpha}{\partial x^\nu}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\right)\\
     &\qquad+\eta_{\alpha\beta}\left(\frac{\partial X^\alpha}{\partial x^\rho\partial x^\sigma}\frac{\partial X^\beta}{\partial x^\nu} + \cancel{\frac{\partial X^\alpha}{\partial x^\sigma}\frac{\partial X^\beta}{\partial x^\rho\partial x^\nu}}\right)\\
-    &\qquad+\eta_{\alpha\beta}\left(\cancel{\frac{\partial X^\alpha}{\partial x^\nu\partial x^\rho}\frac{\partial X^\beta}{\partial x^\sigma}} + \cancel{\frac{\partial X^\alpha}{\partial x^\rho}\frac{\partial X^\beta}{\partial x^\nu\partial x^\sigma}}\right)\\
+    &\qquad-\eta_{\alpha\beta}\left(\cancel{\frac{\partial X^\alpha}{\partial x^\nu\partial x^\rho}\frac{\partial X^\beta}{\partial x^\sigma}} + \cancel{\frac{\partial X^\alpha}{\partial x^\rho}\frac{\partial X^\beta}{\partial x^\nu\partial x^\sigma}}\right)\\
     &=\eta_{\alpha\beta}\left(\frac{\partial X^\alpha}{\partial x^\nu}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho} + \frac{\partial X^\alpha}{\partial x^\rho\partial x^\sigma}\frac{\partial X^\beta}{\partial x^\nu}\right)\\
     &=2\eta_{\alpha\beta}\frac{\partial X^\alpha}{\partial x^\nu}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\\
     &=2\eta_{\alpha\beta}\frac{\partial X^\alpha}{\partial x^\nu}\frac{\partial X^\beta}{\partial x^\gamma}\frac{\partial x^\gamma}{\partial X^\beta}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\\
@@ -105,7 +105,7 @@ $\partial_\sigma g_{\nu\rho}$は
 したがって
 \begin{align}
   \begin{split}  
-    \Gamma^{\mu}_{\ \rho\sigma}&=\frac{1}{2}g^{\mu\nu}\left(\partial_\sigma g_{\nu\rho}+\partial_\rho g_{\sigma\nu}+\partial_\nu g_{\rho\sigma}\right)\\
+    \Gamma^{\mu}_{\ \rho\sigma}&=\frac{1}{2}g^{\mu\nu}\left(\partial_\sigma g_{\nu\rho}+\partial_\rho g_{\sigma\nu}-\partial_\nu g_{\rho\sigma}\right)\\
     &=g^{\mu\nu}g_{\nu\gamma}\frac{\partial x^\gamma}{\partial X^\beta}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\\
     &=\delta^{\mu}_{\ \gamma}\frac{\partial x^\gamma}{\partial X^\beta}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\\
     &=\frac{\partial x^\mu}{\partial X^\beta}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\\
