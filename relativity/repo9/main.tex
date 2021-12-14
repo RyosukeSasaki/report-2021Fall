@@ -1,0 +1,115 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+\usepackage[thicklines]{cancel}
+
+\renewcommand{\CancelColor}{\color{red}}
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{相対性理論 レポートNo.9}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsection*{Q70.(3)}
+等価原理から局所Lorentz系での質点の運動方程式は
+\begin{align}
+  \frac{d^2X^\mu}{d\tau^2}=0
+\end{align}
+であった.連鎖律から
+\begin{align}
+  \frac{d}{d\tau}X^\mu=\frac{dx^\rho}{d\tau}\frac{\partial X^\mu}{\partial x^\rho}
+\end{align}
+同様に
+\begin{align}
+  \begin{split}
+    0=\frac{d^2X^\mu}{d\tau^2}&=\frac{d}{d\tau}\left(\frac{dx^\rho}{d\tau}\frac{\partial X^\mu}{\partial x^\rho}\right)\\
+    &=\frac{d^2 x^\rho}{d\tau^2}\frac{\partial X^\mu}{\partial x^\rho}
+    +\frac{dx^\nu}{d\tau}\left(\frac{d}{d\tau}\frac{\partial X^\mu}{\partial x^\nu}\right)
+  \end{split}
+\end{align}
+ここで連鎖律から
+\begin{align}
+  \frac{d}{d\tau}=\frac{dx^\sigma}{d\tau}\frac{\partial}{\partial x^\sigma}
+\end{align}
+より
+\begin{align}
+  \begin{split}
+    0=\frac{d^2X^\mu}{d\tau^2}&=\frac{d^2 x^\rho}{d\tau^2}\frac{\partial X^\mu}{\partial x^\rho}
+    +\frac{dx^\nu}{d\tau}\frac{dx^\sigma}{d\tau}\frac{\partial X^\mu}{\partial x^\nu\partial x^\sigma}\\
+    &=\ddot{x}^\rho\frac{\partial X^\mu}{\partial x^\rho}+\dot{x}^\nu\dot{x}^\sigma\frac{\partial X^\mu}{\partial x^\nu\partial x^\sigma}
+  \end{split}
+\end{align}
+ここで両辺に$\partial x^\rho/\partial X^\mu$を掛けると
+\begin{align}
+  0=\ddot{x^\rho}+\frac{\partial x^\rho}{\partial X^\mu}\dot{x}^\nu\dot{x}^\sigma\frac{\partial X^\mu}{\partial x^\nu\partial x^\sigma}
+\end{align}
+ここで$\rho\rightarrow\mu$, $\mu\rightarrow\nu$, $\nu\rightarrow\rho$と置き換えれば
+\begin{align}
+  0=\ddot{x}^\mu+\frac{\partial x^\mu}{\partial X^\nu}\frac{\partial X^\nu}{\partial x^\rho\partial x^\sigma}\dot{x}^\rho\dot{x}^\sigma
+\end{align}
+を得る.
+\subsection*{Q71.(2)}
+$\partial_\sigma g_{\nu\rho}$は
+\begin{align}
+  \begin{split}
+    \frac{\partial}{\partial x_\sigma}g_{\nu\rho}&=\frac{\partial}{\partial x_\sigma}\eta_{\alpha\beta}\frac{\partial X^{\alpha}}{\partial x^\nu}\frac{\partial X^{\beta}}{\partial x^\rho}\\
+    &=\eta_{\alpha\beta}\left(\frac{\partial X^\alpha}{\partial x^\sigma\partial x^\nu}\frac{\partial X^\beta}{\partial x^\rho}+\frac{\partial X^\alpha}{\partial x^\nu}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\right)
+  \end{split}
+\end{align}
+より
+\begin{align}
+  \begin{split}
+    \partial_\sigma g_{\nu\rho}+\partial_\rho g_{\sigma\nu}+\partial_\nu g_{\rho\sigma}
+    &=\eta_{\alpha\beta}\left(\cancel{\frac{\partial X^\alpha}{\partial x^\sigma\partial x^\nu}\frac{\partial X^\beta}{\partial x^\rho}} + \frac{\partial X^\alpha}{\partial x^\nu}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\right)\\
+    &\qquad+\eta_{\alpha\beta}\left(\frac{\partial X^\alpha}{\partial x^\rho\partial x^\sigma}\frac{\partial X^\beta}{\partial x^\nu} + \cancel{\frac{\partial X^\alpha}{\partial x^\sigma}\frac{\partial X^\beta}{\partial x^\rho\partial x^\nu}}\right)\\
+    &\qquad+\eta_{\alpha\beta}\left(\cancel{\frac{\partial X^\alpha}{\partial x^\nu\partial x^\rho}\frac{\partial X^\beta}{\partial x^\sigma}} + \cancel{\frac{\partial X^\alpha}{\partial x^\rho}\frac{\partial X^\beta}{\partial x^\nu\partial x^\sigma}}\right)\\
+    &=\eta_{\alpha\beta}\left(\frac{\partial X^\alpha}{\partial x^\nu}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho} + \frac{\partial X^\alpha}{\partial x^\rho\partial x^\sigma}\frac{\partial X^\beta}{\partial x^\nu}\right)\\
+    &=2\eta_{\alpha\beta}\frac{\partial X^\alpha}{\partial x^\nu}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\\
+    &=2\eta_{\alpha\beta}\frac{\partial X^\alpha}{\partial x^\nu}\frac{\partial X^\beta}{\partial x^\gamma}\frac{\partial x^\gamma}{\partial X^\beta}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\\
+    &=2g_{\nu\gamma}\frac{\partial x^\gamma}{\partial X^\beta}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}
+  \end{split}
+\end{align}
+したがって
+\begin{align}
+  \begin{split}  
+    \Gamma^{\mu}_{\ \rho\sigma}&=\frac{1}{2}g^{\mu\nu}\left(\partial_\sigma g_{\nu\rho}+\partial_\rho g_{\sigma\nu}+\partial_\nu g_{\rho\sigma}\right)\\
+    &=g^{\mu\nu}g_{\nu\gamma}\frac{\partial x^\gamma}{\partial X^\beta}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\\
+    &=\delta^{\mu}_{\ \gamma}\frac{\partial x^\gamma}{\partial X^\beta}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\\
+    &=\frac{\partial x^\mu}{\partial X^\beta}\frac{\partial X^\beta}{\partial x^\sigma\partial x^\rho}\\
+  \end{split}
+\end{align}
+となる.
+\end{document}
