@@ -1,0 +1,139 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{パワーエレクトロニクス No.9}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsection*{演習1}
+$C$が十分大きいことから,出力電圧は完全に平滑化されているものとする.すなわち$v_R=dE$で一定であるとする.
+したがって負荷に流れる電流は
+\begin{align}
+  i_R=\frac{dE}{R}
+\end{align}
+である.
+
+ここで$S$のON時にはダイオードに電流は流れないので$i_D=0$, $i_S=i_L$, また$v_o=E$となる.
+したがって$v_L=E-dE$なので
+\begin{align}
+  \begin{split}
+    &(1-d)E=L\frac{di_L}{dt}=L\frac{di_S}{dt}\\
+    &\therefore\ i_L=i_S=\frac{(1-d)E}{L}t+A
+  \end{split}
+\end{align}
+ここで$A$は積分定数である.ここで$i_L=i_S=i_R+i_C$が成り立っているので
+\begin{align}
+  i_C=i_S-i_R=\frac{(1-d)E}{L}t+A-\frac{dE}{R}
+\end{align}
+となる.
+
+次に$S$がOFFの時には全電流がダイオードを通るので$i_D=i_L$, $i_S=0$, また$v_o=0$となる.
+したがって$v_L=-dE$なので
+\begin{align}
+  \begin{split}
+    &-dE=L\frac{di_L}{dt}=L\frac{di_D}{dt}\\
+    &\therefore\ i_L=i_D=-\frac{dE}{L}t+B
+  \end{split}
+\end{align}
+また$i_L=i_D=i_R+i_C$から
+\begin{align}
+  i_C=i_D-i_R=-\frac{dE}{L}t+B-\frac{dE}{R}
+\end{align}
+となる.ただし$A$, $B$はコンデンサやコイルの初期条件として残ることがわかる.
+ここでは$i_L$が連続となるように取ることとする.
+すなわち図\ref{fig:fig/fig1.png}のような1周期を考えれば
+\begin{align}
+  B=\frac{dE}{L}T+A
+\end{align}
+となることがわかる.
+以上から各電流,電圧波形は図\ref{fig:fig/fig2.png}のようになっている.
+したがって平均電流$\overline{i}$,平均入力電力$P_{in}$, 出力電力$P_{out}$は
+\begin{align}
+  \begin{split}
+    \overline{i_S}&=\frac{1}{T}\int_0^{0.8T}dt\left(\frac{(1-d)E}{L}t+A\right)\\
+    &=0.8A+\frac{(1-d)ET}{L}0.32=0.8A+1.28\ \si{\ampere}
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    \overline{i_D}&=\frac{1}{T}\int_{0.8T}^{1.0T}dt\left(-\frac{dE}{L}(t-T)+A\right)\\
+    &=0.2A+0.32\ \si{\ampere}
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    \overline{i_C}&=\frac{1}{T}\int_0^{0.8T}dt\left(\frac{(1-d)E}{L}t\right)+\frac{1}{T}\int_{0.8T}^{1.0T}dt\left(-\frac{dE}{L}(t-T)\right)+A-8\\
+    &=A-6.4\ \si{\ampere}
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    P_{in}&=\frac{1}{T}\int_0^{0.8T}dt\left(E\times i_S\right)\\
+    &=E\times\overline{i_S}=80A+128\ \si{\watt}
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    P_{out}&=v_R\times i_R=640\ \si{\watt}    
+  \end{split}
+\end{align}
+ただし斜字の$A$は定数であることに注意.エネルギーが保存すべきなので$P_{in}\geq P_{out}$より
+\begin{align}
+  A\geq 6.4\ \si{\ampere}
+\end{align}
+とわかる.
+\mfig[width=4cm]{fig/fig1.png}{$B$と$A$の関係の決定}
+\mfig[width=10cm]{fig/fig2.png}{電流,電圧波形}
+\subsection*{演習2}
+図\ref{fig:fig/fig3.png}から図\ref{fig:fig/fig7.png}に各条件での波形を示す.
+図\ref{fig:fig/fig3.png}から図\ref{fig:fig/fig5.png}を比較すると比例ゲインを大きくするほど
+オーバーシュートが大きくなっていることがわかる.
+これは初期状態での目標値と現在値の差が大きく効くからである.
+また図\ref{fig:fig/fig6.png}からインダクタンスを大きくするとオーバーシュートが大きくなり
+収束が遅くなっていることがわかる.
+これはインダクタンスが位相の遅れに相当し,これを大きくしたことで収束が遅くなったとわかる.
+また図\ref{fig:fig/fig7.png}から電源電圧を小さくするとオーバーシュートが大きくなり
+収束が遅くなっていることがわかる.
+これは電源電圧が下がったことで応答が遅くなったことが原因である.
+\mfig[width=14cm]{fig/fig3.png}{条件1の波形}
+\mfig[width=14cm]{fig/fig4.png}{条件2の波形}
+\mfig[width=14cm]{fig/fig5.png}{条件3の波形}
+\mfig[width=14cm]{fig/fig6.png}{条件4の波形}
+\mfig[width=14cm]{fig/fig7.png}{条件5の波形}
+\end{document}
