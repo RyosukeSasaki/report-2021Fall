@@ -1,1 +1,26 @@
 \subsection{X線回折法}
+Schr\"{o}dinger方程式は
+\begin{align}
+  \left(-\frac{\hbar^2}{2\mu}\nabla^2+V(\vec{r})\right)\psi(\vec{r})=E\psi(\vec{r})
+\end{align}
+ここで両辺$-2\mu/\hbar^2$を掛けると
+\begin{align}
+  (\nabla^2+k^2)\psi(\vec{r})=U(\vec{r})\psi(\vec{r})
+\end{align}
+となる.ただし$k^2=2\mu E/\hbar^2$, $U(\vec{r})=2\mu V(\vec{r})/\hbar^2$とした.
+この解は平面波解
+\begin{align}
+  \psi_{\rm in}(\vec{r})={\rm e}^{ikz}
+\end{align}
+及びPoisson方程式のGreen関数
+\begin{align}
+  G(\vec{r})=-\frac{1}{4\pi}\frac{{\rm e}^{\pm ikr}}{r}
+\end{align}
+を用いて
+\begin{align}
+  \psi(\vec{r})=\psi_{\rm in}(\vec{r})+\int d\vec{r'}G(\vec{r}-\vec{r'})U(\vec{r'})\psi(\vec{r'})
+\end{align}
+と表され,これはLippmann-Schwinger方程式と呼ばれる.
+散乱問題では1項目が平面波である入射波と対応し,
+2項目は散乱波と対応する.
+ここで積分内の$\psi(\vec{r})$に左辺を逐次代入すると
