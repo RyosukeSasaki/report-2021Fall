@@ -1,0 +1,61 @@
+\section{原理}
+\subsection{X線の発生}
+電磁波の発生過程には黒体放射,制動放射,遷移放射などがある.
+今回の実験で用いたX線発生装置では制動放射と遷移輻射が支配的になっているのでこれらについて述べる.
+\subsubsection{連続X線}
+連続X線とは制動放射により生じるX線である.
+連続X線は図のスペクトルの連続的な部分である.
+図にX線発生装置の概略を示す.
+電子銃から放射された電子は銅のターゲットに衝突する.
+ターゲットに衝突した電子は様々な方向に散乱されるが,
+その程度によって制動の具合が異なってくる.これによって様々なエネルギーのX線が放射されることになる.
+ここで電子銃の加速電圧を$V$としよう.
+最も制動が大きいのは1回の衝突で全エネルギーを失うことに相当するので$hc/\lambda=eV$から
+\begin{align}
+  \lambda_{m}=\frac{hc}{eV}
+\end{align}
+となる.この波長が加速電圧$V$の連続X線で得られる最も高エネルギーな(すなわち波長が短い)光になる.
+連続X線の全強度は管電流を$i$, ターゲット原子の原子番号を$Z$とすれば
+\begin{align}
+  I\propto iV^mZ
+\end{align}
+となり,ターゲットに重元素を用いると効率よくX線を得ることができる.\cite{XrayS}
+連続X線スペクトルを求める方法としてはBirch-Marshallのモデルが用いられる.\cite{Xraymodel}
+\subsubsection{特性X線}
+特性X線(または固有X線)とは遷移放射により生じるX線である.
+特性X線は図\ref{fig:fig/XraySpectrum.jpg}の鋭いピークの部分である.
+特性X線は主量子数$n$の高い準位にいる電子が低い準位に遷移する際に放射されるX線である.
+X線の波長は準位間のエネルギーの差を$\Delta E$とすれば
+\begin{align}
+  \lambda=\frac{hc}{\Delta E}
+\end{align}
+となり,同じ遷移による放射は常に同じ波長となることから鋭いピークが現れる.
+原子では主量子数が0の軌道をK殻, 1の軌道をL殻, 2の軌道をM殻と呼ぶが,
+それぞれの遷移について名前がついている.
+図\ref{fig:fig/KLM.jpg}のようにL殻からK殻への遷移によるX線を$\rm K_{\alpha}$線,
+M殻からK殻への遷移によるX線を$\rm K_{\beta}$線と呼ぶ.また角運動量量子数$j$の違いなどによってL, M殻は微細構造を持つので波長が僅かに異なるX線が発生する.
+特に$\rm L_{III}$殻からKへの遷移によるX線は$\rm K_{\alpha 1}$線, 特に$\rm L_{II}$殻からKへの遷移によるX線は$\rm K_{\alpha 2}$線などと呼ばれる.
+これらの遷移確率は約$2:1$であり,すなわち強度比も$2:1$となる.
+これらのX線の波長は非常に近接しており,実験的には分離が困難なため,その波長を加重平均した
+\begin{align}
+  \lambda_{\rm K_{\alpha}}=\frac{2\lambda_{{\rm K}_{\alpha 1}}+\lambda_{{\rm K}_{\alpha 2}}}{3}
+\end{align}
+を用いる場合が多い.\cite{XrayS}
+ターゲットとして銅を用いた場合,これらのX線の波長は表\ref{tab:lambda_xray}のようになる.
+\begin{table}[h]
+\caption{X線の波長}
+\label{tab:lambda_xray}
+\centering
+\begin{tabular}{cc}
+\hline
+&$波長\ /\ \si{\angstrom}$\\
+\hline \hline
+${\rm K}_{\alpha 1}$&1.5405\\
+${\rm K}_{\alpha 2}$&1.5443\\
+${\rm K}_{\alpha}$&1.5418\\
+${\rm K}_{\beta}$&1.3922\\
+\hline
+\end{tabular}
+\end{table}
+\mfig[width=8cm]{fig/XraySpectrum.jpg}{モリブデンターゲットによるX線のスペクトル\cite{alma990007897430204034}}
+\mfig[width=10cm]{fig/KLM.jpg}{準位間の遷移\cite{XrayS}}
