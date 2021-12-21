@@ -1,0 +1,48 @@
+\section{結果}
+\subsection{生データ}
+図\ref{fig:graph/out/NaCl_raw.pdf}から図にNaCl粉末,KCl粉末,未知試料1,未知試料2の散乱光強度-$2\theta$グラフを示す.
+また図\ref{fig:fig/polymer2.png},図\ref{fig:fig/polymer1.png}に高分子フィルムのX線画像を示す.
+\mfig[width=8 cm]{graph/out/NaCl_raw.pdf}{NaCl粉末の測定データ}
+\mfig[width=8 cm]{graph/out/KCl_raw.pdf}{KCl粉末の測定データ}
+\mfig[width=8 cm]{graph/out/unknown1_raw.pdf}{未知試料1の測定データ}
+\mfig[width=8 cm]{graph/out/unknown2_raw.pdf}{未知試料2の測定データ}
+\mfig[width=8 cm]{fig/polymer2.png}{高分子フィルムのX線画像}
+\mfig[width=8 cm]{fig/polymer1.png}{高分子フィルム(延伸)のX線画像}
+\subsection{NaClの格子定数見積もり}
+図\ref{fig:graph/out/NaCl_all.pdf}に各Miller指数に対応するピークとそれに対するFitting曲線を示す.
+ただしFittingは
+\begin{align}
+  \begin{split}
+    f(x)&=\frac{A}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-x_0)^2}{2\sigma^2}\right)\\
+    &+\frac{A}{2\sqrt{2\pi}\sigma}\exp\left(-\frac{\left(x-\frac{360}{\pi}\arcsin\left(\frac{1.5433}{1.54051}\sin\left(\frac{x_0}{2}\frac{\pi}{180}\right)\right)\right)^2}{2\sigma^2}\right)\\
+    &+B+Cx
+  \end{split}
+\end{align}
+という関数でgnuplotの非線形最小二乗Fitting機能を用いて行った.
+Fittingにより各Miller指数に対応するピークの位置は表\ref{tab:miller_2theta}のようになった.
+したがって
+\begin{align}
+  a=d_{hkl}\sqrt{h^2+k^2+l^2}\qquad(d=\lambda_{{\rm K}_{\alpha 1}}/2\sin\theta)
+\end{align}
+より格子定数は
+\begin{align}
+  a=5.651\pm 0.006\ \si{\angstrom}
+\end{align}
+と求まった.
+\begin{table}[h]
+  \caption{各Miller指数に対応するピーク位置}
+  \label{tab:miller_2theta}
+  \centering
+  \begin{tabular}{cc}
+  \hline
+  Miller指数&$2\theta\ /\ \si{\degree}$\\
+  \hline \hline
+  111&27.33\\
+  200&31.69\\
+  220&45.33\\
+  311&53.73\\
+  222&56.23\\
+  \hline
+  \end{tabular}
+\end{table}
+\mfig[width=11 cm]{graph/out/NaCl_all.pdf}{各Miller指数に対応するピーク(上段左:(111),上段右(200),中段左:(220),中段右(311),下段左(222))}

@@ -1,26 +1,58 @@
-\subsection{X線回折法}
-Schr\"{o}dinger方程式は
-\begin{align}
-  \left(-\frac{\hbar^2}{2\mu}\nabla^2+V(\vec{r})\right)\psi(\vec{r})=E\psi(\vec{r})
-\end{align}
-ここで両辺$-2\mu/\hbar^2$を掛けると
-\begin{align}
-  (\nabla^2+k^2)\psi(\vec{r})=U(\vec{r})\psi(\vec{r})
-\end{align}
-となる.ただし$k^2=2\mu E/\hbar^2$, $U(\vec{r})=2\mu V(\vec{r})/\hbar^2$とした.
-この解は平面波解
-\begin{align}
-  \psi_{\rm in}(\vec{r})={\rm e}^{ikz}
-\end{align}
-及びPoisson方程式のGreen関数
-\begin{align}
-  G(\vec{r})=-\frac{1}{4\pi}\frac{{\rm e}^{\pm ikr}}{r}
-\end{align}
-を用いて
-\begin{align}
-  \psi(\vec{r})=\psi_{\rm in}(\vec{r})+\int d\vec{r'}G(\vec{r}-\vec{r'})U(\vec{r'})\psi(\vec{r'})
-\end{align}
-と表され,これはLippmann-Schwinger方程式と呼ばれる.
-散乱問題では1項目が平面波である入射波と対応し,
-2項目は散乱波と対応する.
-ここで積分内の$\psi(\vec{r})$に左辺を逐次代入すると
+\subsection{試料の準備}
+試料として表\ref{tab:siryou}の物を用いる.
+粉末試料は乳鉢で細かくすり潰し,
+錠剤成形機を用いて円盤状に固めたものをゴニオメータのヘッドに取り付けた.
+未知試料1は錠剤が脆いため,カプトンテープを用いて挟んで固定した.
+その他の金属箔やフィルムなどの試料は粘土を用いてゴニオメータのヘッドに取り付けた.
+\begin{table}[h]
+  \caption{試料の一覧}
+  \label{tab:siryou}
+  \centering
+  \begin{tabular}{ccc}
+  \hline
+  名称&形状\\
+  \hline \hline
+  NaCl&粉末\\
+  KCl&粉末\\
+  未知試料1&粉末\\
+  未知試料2&金属箔\\
+  高分子フィルム&フィルム\\
+  高分子フィルム(延伸)&フィルム\\
+  \hline
+  \end{tabular}
+\end{table}
+\subsection{測定手順}
+装置稼働中,実験従事者はは個人線量計を装着し,またその旨を記録した.
+装置の立ち上げは以下の手順で行った.
+\begin{enumerate}
+  \item 冷却水循環ポンプを稼働した
+  \item 真空ポンプを稼働し,適当な真空度に至っていることを確認した
+  \item X線発生装置を起動し,加速電圧を$45\ \si{\keV}$,電流を$50\ \si{\milli\ampere}$に設定した.
+  \item DOORボタンを押し,キースイッチを回して放射線遮蔽扉を開いた
+  \item 露光装置を操作しやすい位置まで後退させた
+  \item ゴニオメータに試料を取り付け,試料の位置を粗調整した
+  \item 顕微鏡のレティクルの中央に試料が来るように微調整した
+  \item 顕微鏡を収納し放射線遮蔽扉を閉じた
+\end{enumerate}
+以上で装置の立ち上げは完了した.次に測定を以下の手順で行った.
+\begin{enumerate}
+  \item 制御用PCで制御ソフト(CrystalClear)を立ち上げた
+  \item プロジェクトとサンプルを適当に命名し,イメージングプレートの初期化を行った
+  \item 初期化完了後, Collect Imageを行い表のように測定条件を設定した
+  \item Runを押し測定を開始した
+\end{enumerate}
+設定した照射時間が経過したら測定は完了する.
+\begin{table}[h]
+  \caption{測定条件}
+  \label{tab:sokuteicond}
+  \centering
+  \begin{tabular}{cc}
+  \hline
+  パラメータ&値\\
+  \hline \hline
+  Width&$0.1\si{\degree}$\\
+  End Width&$0.1\si{\degree}$\\
+  Exp Time&$900\ \si{\second}$または$1800\ \si{\second}$\\
+  \hline
+  \end{tabular}
+\end{table}
