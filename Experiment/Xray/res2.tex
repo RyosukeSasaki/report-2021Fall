@@ -1,1 +1,80 @@
 \subsection{KClのX線ピークの指数付け}
+\subsubsection{Ewald球の作図}
+Ewald球の作図(図\ref{fig:fig/KCL_hkl.jpg})によって各Miller指数に対する散乱角$2\theta$は表のようになった.
+ただし作図においてはKClを単純格子と見なしたため,
+Miller指数は2倍になっている.
+
+\begin{table}[h]
+  \caption{Miller指数と散乱角$2\theta$の対応}
+  \label{tab:miller_kclhkl}
+  \centering
+  \begin{tabular}{cc}
+    \hline
+    hkl&$2\theta\ /\ \si{\degree}$\\
+    \hline \hline
+    200&27.8\\
+    220&40.0\\
+    222&50.5\\
+    400&59.8\\
+    240&66.0\\
+    440&90.0\\
+    \hline
+  \end{tabular}
+\end{table}
+\mfig[width=10cm]{fig/KCL_hkl.jpg}{KClに対するEwald球の作図}
+\subsubsection{ピーク強度の理論値算出}
+図\ref{fig:graph/out/KCl_raw.pdf}に示したKClのピークの強度と,理論的に予測される強度を比較することでMiller指数との対応を調べる.
+PDXL2による解析では(400)以降に対応するピークが検出されなかったため,
+(200), (220), (222)に対応するピークを同定する.
+前節で得られた散乱角に近いピークをPDXL2の出力から抽出した.
+その結果は表\ref{tab:extract_peak_i}のようになった.
+ここでピーク1, 2は(200)に近く,
+ピーク3, 4は(220)に近く,
+ピーク5は(222)に近い.
+
+次にEwald球の作図で得た$2\theta$に対して(21)式から散乱強度の理論値を計算すると表のようになった.
+ただし温度因子の計算には
+\begin{align}
+  M=\frac{1.15\times10^4 T}{A\Theta^2}\left(\frac{1}{x}\int_0^x\frac{\xi}{{\rm e}^\xi-1}d\xi+\frac{x}{4}\right)\left(\frac{\sin\theta}{\lambda}\right)^2
+\end{align}
+を用いた.\cite{alma990007897430204034}
+ただし$A$は原子量, $\Theta$はDebyeの特性温度, $x=\Theta/T$である.
+ここでKClのは$\Theta=230\ \si{\kelvin}$を用い, $T$は常温として$300\ \si{\kelvin}$とした.\cite{2001167}
+また散乱因子$f$はマニュアルの付録表3, 4の値を線形補間したものを用いた.
+
+この結果から散乱光の強度は(200)の強度が最も大きく, (220)の強度はその半分程度, (222)では$0.15$倍程度と予想される.
+したがって,測定データの内尤もらしいピークは(200)に対応するのがピーク1,
+(220)に対応するのがピーク3,
+(222)に対応するのがピーク5であると考えられる.
+図\ref{fig:graph/out/KCl_peaks.pdf}に以上の結果を示す.
+\begin{table}[h]
+\caption{抽出したピークの強度}
+\label{tab:extract_peak_i}
+\centering
+\begin{tabular}{ccccc}
+\hline
+No.&$2\theta\ /\ \si{\degree}$&積分強度&吸収補正後強度&相対強度\\
+\hline \hline
+1&26.476& 13446 & 67824 & 100   \\
+2&27.694& 599   & 3091  & 4.58  \\
+3&40.58 & 3263  & 23381 & 34.4  \\
+4&41.080& 741   & 5396  & 7.95  \\
+5&50.334& 1223  & 12656 & 18.6  \\
+\hline
+\end{tabular}
+\end{table}
+\begin{table}[h]
+\caption{KClの散乱強度の理論値}
+\label{tab:KCl_i_riron}
+\centering
+\begin{tabular}{ccc}
+\hline
+hkl&$2\theta\ /\ \si{\degree}$&相対強度\\
+\hline \hline
+200&27.8&100\\
+220&40.0&52.7\\
+222&50.5&15.2\\
+\hline
+\end{tabular}
+\end{table}
+\mfig[width=10 cm]{graph/out/KCl_peaks.pdf}{Miller指数とピークの対応}
