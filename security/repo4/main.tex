@@ -1,0 +1,115 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{セキュリティ総論D レポートNo.4}
+\author{慶應義塾大学 61908697 佐々木良輔}
+\date{}
+\maketitle
+\section{セキュリティ事故調査}
+\subsection{年金管理システムサイバー攻撃}
+\subsubsection{概要}
+2015年5月に特殊法人 日本年金機構の職員個人端末がマルウェアに感染し125万件の個人情報が流出した.
+\subsubsection{要因}
+攻撃は標的型攻撃メールによって行われた.
+5名の職員がこのメールを開封し,それぞれの利用端末がマルウェアに感染した.
+攻撃に使用されたマルウェアはEMDIVIと呼ばれるもので, PDFなどに偽装された実行ファイルによって
+インストールされ,感染したPCは外部のサーバーを介してリモート操作される.\cite{ASCIIjp：88:online}
+これによって端末から個人情報が流出した.\cite{nenkinn}
+\subsubsection{被害組織の対応}
+最初に組織が事案を認識したのは5月8日にNISCによって「不審な通信を検知」という通報がなされたときであり,
+組織は当該端末の抜線を行った.しかし組織内での情報共有や標的型攻撃メールに対する注意喚起が不十分であり,
+またメールアドレスの受信拒否設定やURLフィルタリングを行わなかった.
+したがって5月21日には再び標的型攻撃メールが開封され,個人情報が流出するに至った.
+またインシデント時の対応に関するルールがなく,組織全体でのインターネット遮断などの対応が遅れたことも被害の拡大の原因である.
+このことから事案を認識していたにも関わらず対応が不十分であったために被害が拡大したと言える.
+このインシデントを受けて日本年金機構ではお客様対応として相談窓口の設置,
+また機構CSIRTの設置やガバナンスの改革,セキュリティポリシーの改正などを行った.\cite{nenkinn}
+\subsubsection{考察}
+最初に事案を認識した5月8日時点では個人情報の流出は起こっておらず,
+業務用メールアドレスが漏洩しただけだった.
+したがって巧妙な標的型攻撃メールを完全に防御することは困難だとしても,
+最初に事案を認識した時点で適切な対応をしていれば125万件の個人情報流出は防げたと考えられる.
+このためには組織内での情報共有やセキュリティに関する教育を徹底するべきだと考えられる.
+\subsection{Aurora作戦}
+\subsubsection{概要}
+2010年1月12日にGoogleがサイバー攻撃を受けたことを発表した.攻撃は中華人民共和国のElderwoodグループなどによって行われたと考えられており,
+Googleの他に20社程度の米企業が攻撃を受けたと言われている.\cite{Operatio61:online}
+\subsubsection{要因}
+攻撃は高度な(Advanced),執拗な(Persistent),脅威(Threat)の頭文字を取ったAPT攻撃という手法で行われ
+標的型攻撃の一種である.
+攻撃にはInternet ExplorerのUse-after-free脆弱性(CVE-2010-0249)が用いられており,脆弱性はパッチの当てられていない
+Windows 2000 SP4, Windows XP, Windows 7などのOSに存在するものである.\cite{CVECVE2083:online}
+この脆弱性は攻撃が行われた当時公開されておらず,ゼロデイ攻撃であった.
+攻撃はExploitを仕込まれたPDFが添付された標的型攻撃メールによって行われたと考えられている.
+これによって端末にバックドアが仕込まれ, Gmailのアカウントなどに不正アクセスされた.
+\subsubsection{被害組織の対応}
+Microsoftはこの脆弱性に対して更新プログラムを公開し,これを適用することで脆弱性を解消できる.\cite{Microsoft}
+またGoogleはこれを受けて中国本土でのネット検索サービスから撤退し,中国からのアクセスを香港のサーバーに転送することとした.
+\subsubsection{考察}
+この事例はゼロデイ攻撃であったため,対策は難しいと考えられる.
+したがってこういった攻撃に備えるには常にパッチや更新プログラムを当てること,
+また可能であれば不審な通信を監視することが必要だと考えられる.
+また近年では国家によるサーバー攻撃が増加しており,
+防衛も国家として行う必要があると考えられる.
+\subsection{本田技研工業のWannaCry感染}
+\subsubsection{概要}
+2017年6月18日に本田技研工業の工場などの拠点で生産ラインの管理などに用いる端末がランサムウェアに感染し,
+生産ラインが影響を受けた.\cite{nikkeihonda}
+\subsubsection{要因}
+攻撃にはランサムウェアであるWannaCryが用いられている.
+WannaCryはWindowsのネットワークでのファイル共有プロトコルであるSMBv1の不適切な入力確認による
+リモートコード実行脆弱性(CVE-2017-0143)を用いてバックドアを作成し,感染を広げるものである.
+この脆弱性はWindows VistaからWindows 10までのコンシューマー向けOSや
+Windows Server 2008からWindows Server 2016までのサーバー向けOSなど幅広いOSに存在する.\cite{JVNDB20175:online}
+しかし2017年3月14日時点でセキュリティパッチが公開されており,パッチが当たっていないWindows 7への感染が多かった.
+感染したPCにはセキュリティパッチが当たっておらず,脆弱性があったために感染したとされている.\cite{nikkeihonda}
+\subsubsection{被害組織の対応}
+本田技研工業では各拠点に対してWannaCryの注意喚起を行っていたため,
+感染したPCは直ちにネットワークから隔離した.
+対応が早かったため感染の拡大や生産ラインへの大きな影響はなかった.\cite{nikkeihonda}
+\subsubsection{考察}
+この事案では組織内で注意喚起がされており,直ぐに感染源を隔離できた.
+一方でWannaCryにより大きな影響を受けた組織は多く存在した.
+たとえばイギリスでは国民保険サービスのシステムが感染し,一部病院が閉鎖されることもあった.\cite{eikoku:online}
+本田技研工業の事例について,具体的にどのようなPCが感染したのかは公表されていないが,
+工場設備に付帯するPCということからFA機器などの制御用端末と考えられる.
+こういったPCは更新が困難であるから,基本的には常にネットワークから遮断する,
+あるいはネットワーク接続が必要な場合は境界防御やアンチウイルスソフトウェアの導入が必要だと考えられる.
+\bibliography{ref.bib}
+\end{document}
