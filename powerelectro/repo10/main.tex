@@ -1,0 +1,85 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{パワーエレクトロニクス No.10}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsection*{フォワードコンバーター}
+$S$の導通時には$v_{n_1}=E$となる.したがって$n_2$の電圧は$v_{n_2}=E\cdot n_2/n_1$となる.
+また$D_2$には順方向の電流が流れているので$v_{D_2}=0$となる.
+したがって$D_2$が導通であるから$D$には電圧$v_{n_2}$の逆バイアスがかかるので$v_D=-E\cdot n_2/n_1$となる.
+また$n_3$には$D_3$によって電流が流れないので$v_{n_3}=0$, $v_{D_3}=-E$となる.
+以上から
+\begin{align*}
+  v_{n_1}=100\ \si{\volt},\ \ v_{n_2}=20\ \si{\volt},\ \ v_{n_3}=0\ \si{\volt}\\
+  v_D=-20\ \si{\volt},\ \ v_{D_2}=0\ \si{\volt}\ \ v_{D_3}=-100\ \si{\volt}
+\end{align*}
+となる.
+次に$S$の非導通時には$n_1$に逆起電力によって$v_{n_1}=-E$の電圧が発生する.
+このとき$n_3$の負側には$-E$の電圧が生じているため$D_3$には順バイアスがかかり$v_{D_3}=0$となる.
+また$v_{n_3}=0-(-E)=E$となる.
+また$n_2$も逆起電力によって$v_{n_2}=-E\cdot n_2/n_1$となっている.
+また$D$には順バイアスが加わるので$v_D=0$となる
+したがって$v_{D_2}=-E\cdot n_2/n_1$となる.
+以上から
+\begin{align*}
+  v_{n_1}=-100\ \si{\volt},\ \ v_{n_2}=-20\ \si{\volt},\ \ v_{n_3}=100\ \si{\volt}\\
+  v_D=0\ \si{\volt},\ \ v_{D_2}=-20\ \si{\volt}\ \ v_{D_3}=0\ \si{\volt}
+\end{align*}
+となる.
+\subsection*{フライバックコンバーター}
+$S$の導通時は明らかに$v_S=0$, $v_{n_1}=E$である.
+また$n_2$の極性が逆なので$v_{n_2}=-E\cdot n_2/n_1$となる.
+$C$が十分大きいことから$v_R$は定常であると考えるが,その値は後ほど計算する.
+これがOFFになった瞬間を考えると$v_{n_1}=E$, $v_S=-2E$, $v_{n_2}=E\cdot n_2/n_1$となる.
+このとき$D$は導通状態になるので$v_D=0$,となる.
+したがって$v_R=d\cdot E\cdot n_2/n_1$である.
+以上から導通時は
+\begin{align*}
+  v_{n_1}=140\ \si{\volt},\ \ v_{n_2}=-14\ \si{\volt},\ \ v_{S}=0\ \si{\volt}\\
+  v_{D}=-21\ \si{\volt},\ \ v_{R}=7\ \si{\volt}
+\end{align*}
+非導通時は
+\begin{align*}
+  v_{n_1}=140\ \si{\volt},\ \ v_{n_2}=14\ \si{\volt},\ \ v_{S}=-280\ \si{\volt}\\
+  v_{D}=0\ \si{\volt},\ \ v_{R}=7\ \si{\volt}
+\end{align*}
+となる.
+\end{document}
