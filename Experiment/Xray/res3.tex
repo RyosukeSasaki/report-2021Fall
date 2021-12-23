@@ -1,1 +1,83 @@
 \subsection{未知物質の同定}
+\subsubsection{未知試料1}
+PDXL2による解析でピークとして表\ref{tab:unk1}のものが検出された.
+結晶構造を仮定してMiller指数を割り当て,
+それぞれのピークから得られた格子定数が同じ値になった構造が実際の構造であると考えられる.
+構造を仮定してMiller指数を割り当て格子定数を計算すると,表\ref{tab:unk1_a}のようになる.
+Miller定数の割り当てはマニュアルの付録表2\cite{bussitu}を用いた.
+表\ref{tab:unk1_a}からダイヤモンド構造の場合が最も標準偏差が小さく,最も確からしいと言える.
+したがって未知試料1の格子定数は
+\begin{align}
+  a=5.42(1\pm0.00)\ \si{\angstrom}
+\end{align}
+である.マニュアルの付録表1\cite{bussitu}を見るとダイヤモンド構造の結晶のうちSiの格子定数が$5.430\ \si{\angstrom}$であり,最も近い.
+したがって未知試料1はSiの結晶であると考えられる.
+\begin{table}[h]
+  \caption{未知試料1で検出されたピーク}
+  \label{tab:unk1}
+  \centering
+  \begin{tabular}{ccc}
+  \hline
+  No.1&$2\theta\ / \ \si{\degree}$&$d$\\
+  \hline \hline
+  1&28.4&3.13\\
+  2&47.4&1.91\\
+  3&56.3&1.63\\
+  \hline
+  \end{tabular}
+\end{table}
+\begin{table}[h]
+  \caption{未知試料1の格子定数の計算}
+  \label{tab:unk1_a}
+  \centering
+  \begin{tabular}{ccccc}
+  \hline
+  \multirow{2}{*}{No.}&\multicolumn{4}{c}{格子定数 / $\si{\angstrom}$}\\
+  &ダイヤモンド&単純&fcc&bcc\\
+  \hline \hline
+  1&5.43&3.13&5.43&4.44\\
+  2&5.42&2.71&3.83&3.83\\
+  3&5.41&2.82&4.61&3.99\\
+  平均&$5.42(1\pm0.00)$&$4.08(1\pm0.06)$&$4.62(1\pm0.14)$&$2.89(1\pm0.06)$\\
+  \hline
+  \end{tabular}
+\end{table}
+\subsubsection{未知試料2}
+未知試料1と同様に試料の同定を行う.
+PDXL2による解析でピークとして表\ref{tab:unk2}のものが検出された.
+構造を仮定して格子定数を計算すると,表\ref{tab:unk2_a}のようになる.
+したがって面心立方格子の場合が最も標準偏差が小さく,最も確からしいと言える.
+したがって未知試料2の格子定数は
+\begin{align}
+  a=4.05(1\pm0.00)\ \si{\angstrom}
+\end{align}
+である.マニュアルの付録表1\cite{bussitu}を見ると面心立方格子の結晶のうちAlの格子定数が$4.049\ \si{\angstrom}$であり,最も近い.
+したがって未知試料2はAlであると考えられる.
+\begin{table}[h]
+  \caption{未知試料2で検出されたピーク}
+  \label{tab:unk2}
+  \centering
+  \begin{tabular}{ccc}
+  \hline
+  No.1&$2\theta\ / \ \si{\degree}$&$d$\\
+  \hline \hline
+  1&38.4&2.34\\
+  2&44.8&2.02\\
+  \hline
+  \end{tabular}
+\end{table}
+\begin{table}[h]
+  \caption{未知試料1の格子定数の計算}
+  \label{tab:unk2_a}
+  \centering
+  \begin{tabular}{ccccc}
+  \hline
+  \multirow{2}{*}{No.}&\multicolumn{4}{c}{格子定数 / $\si{\angstrom}$}\\
+  &ダイヤモンド&単純&fcc&bcc\\
+  \hline \hline
+  1&4.06&2.34&4.06&3.31\\
+  2&5.72&2.86&4.05&4.05\\
+  平均&$4.89(1\pm0.17)$&$2.60(1\pm0.10)$&$4.05(1\pm0.00)$&$3.68(1\pm0.10)$\\
+  \hline
+  \end{tabular}
+\end{table}

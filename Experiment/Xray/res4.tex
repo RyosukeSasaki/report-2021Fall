@@ -1,0 +1,50 @@
+\subsection{高分子フィルムの延伸と配向}
+図\ref{fig:fig/polymer.png}に高分子フィルムのX線画像を示す.
+これらを比較すると,延伸してない試料の画像は回転対称なのに対して,
+延伸した試料は左右,上下方向に強度の強い領域があることがわかる.
+延伸前の高分子の微結晶は乱雑に存在し,粉末試料と同様に等方的な試料と考えられることから軸対称な画像が得られた.
+一方で延伸した試料は微結晶が延伸により配向し,異方性が生じたために1.3節で述べたように散乱光にピークが現れたと言える.
+
+ここでは配向した試料の画像から,主鎖内での単量体の繰り返し長さと,主鎖同士の距離を計算する.
+画像の上下方向を$y$方向,左右方向を$x$方向とする.高分子フィルムは$y$方向に配向しているので,
+$y$方向のピークが主鎖内の繰り返し単位の長さ, $x$方向のピークが主鎖同士の距離に対応する.
+ここで撮影装置は図\ref{fig:fig/geometry.png}のようなジオメトリで配置されている.
+したがって散乱角$2\theta$は
+\begin{align}
+  2\theta=\arctan\left(\frac{l}{L}\right)
+\end{align}
+である.これを用いて距離は
+\begin{align}
+  d=\frac{\lambda}{2\sin\theta}
+\end{align}
+と表される.
+また撮像素子のピクセルサイズは$100\ \si{\micro\metre}$であるので,
+中心からピークまでのピクセル数を$n$とすると
+\begin{align}
+  l=n\times 100\times10^{-6}\ \si{\metre}
+\end{align}
+これを用いて主鎖内の繰り返し単位の長さ,主鎖同士の距離を求めると表\ref{tab:koubunsi}のようになる.
+ここでPLAの構造と各結合の距離は図\ref{fig:fig/PLA.png}のようになっている.
+したがって全ての結合が一直線に並んでいるなら単量体の長さは
+\begin{align}
+  1.31\ \si{\angstrom}+1.46\ \si{\angstrom}+1.53\ \si{\angstrom}=4.3\ \si{\angstrom}
+\end{align}
+であり,実際の結合は角度を持っていると考えられることから実際の繰り返し単位の長さは$4.3\ \si{\angstrom}$以下になると考えられる.
+実際に測定により得られた繰り返し単位の長さはそれ以下になっている.
+一方で主鎖同士の距離は$4.3\ \si{\angstrom}$より大きく,妥当である.
+\begin{table}[h]
+  \caption{繰り返し単位の長さと主鎖同士の距離}
+  \label{tab:koubunsi}
+  \centering
+  \begin{tabular}{cccc}
+  \hline
+  &ピクセル数&$2\theta\ /\ \si{\degree}$&距離 / $\si{\angstrom}$\\
+  \hline \hline
+  繰り返し単位の長さ&$467.5$&$33.7$&$2.65$\\
+  主鎖同士の距離&$213.5$&$17.0$&$5.22$\\
+  \hline
+  \end{tabular}
+\end{table}
+\mfig[width=14 cm]{fig/polymer.png}{高分子フィルムのX線画像(左:配向なし,右:配向)}
+\mfig[width=8 cm]{fig/geometry.png}{測定装置のジオメトリ}
+\mfig[width=8 cm]{fig/PLA.png}{PLAの構造}
