@@ -1,0 +1,71 @@
+\section{考察}
+\subsection{格子定数の精度について}
+NaClの格子定数は$20\ \si{\degreeCelsius}$において
+\begin{align}
+  a=5.640\ \si{\angstrom}
+\end{align}
+である.\cite{rikanennpyo}
+したがって測定値の相対誤差は$0.19\%$となり,よく一致していることがわかる.
+
+各ピークから計算された格子定数は表\ref{tab:kakupi-ku}のようになっている.
+NaClの線膨張率は$40\times10^{-6}\ \si{\kelvin^{-1}}$である.\cite{rikanennpyo}
+したがって文献地が測定された$20\ \si{\degreeCelsius}$から仮に実験時の温度が
+$10\ \si{\degreeCelsius}$度高く$30\ \si{\degreeCelsius}$だったとすると,膨張後の格子定数は
+\begin{align}
+  a=5.640(1+40\times10^{-6}\times 10)=5.642
+\end{align}
+であり,温度の影響は十分小さいと考えられる.
+
+ここで散乱角と格子定数の関係は図\ref{fig:graph/out/NaCl_correl.pdf}のようになっており,
+相関係数は$R=0.882$と強い正の相関が見える.
+これは(24)式を考えると,散乱角が大きいほど散乱角が小さくなるようにシフトしていると考えられる.
+このように高角度側で散乱角がシフトする原因としては固溶体の影響が考えられる.\cite{nakayama}
+固溶体は結晶構造の一部原子が別の原子に置換されることや,格子内部に別の原子侵入する現象であり,
+試料の不純物や経年劣化により格子定数が変化した可能性がある.
+\begin{table}[h]
+\caption{各ピークから計算される格子定数}
+\label{tab:kakupi-ku}
+\centering
+  \begin{tabular}{ccc}
+  \hline
+  Miller指数&$2\theta\ /\ \si{\degree}$&格子定数 / $\si{\angstrom}$\\
+  \hline \hline
+  111&27.33&5.646\\
+  200&31.69&5.641\\
+  220&45.33&5.653\\
+  311&53.73&5.653\\
+  222&56.23&5.661\\
+  \hline
+  \end{tabular}
+\end{table}
+\mfig[width=10cm]{graph/out/NaCl_correl.pdf}{散乱角と格子定数の相関}
+\subsection{NaClの散乱強度}
+3.3.2節で行ったのと同様に各ピークに対して散乱光の相対強度と理論値を計算すると表\ref{tab:nacl_kyoudo}のようになる.
+原子散乱因子はマニュアルの付録表3, 4\cite{bussitu}を元に線形近似で求めた.
+ここで横軸に測定値,縦軸に理論値の相対強度をプロットすると図\ref{fig:graph/out/NaCl_inten.pdf}のようになる.
+図\ref{fig:graph/out/NaCl_inten.pdf}を見ると測定値と理論値の相対強度はある程度一致しているが,
+測定値が理論値よりも小さい傾向があることがわかる.
+理論値が正確であるとするならば,誤差の要因は測定値に求めるべきである.
+また全ての測定値に対して同様に小さくなっている傾向が見られることから,誤差の要因は吸収因子の計算にあると考える.
+吸収因子の計算にあたっては,完全な円盤試料に対してX線が垂直に入射するとしたが,実際には試料は錠剤の形をしており,
+また入射角度も完全には調整していない.
+試料にX線が斜めに入射した場合,X線の通る経路が長くなるので吸収の影響はより大きくなると考えられる.
+これによって全ての散乱角が同様に減衰したために,図\ref{fig:graph/out/NaCl_inten.pdf}のような結果になったと考えられる.
+\begin{table}[h]
+\caption{NaClの散乱強度}
+\label{tab:nacl_kyoudo}
+\centering
+\begin{tabular}{ccccc}
+\hline
+\multirow{2}{*}{No.}&\multirow{2}{*}{$2\theta\ /\ \si{\degree}$}&\multirow{2}{*}{Miller指数}&\multicolumn{2}{c}{相対強度}\\
+&&&測定値&理論値\\
+\hline \hline
+1&27.3&111&6.59&8.76\\
+2&31.7&200&100&100\\
+3&45.3&220&57.4&59.7\\
+4&53.7&311&1.41&1.61\\
+5&56.2&222&14.5&17.6\\
+\hline
+\end{tabular}
+\end{table}
+\mfig[width=10cm]{graph/out/NaCl_inten.pdf}{測定値と理論値の比較}
