@@ -1,0 +1,82 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+\usepackage[thicklines]{cancel}
+
+\renewcommand{\CancelColor}{\color{red}}
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{相対性理論 レポートNo.10}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsection*{Q74.}
+$A^\mu B_\mu$は縮約されてスカラーになっている.
+したがってスカラーに対する共変微分の要請から
+\begin{align}
+  \begin{split}
+    \nabla_\nu(A^\mu B_\mu)&=\partial_\nu(A^\mu B_\mu)
+  \end{split}
+\end{align}
+また左辺に対して縮約と微分が可換であることとLeibniz則から
+\begin{align}
+  \begin{split}
+    \nabla_\nu(A^\mu B_\mu)&=\nabla_\nu A^\mu B_\mu\\
+    &=(\nabla_\nu A^\mu)B_\mu+A^\mu(\nabla_\nu B_\mu)
+  \end{split}
+\end{align}
+(1), (2)式から
+\begin{align}
+  \partial_\nu(A^\mu B_\mu)=(\nabla_\nu A^\mu)B_\mu+A^\mu(\nabla_\nu B_\mu)
+\end{align}
+ここで反変ベクトルに関する共変微分
+\begin{align}
+  \nabla_\nu A^\mu=\partial_\nu A^\mu-X^\mu_{\ \nu\lambda}A^\lambda
+\end{align}
+を用いると
+\begin{align}
+  \begin{split}
+    \partial_\nu(A^\mu B_\mu)&=(\partial_\nu A^\mu-X^\mu_{\ \nu\lambda}A^\lambda)B_\mu+A^\mu(\nabla_\nu B_\mu)\\
+    A^\mu(\nabla_\nu B_\mu)&=\partial_\nu(A^\mu B_\mu)-(\partial_\nu A^\mu)B_\mu+X^\mu_{\ \nu\lambda}A^\lambda B_\mu\\
+    A^\mu(\nabla_\nu B_\mu)&=A^\mu\partial_\nu B_\mu+X^\mu_{\ \nu\lambda}A^\lambda B_\mu
+  \end{split}
+\end{align}
+この両辺が任意の$A^\mu$について等しくあるべきなので
+\begin{align}
+  \nabla_\nu B_\mu=\partial_\nu B_\mu+X^\lambda_{\ \nu\mu}B_\lambda
+\end{align}
+となる.
+\end{document}
