@@ -1,0 +1,100 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{パワーエレクトロニクス No.10}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{(1)}
+$v_{un}$は奇関数なので余弦波成分は$0$である.
+正弦波成分は周期を$T$とすれば
+\begin{align}
+  \begin{split}
+    b_n=&\frac{2}{T}\int_0^Tv_{un}(t)\sin\frac{2\pi nt}{T}\ dt\\
+    =&\frac{1}{\pi}\int_0^{2\pi}\tilde{v}_{un}(x)\sin nx\ dx\\
+    =&\frac{1}{\pi}\int_0^{\pi/3}\frac{V_s}{3}\sin nx\ dx+\frac{1}{\pi}\int_{\pi/3}^{2\pi/3}\frac{2V_s}{3}\sin nx\ dx
+    +\frac{1}{\pi}\int_{2\pi/3}^{\pi}\frac{V_s}{3}\sin nx\ dx\\
+    &-\frac{1}{\pi}\int_\pi^{4\pi/3}\frac{V_s}{3}\sin nx\ dx-\frac{1}{\pi}\int_{4\pi/3}^{5\pi/3}\frac{2V_s}{3}\sin nx\ dx
+    -\frac{1}{\pi}\int_{5\pi/3}^{2\pi}\frac{V_s}{3}\sin nx\ dx\\
+    =&\frac{V_s}{3}\frac{2}{\pi n}\left(1+\cos\frac{\pi n}{3}-\cos\frac{2\pi n}{3}-\cos\pi n\right)\\
+    =&\left\{
+    \begin{array}{ll}
+      \cfrac{2V_s}{\pi n}&(n=1+6k,\ 5+6k,\ k\in\mathbb{N})\\
+      0&({\rm otherwise})
+    \end{array}
+    \right.
+  \end{split}
+\end{align}
+したがって$v_{un}$のフーリエ級数展開は
+\begin{align}
+  \begin{split}
+    v_{un}=\sum_{k=0}^\infty\left(\frac{2V_s}{\pi(1+6k)}\sin\left((1+6k)\frac{2\pi}{T}t\right)+\frac{2V_s}{\pi(5+6k)}\sin\left((5+6k)\frac{2\pi}{T}t\right)\right)
+  \end{split}
+\end{align}
+と表される.
+\subsubsection*{(2)}
+$v_{uo}$のフーリエ級数展開は
+\begin{align}
+  v_{uo}=\sum_{n=1}^{\infty}\frac{2V_s}{(2n-1)\pi}\sin\left((2n-1)\frac{2\pi}{T}t\right)
+\end{align}
+である.一方で$v_{no}$は奇関数なので,そのフーリエ係数は
+\begin{align}
+  \begin{split}
+    b_n=&\frac{2}{T}\int_0^Tv_{no}(t)\sin\frac{2\pi nt}{T}\ dt\\
+    =&\frac{1}{\pi}\int_0^{2\pi}\tilde{v}_{no}(x)\sin nx\ dx\\
+    =&\frac{V_s}{3\pi n}\left(1-\cos\frac{\pi n}{3}+\cos\frac{2\pi n}{3}-\cos\pi n+\cos\frac{4\pi n}{3}-\cos\frac{5\pi n}{3}\right)\\
+    =&\left\{
+      \begin{array}{ll}
+        \cfrac{2V_s}{\pi n}&(n=3+6k,\ k\in\mathbb{N})\\
+        0&({\rm otherwise})
+      \end{array}
+    \right.
+  \end{split}
+\end{align}
+したがって
+\begin{align}
+  \begin{split}
+    v_{no}&=\sum_{k=0}^\infty\frac{2V_s}{(3+6k)\pi}\sin\left((3k+6)\frac{2\pi}{T}t\right)\\
+    &=\frac{2V_s}{3}\sin\left(3\frac{2\pi}{T}t\right)
+    +\frac{2V_s}{9}\sin\left(9\frac{2\pi}{T}t\right)
+    +\frac{2V_s}{15}\sin\left(15\frac{2\pi}{T}t\right)+\cdots
+  \end{split}
+\end{align}
+となり,これは(3)式の$3,\ 9,\ 15,\ldots$次高調波に等しいことがわかる.
+\end{document}
