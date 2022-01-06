@@ -1,0 +1,93 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+\usepackage[thicklines]{cancel}
+
+\renewcommand{\CancelColor}{\color{red}}
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{相対性理論 レポートNo.11}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\subsection*{Q80.}
+共変微分は計量性から
+\begin{align}
+  \begin{split}
+    \nabla_\lambda g_{\mu\nu}&=\partial_\lambda g_{\mu\nu}+X^\alpha_{\ \lambda\mu}g_{\alpha\nu}+X^\beta_{\ \lambda\nu}g_{\mu\beta}\\
+    &=\partial_\lambda g_{\mu\nu}+X_{\nu\lambda\mu}+X_{\mu\lambda\nu}=0\\
+    \therefore\ \partial_\lambda g_{\mu\nu}&=-X_{\nu\lambda\mu}-X_{\mu\lambda\nu}
+  \end{split}
+\end{align}
+同様に
+\begin{align}
+  \begin{split}
+    \nabla_\mu g_{\nu\lambda}&=\partial_\mu g_{\nu\lambda}+X^\alpha_{\ \mu\nu}g_{\alpha\lambda}+X^\beta_{\ \mu\lambda}g_{\nu\beta}\\
+    &=\partial_\mu g_{\nu\lambda}+X_{\lambda\mu\nu}+X_{\nu\mu\lambda}=0\\
+    \therefore\ \partial_\mu g_{\nu\lambda}&=-X_{\lambda\mu\nu}-X_{\nu\mu\lambda}
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    \nabla_\nu g_{\lambda\mu}&=\partial_\nu g_{\lambda\mu}+X^\alpha_{\ \nu\lambda}g_{\alpha\mu}+X^\beta_{\ \nu\mu}g_{\lambda\beta}\\
+    &=\partial_\nu g_{\lambda\mu}+X_{\mu\nu\lambda}+X_{\lambda\nu\mu}=0\\
+    \therefore\ \partial_\nu g_{\lambda\mu}&=-X_{\mu\nu\lambda}-X_{\lambda\nu\mu}=0
+  \end{split}
+\end{align}
+ここで$X_{\alpha\beta\gamma}=X_{\alpha\gamma\beta}$を用いて$(2)+(3)-(1)$を計算すると
+\begin{align}
+  \begin{split}
+    &\partial_\mu g_{\nu\lambda}+\partial_\nu g_{\lambda\mu}-\partial_\lambda g_{\mu\nu}\\
+    =&X_{\nu\lambda\mu}+X_{\mu\lambda\nu}-X_{\lambda\mu\nu}-X_{\nu\mu\lambda}-X_{\mu\nu\lambda}-X_{\lambda\nu\mu}\\
+    =&-2X_{\lambda\mu\nu}\\
+    \therefore\ X_{\lambda\mu\nu}=&X^{\alpha}_{\ \mu\nu}g_{\alpha\lambda}=-\frac{1}{2}(\partial_\mu g_{\nu\lambda}+\partial_\nu g_{\lambda\mu}-\partial_\lambda g_{\mu\nu})
+  \end{split}
+\end{align}
+(4)の両辺に$g^{\lambda\rho}$を掛けると$g_{\alpha\lambda}g^{\lambda\rho}=\delta^\rho_{\ \alpha}$より
+\begin{align}
+  \begin{split}
+    X^{\rho}_{\ \mu\nu}&=-\frac{1}{2}g^{\lambda\rho}(\partial_\mu g_{\nu\lambda}+\partial_\nu g_{\lambda\mu}-\partial_\lambda g_{\mu\nu})
+  \end{split}
+\end{align}
+添字を$\rho\rightarrow\mu$, $\mu\rightarrow\rho$, $\nu\rightarrow\sigma$, $\lambda\rightarrow\nu$と置き直せば
+\begin{align}
+  \begin{split}
+    X^\mu_{\ \rho\sigma}&=-\frac{1}{2}g^{\nu\mu}(\partial_\sigma g_{\nu\rho}+\partial_\rho g_{\sigma\nu}-\partial_\nu g_{\rho\sigma})\\
+    &=-\Gamma^\mu_{\ \rho\sigma}
+  \end{split}
+\end{align}
+を得る.
+\end{document}
