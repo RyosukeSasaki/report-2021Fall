@@ -1,0 +1,70 @@
+\section{5-A.}
+\subsection{プログラムについて}
+プログラムはサンプルコードを元に各ブロック毎に計算された物理量をさらに平均化するように修正したものを用いている.
+プログラムの修正部分をソースコード\ref{src5a}に示す.
+\subsection{結果}
+\subsubsection{乱数の検証}
+乱数が十分高いエントロピーを持っていることを確認するため,いくつかのシード値に対してシミュレーションを行い
+シード値と物理量(エネルギー)との相関を調べた.相関係数はgnuplotのstatsコマンドを用いて計算した.
+計算条件は表\ref{tab:5a1}の通りである.シード値は3から601までの全奇数(300点)とした.
+結果は図\ref{fig:graph/entropy.tex}のようになった.シード値と物理量の相関係数は$R=0.02$でありこれらの間に相関はほぼ無いと言える.
+標準偏差は
+\begin{align}
+  {\rm sume}=-1.9511(1\pm0.0002)
+\end{align}
+となった.以上から乱数は十分に高いエントロピーを持っていると考えられる.
+\begin{table}[h]
+  \caption{計算条件}
+  \label{tab:5a1}
+  \centering
+  \begin{tabular}{cc}
+    \hline
+    無次元量&値\\
+    \hline \hline
+    格子サイズ&$8\times 8$\\
+    温度&$1.5$\\
+    $M_i$&10000\\
+    $M_f$&20000\\
+    ブロック数&10\\
+    \hline
+  \end{tabular}
+\end{table}
+\gnu{シード値とエネルギーの関係}{graph/entropy.tex}
+\subsubsection{シミュレーション結果}
+いくつかの温度で内部エネルギーと比熱のシミュレーションを行った.
+また同じ温度での厳密解の値を計算した.
+その結果は表\ref{tab:5a3}のとおりである.
+また計算条件は表\ref{tab:5a2}の通りである.
+\begin{table}[h]
+\caption{計算条件}
+\label{tab:5a2}
+\centering
+\begin{tabular}{cc}
+\hline
+無次元量&値\\
+\hline \hline
+格子サイズ&$8\times 8$\\
+$M_i$&10000\\
+$M_f$&20000\\
+ブロック数&10\\
+シード値&601\\
+\hline
+\end{tabular}
+\end{table}
+\begin{table}[h]
+\caption{計算結果}
+\label{tab:5a3}
+\centering
+\begin{tabular}{cc|cc|cc}
+\hline
+\multirow{2}{*}{温度}&\multirow{2}{*}{スピン初期状態}&\multicolumn{2}{c|}{シミュレーション}&\multicolumn{2}{c}{厳密解}\\
+&&内部エネルギー&比熱&内部エネルギー&比熱\\
+\hline \hline
+1.5&all up&$-1.951$&$0.1952$&$-1.951$&$0.1972$\\
+2.3&all up&$-1.452$&$1.176$&$-1.456$&$1.170$\\
+2.3&random&$-1.453$&$1.174$&$-1.456$&$1.170$\\
+3.0&random&$-0.8420$&$0.4850$&$-0.8413$&$0.4840$\\
+\hline
+\end{tabular}
+\end{table}
+\subsubsection{考察}

@@ -1,0 +1,34 @@
+\appendix
+\def\thesection{補遺\Alph{section}}
+\renewcommand*{\thelstlisting}{\Alph{section}.\arabic{lstlisting}}
+\section{ソースコード}
+\begin{lstlisting}[caption=5-Aのソースコード,label=src5a]
+  !=============================================================-
+  ! block loop
+  !=============================================================-
+  sume=0;sumc=0;summ=0;sumx=0;
+  do nb=1,nblock
+    !==========================================================-
+    !   block-wa shokika
+    !==========================================================-
+    amag =0.0d0
+    amag2=0.0d0
+    aene =0.0d0
+    aene2=0.0d0
+
+~~~~~~~~~~~中略~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    sume = sume + ave
+    sumc = sumc + avc
+    summ = summ + avm
+    sumx = sumx + avx
+  enddo
+  sume = sume / nblock
+  sumc = sumc / nblock
+  summ = summ / nblock
+  sumx = sumx / nblock
+  write(*,'(a10,e24.16)') '       e= ',sume
+  write(*,'(a10,e24.16)') '       c= ',sumc
+  write(*,'(a10,e24.16)') '       m= ',summ
+  write(*,'(a10,e24.16)') '       x= ',sumx
+\end{lstlisting}
