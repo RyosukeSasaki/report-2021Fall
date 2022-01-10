@@ -30,6 +30,7 @@
   \end{tabular}
 \end{table}
 \gnu{シード値とエネルギーの関係}{graph/entropy.tex}
+\clearpage
 \subsubsection{シミュレーション結果}
 いくつかの温度で内部エネルギーと比熱のシミュレーションを行った.
 また同じ温度での厳密解の値を計算した.
@@ -55,7 +56,7 @@ $M_f$&20000\\
 \caption{計算結果}
 \label{tab:5a3}
 \centering
-\begin{tabular}{cc|cc|cc}
+\begin{tabular}{cc|ll|ll}
 \hline
 \multirow{2}{*}{温度}&\multirow{2}{*}{スピン初期状態}&\multicolumn{2}{c|}{シミュレーション}&\multicolumn{2}{c}{厳密解}\\
 &&内部エネルギー&比熱&内部エネルギー&比熱\\
@@ -67,4 +68,25 @@ $M_f$&20000\\
 \hline
 \end{tabular}
 \end{table}
-\subsubsection{考察}
+\subsection{考察}
+各条件でのシミュレーション結果の相対誤差は表\ref{tab:5a4}の通りである.
+このことから全ての条件でシミュレーションの結果と厳密解が良く一致していることがわかる.
+
+また臨海温度($2.3$)の2つシミュレーションではスピン初期状態によらずどちらも厳密解に良く一致しており,
+初期条件によらず平衡状態に収束していると考えられる.
+\begin{table}[h]
+\caption{相対誤差}
+\label{tab:5a4}
+\centering
+\begin{tabular}{cc|cc}
+\hline
+\multirow{2}{*}{温度}&\multirow{2}{*}{スピン初期状態}&\multicolumn{2}{c}{相対誤差 / \%}\\
+&&内部エネルギー&比熱\\
+\hline \hline
+1.5&all up&$0.0$&$1.0$\\
+2.3&all up&$0.2$&$0.5$\\
+2.3&random&$0.2$&$0.4$\\
+3.0&random&$0.1$&$0.2$\\
+\hline
+\end{tabular}
+\end{table}
