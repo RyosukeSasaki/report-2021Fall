@@ -1,0 +1,70 @@
+\section{5-B.}
+\subsection{プログラムについて}
+プログラムは5-Aのプログラムを元に温度を$4.0$から$0.0$まで$0.1$刻みで掃引しながらシミュレーションを行うように修正したものを用いている.
+また変数sume2, sumc2, summ2, sumx2はそれぞれ内部エネルギー,比熱,磁化,帯磁率の2乗平均を格納しており,最後に平均の2乗を引き,平方根を取ることで標準偏差を計算している.
+プログラムでは温度と各物理量の平均値,標準偏差を出力している.
+プログラムの修正部分をソースコード\ref{src5b}に示す.
+\subsection{結果}
+温度を$4.0$から$0.0$まで$0.1$刻みで掃引しながら内部エネルギー,比熱,磁化,帯磁率の温度依存性を計算した.
+図\ref{fig:graph/energy.tex}から図\ref{fig:graph/x.tex}にその結果を示す.
+また表\ref{tab:5b1}に計算条件を示す.
+\begin{table}[h]
+  \caption{計算条件}
+  \label{tab:5b1}
+  \centering
+  \begin{tabular}{cc}
+  \hline
+  無次元量&値\\
+  \hline \hline
+  格子サイズ&$16\times 16$\\
+  $M_i$&10000\\
+  $M_f$&20000\\
+  ブロック数&10\\
+  シード値&601\\
+  \hline
+  \end{tabular}
+  \end{table}
+\gnu{エネルギーの温度依存性}{graph/energy.tex}
+\gnu{比熱の温度依存性}{graph/capacity.tex}
+\gnu{磁化の温度依存性}{graph/magnetize.tex}
+\gnu{帯磁率の温度依存性}{graph/x.tex}
+\newpage
+\subsection{考察}
+\subsubsection{内部エネルギーと比熱}
+図\ref{fig:graph/exact_energy.tex},図\ref{fig:graph/exact_capacity.tex}に内部エネルギーと比熱の厳密解とシミュレーションの結果を示す.
+破線は臨界温度(${\rm temp}=2.269$)である.
+この結果から内部エネルギーと比熱についてはシミュレーションによって妥当な結果が得られていることがわかる.
+
+図\ref{fig:graph/exact_capacity.tex}から比熱が臨界温度付近で不連続に変化している.
+このことから相転移現象がシミュレーションでも現れていることがわかる.
+また比熱の標準偏差が臨界温度付近で大きくなっている.
+比熱が大きいということはエネルギー変化に対する温度変化の割合が小さいということであり,
+エネルギーの微小変化に対してより安定であると考えられる.
+特にIsingモデルにおいて,これはスピン反転が起こりやすいと理解できるため,
+これによって標準偏差が大きくなったと考えられる.
+\subsubsection{磁化と帯磁率}
+図\ref{fig:graph/magnetize.tex},図\ref{fig:graph/x.tex}から磁化や帯磁率についても臨界温度付近での不連続な変化が見られ,
+相転移現象が観測できる.
+これらに関しても不連続点付近で標準偏差が大きくなっており,これは比熱と同様の原理に依るものであると考えられる.
+
+また図図\ref{fig:graph/fit_chi.tex}に磁化,帯磁率の臨界温度付近での温度依存性を温度の冪でFittingした結果を示す.
+これによって磁化の温度依存性は
+\begin{align}
+  M(x)=-1.008\times(-x+2.093)^{0.04265}
+\end{align}
+また帯磁率の温度依存性は
+\begin{align}
+  \chi(x)=10.06\times(x-2.106)^{-1.734}
+\end{align}
+と求まった.したがって$16\times16$の2次元Isingモデルでの臨界指数は
+\begin{align}
+  \begin{split}
+    \beta&=0.04266\\
+    \gamma&=1.734
+  \end{split}
+\end{align}
+である.
+\gnu{エネルギーの温度依存性}{graph/exact_energy.tex}
+\gnu{比熱の温度依存性}{graph/exact_capacity.tex}
+\gnu{磁化とFitting曲線}{graph/fit_magnetize.tex}
+\gnu{帯磁率とFitting曲線}{graph/fit_chi.tex}

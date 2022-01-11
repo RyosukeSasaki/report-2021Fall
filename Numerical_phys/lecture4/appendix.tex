@@ -27,8 +27,51 @@
   sumc = sumc / nblock
   summ = summ / nblock
   sumx = sumx / nblock
-  write(*,'(a10,e24.16)') '       e= ',sume
-  write(*,'(a10,e24.16)') '       c= ',sumc
-  write(*,'(a10,e24.16)') '       m= ',summ
-  write(*,'(a10,e24.16)') '       x= ',sumx
+  write(*,'(a10,ES24.16)') '       e= ',sume
+  write(*,'(a10,ES24.16)') '       c= ',sumc
+  write(*,'(a10,ES24.16)') '       m= ',summ
+  write(*,'(a10,ES24.16)') '       x= ',sumx
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption=5-Aのソースコード,label=src5b]
+  !==========================================================-
+  !   sen'i-kakuritsu shokika
+  !==========================================================-
+  do while (temp>=0d0)
+    do n=-nnno,nnno
+      de=2.0d0*dble(n)/temp
+      if(de.gt.0.0d0) then
+        trprob(n)=dexp(-de)
+      else
+        trprob(n)=1.0d0
+      endif
+    enddo
+    
+~~~~~~~~~~~中略~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+      sume = sume + ave
+      sumc = sumc + avc
+      summ = summ + avm
+      sumx = sumx + avx
+      sume2 = sume2 + ave*ave
+      sumc2 = sumc2 + avc*avc
+      summ2 = summ2 + avm*avm
+      sumx2 = sumx2 + avx*avx
+    enddo
+    sume = sume / nblock
+    sumc = sumc / nblock
+    summ = summ / nblock
+    sumx = sumx / nblock
+    sume2 = sume2 / nblock - sume*sume
+    sumc2 = sumc2 / nblock - sumc*sumc
+    summ2 = summ2 / nblock - summ*summ
+    sumx2 = sumx2 / nblock - sumx*sumx
+    sume2 = sqrt(sume2)
+    sumc2 = sqrt(sumc2)
+    summ2 = sqrt(summ2)
+    sumx2 = sqrt(sumx2)
+    write(*,'(ES24.16, ES24.16, ES24.16, ES24.16, ES24.16, ES24.16, ES24.16, ES24.16, ES24.16)') temp,sume,sume2,sumc,sumc2,&
+    summ,summ2,sumx,sumx2
+    temp = temp - 0.1d0
+  end do
 \end{lstlisting}
