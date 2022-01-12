@@ -1,0 +1,90 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\lstset{
+language={bash},
+backgroundcolor={\color[gray]{.85}},
+basicstyle={\ttfamily},
+identifierstyle={\small},
+commentstyle={\small\ttfamily \color[rgb]{0,0.5,0}},
+keywordstyle={\small\bfseries \color[rgb]{1,0,0}},
+ndkeywordstyle={\small},
+stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
+frame={tb},
+breaklines=true,
+columns=[l]{fullflexible},
+numbers=left,
+xrightmargin=1zw,
+xleftmargin=2zw,
+numberstyle={\scriptsize},
+stepnumber=1,
+numbersep=1zw,
+}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{セキュリティ総論D レポートNo.6}
+\author{慶應義塾大学 理工学部物理学科 61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsection*{Shellshockとは}
+Shellshock (CVE-2014-6271, CVE-2014-7169)はGNU Bash $<=4.3$に存在する脆弱性である.
+これは以下のような環境変数による関数定義においてパーサーのバグによって関数定義の後に書かれた任意のコードが実行されるという脆弱性である.\cite{ShellSho53:online}
+\begin{lstlisting}[caption=攻撃コード例]
+env CVE_2014_6271="(){echo 'Hello';}; echo 'Goodbye'" bash -c CVE_2014_6271
+\end{lstlisting}
+上記のコードにおいて期待される動作はHelloが出力されることであるが,脆弱なシステムではGoodbyeが同様に出力される.
+このようなワンライナーを用いることで任意のコードが実行される可能性がある.
+Bashは多くのLinuxディストリビューションで標準のシェルとして用いられているため,
+脆弱性の影響は非常に広範囲に及んだ.
+\subsection*{対応の例}
+脆弱性はシステムに対するパッチの適用やBashのアップデートで解決された.
+システムベンダーやホスティングサービス事業者などは利用者の脆弱性が存在する製品のリスト(またはシステムの脆弱性の判定方法)や
+脆弱性がある場合の対処方法を公開しており,
+システム運用者はその情報を元に脆弱性の解決を行う必要がある.\cite{sakura}\cite{HITACHI}\cite{Redhat}\cite{IPA}
+\subsection*{広範囲に及ぶ脆弱性に対する対応}
+Shellshockでは脆弱性に対する対応としてベンダーなどは対処方法の周知を行い,
+その情報を元に各運用者が対処を行った.
+
+このように広範囲に影響が及ぶ脆弱性の場合は,
+ベンダーや政府機関による情報の周知と,それに応じた運用者の行動が対処として現実的であると考えられる.
+情報の公開について,広範囲に情報を公開することは攻撃者にとっても攻撃を容易にするが,
+ゼロデイ攻撃を防ぐためには早期に多くの利用者に情報を伝える必要がある.
+したがって利用者は脆弱性の発見後直ぐに攻撃の有無の確認や更新プログラム適用の準備を行い,
+またサービスのプロバイダはできるだけ早く更新プログラムを作成する必要があると考えられる.
+\bibliography{ref.bib}
+\end{document}
