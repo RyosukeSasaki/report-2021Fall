@@ -1,0 +1,164 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{物性物理学 No.12}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{(1)}
+散乱ベクトルは
+\begin{align}
+  {\bm q}={\bm k}-{\bm k}_0
+\end{align}
+である.
+\subsubsection*{(2)}
+散乱現象は光の電場分布により荷電粒子が加速運動することで発生する放射であると考えられるが,
+核子は電子に比べて質量が非常に大きく,加速運動しにくい.
+したがって放射される電磁波も微弱であるため,散乱実験においてはこれを無視することができる,
+\subsubsection*{(3)}
+仮定
+\begin{align}
+  \rho({\bm r}+m{\bm a})=\rho({\bm r})
+\end{align}
+は各単位格子の電子密度分布が平行移動を除いて等しいことを意味している.
+したがってまずは1つの単位格子について考える.
+単位格子1つから散乱される電磁波の振幅$A_l$は
+\begin{align}
+  A_l=\int_{単位格子}d{\bm r}\rho({\bm r}){\rm e}^{-2\pi i{\bm q}\cdot{\bm r}}
+\end{align}
+である.
+ここで図\ref{fig:fig/fig1.jpg}のように$a$離れて2つの単位格子が並んでいる場合,
+隣の単位格子から散乱される電磁波の光路差は
+\begin{align}
+  {\bm k}_0\cdot{\bm a}-{\bm k}\cdot{\bm a}=-{\bm q}\cdot{\bm a}
+\end{align}
+であり,位相差は
+\begin{align}
+  {\rm e}^{-2\pi i{\bm q}\cdot{\bm a}}
+\end{align}
+である.ただし今回は${\bm k_0}$と${\bm a}$が直行している.したがってこれらの単位格子からの電場振幅は
+\begin{align}
+  \begin{split}
+    A&=A_l+A_l{\rm e}^{-2\pi i{\bm q}\cdot{\bm a}}\\
+    &=(1+{\rm e}^{-2\pi i{\bm q}\cdot{\bm a}})\int_{単位格子}d{\bm r}\rho({\bm r}){\rm e}^{-2\pi i{\bm q}\cdot{\bm r}}
+  \end{split}
+\end{align}
+次に結晶が十分に無限に長い場合を考えると単位格子は$\ldots,-2{\bm a},-1{\bm a},0,1{\bm a},2{\bm a},\ldots$と${\bm a}$の整数倍で配列する.
+これらの単位格子からの電場の位相差は上と同様にして
+\begin{align}
+  {\rm e}^{-2\pi i{\bm q}\cdot m{\bm a}}
+\end{align}
+となるので,全電場は
+\begin{align}
+  A=\sum_m {\rm e}^{-2\pi mi{\bm q}\cdot {\bm a}} \int_{単位格子}d{\bm r}\rho({\bm r}){\rm e}^{-2\pi i{\bm q}\cdot{\bm r}}
+\end{align}
+となる.
+\mfig[width=6cm]{fig/fig1.jpg}{結晶による散乱}
+\subsubsection*{(4)}
+(8)式について${\bm q}\cdot{\bm a}$が整数でないと図\ref{fig:fig/fig2.jpg}
+のように異なる位相成分が$m$で足し上げられるにしたがって打ち消し合い$0$となる.
+したがって散乱光が強く観測されるのは${\bm q}\cdot{\bm a}$が整数のときである.
+ここで逆格子ベクトル${\bm G}_h=h{\bm b}$は${\bm a}\cdot{\bm b}=1$であることから,
+$\bm q$として${\bm G}_h$を用いれば${\bm q}\cdot{\bm a}=h$となり明らかに干渉条件を満たす.
+ここで図\ref{fig:fig/fig3.png}のように$\theta$を設定すれば
+\begin{align}
+  {\bm q}\cdot{\bm a}=({\bm k}-{\bm k}_0)\cdot{\bm a}=\frac{a}{\lambda}\sin\theta=h
+\end{align}
+となるので
+\begin{align}
+  a\sin\theta=h\lambda
+\end{align}
+を得る.
+
+また${\bm q}\cdot{\bm a}$が整数であるという条件は,隣り合う散乱光が同位相であることを意味している.
+このためには光路差$①=a\sin\theta$が波長の整数倍である必要がある.
+このことからも干渉条件は
+\begin{align}
+  a\sin\theta=h\lambda
+\end{align}
+となる.
+\mfig[width=6cm]{fig/fig2.jpg}{異なる位相成分の打ち消し合い}
+\mfig[width=6cm]{fig/fig3.png}{$\theta$の設定(問題から引用)}
+\subsubsection*{(5)}
+前問から${\bm q}={\bm G}_h$であったので結晶構造因子は
+\begin{align}
+  F=f_A+f_B{\rm e}^{-\pi i{\bm G}_h\cdot {\bm x}}
+\end{align}
+ここで位置$\bm x$として隣の原子の位置$\bm a$を用いれば
+\begin{align}
+  \begin{split}
+    F&=f_A+f_B{\rm e}^{-\pi i{\bm G}_h\cdot {\bm a}}\\
+    &=f_A+f_B{\rm e}^{-\pi hi}
+  \end{split}
+\end{align}
+ここで$h$が偶数のとき
+\begin{align}
+  {\rm e}^{-\pi hi}=1
+\end{align}
+なので
+\begin{align}
+  F=f_A+f_B
+\end{align}
+となり, $h$が奇数のときは
+\begin{align}
+  {\rm e}^{-\pi hi}=-1
+\end{align}
+なので
+\begin{align}
+  F=f_A-f_B
+\end{align}
+となる.したがって$h$が偶数のときは散乱光の強度が大きく,
+$h$が奇数のときは散乱光の強度が小さくなることがわかる.
+\subsubsection*{(6)}
+散乱光が見える角度は(10)式から
+\begin{align}
+  \theta=\arcsin\left(\frac{h\lambda}{a}\right)
+\end{align}
+また$h$が偶数で散乱光の強度が大きく,
+$h$が奇数で散乱光の強度は弱くなるので以下の図\ref{fig:fig/fig4.jpg}のようになる.
+\mfig[width=10cm]{fig/fig4.jpg}{散乱光の強度分布}
+\subsubsection*{(7)}
+$f_A=f_B$とすると$h$が奇数のとき
+\begin{align}
+  F=f_A-f_A=0
+\end{align}
+となり,散乱光が見えないことがわかる.
+したがって散乱光の強度は以下の図\ref{fig:fig/fig5.jpg}のようになる.
+\mfig[width=10cm]{fig/fig5.jpg}{散乱光の強度分布($f_A=f_B$)}
+\end{document}
