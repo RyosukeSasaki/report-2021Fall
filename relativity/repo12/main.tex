@@ -1,0 +1,207 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+\usepackage[thicklines]{cancel}
+
+\renewcommand{\CancelColor}{\color{red}}
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{相対性理論 レポートNo.12}
+\author{佐々木良輔}
+\date{}
+\maketitle
+3次元球座標における線素ベクトルは
+\begin{align}
+  d{\bm r}=dr{\bm e}_r+rd\theta{\bm e}_\theta+r\sin\theta d\phi{\bm e}_\phi
+\end{align}
+であり基底ベクトルが直交することから線素は
+\begin{align}
+  ds^2=(d{\bm r})^2=dr^2+r^2d\theta^2+r^2\sin^2\theta d\phi^2
+\end{align}
+である.ここで半径$a$の2次元球面座標上での微小変位を考えると,
+球面上での移動においては動径方向の変位が無いので(2)において
+\begin{align}
+  dr=0
+\end{align}
+とすればよい.したがって2次元球面上での線素$ds^2$は
+\begin{align}
+  ds^2=a^2(d\theta^2+\sin^2\theta d\phi^2)
+\end{align}
+となる.ここで
+\begin{align}
+  ds^2=g_{\mu\nu}dx^\mu dx^\nu
+\end{align}
+なので
+\begin{align}
+  \begin{split}
+    g_{\theta\theta}&=a^2\\
+    g_{\phi\phi}&=a^2\sin^2\theta\\
+    g_{\theta\phi}=g_{\phi\theta}&=0
+  \end{split}
+\end{align}
+であり
+\begin{align}
+  \partial_\lambda g_{\mu\nu}=\left\{
+    \begin{array}{ll}
+      2a^2\sin\theta\cos\theta&(\lambda=\theta,\mu=\nu=\phi)\\
+      0&({\rm otherwise})
+    \end{array}
+    \right.
+\end{align}
+したがって
+\begin{align}
+  \begin{split}
+    \Gamma_{\theta\phi\phi}&=\frac{1}{2}(-\partial_\theta g_{\phi\phi}+\partial_\phi g_{\theta\phi}+\partial_\phi g_{\phi\theta})\\
+    &=-a^2\sin\theta\cos\theta\\
+    &=-\Gamma_{\phi\theta\phi}=-\Gamma_{\phi\phi\theta}
+  \end{split}
+\end{align}
+それ以外の$\Gamma_{\lambda\mu\nu}$は$0$である.また計量を行列表示すると
+\begin{align}
+  g_{\mu\nu}=\left(
+    \begin{array}{cc}
+      a^2&0\\
+      0&a^2\sin^2\theta\\
+    \end{array}
+  \right)
+\end{align}
+したがって
+\begin{align}
+  \begin{split}
+    g^{\mu\nu}&=\left(
+      \begin{array}{cc}
+        a^2&0\\
+        0&a^2\sin^2\theta\\
+      \end{array}
+      \right)^{-1}\\
+      &=\left(
+        \begin{array}{cc}
+          1/a^2&0\\
+          0&1/a^2\sin^2\theta\\
+        \end{array}
+        \right)
+  \end{split}
+\end{align}
+以上からChristoffel記号は
+\begin{align}
+  \begin{split}
+    \Gamma^\theta_{\ \phi\phi}=g^{\theta\rho}\Gamma_{\rho\phi\phi}&=g^{\theta\theta}\Gamma_{\theta\phi\phi}+g^{\theta\phi}\Gamma_{\phi\phi\phi}\\
+    &=\frac{1}{a^2}(-a^2\sin\theta\cos\theta)\\
+    &=-\sin\theta\cos\theta
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    \Gamma^\phi_{\ \theta\phi}=g^{\phi\rho}\Gamma_{\rho\theta\phi}&=g^{\phi\theta}\Gamma_{\theta\theta\phi}+g^{\phi\phi}\Gamma_{\phi\theta\phi}\\
+    &=\frac{1}{a^2\sin^2\theta}(a^2\sin\theta\cos\theta)\\
+    &=\cot\theta=\Gamma^\phi_{\ \phi\theta}
+  \end{split}
+\end{align}
+それ以外の$\Gamma^{\lambda}_{\ \mu\nu}$は$0$である.
+
+次に曲率テンソルを考える.対称性から
+\begin{align}
+  R_{\alpha\alpha\mu\nu}=R{\alpha\beta\mu\mu}=0
+\end{align}
+となるので,残るのは$\alpha\neq\beta$かつ$\mu\neq\nu$である
+\begin{align}
+  R_{\theta\phi\theta\phi},R_{\theta\phi\phi\theta},R_{\phi\theta\theta\phi},R_{\phi\theta\phi\theta}
+\end{align}
+のみである,更に対称性から
+\begin{align}
+  \begin{split}
+    R_{\theta\phi\theta\phi}&=-R_{\theta\phi\phi\theta}\\
+    &=-R_{\phi\theta\theta\phi}\\
+    &=-(-R_{\phi\theta\phi\theta})
+  \end{split}
+\end{align}
+となるので1つの成分だけ考えれば十分である.したがって
+\begin{align}
+  \begin{split}
+    R^\theta_{\ \phi\theta\phi}&=\partial_\theta\Gamma^{\theta}_{\ \phi\phi}
+    -\partial_\phi\Gamma^\theta_{\ \theta\phi}
+    +\Gamma^\theta_{\ \theta\tau}\Gamma^\tau_{\ \phi\phi}
+    -\Gamma^\theta_{\ \phi\tau}\Gamma^\tau_{\ \theta\phi}\\
+    &=\partial_\theta(-\sin\theta\cos\theta)-0+(0+0)-(0+(-\sin\theta\cos\theta)\cot\theta)\\
+    &=-\cos^2\theta+\sin^2\theta+\cos^2\theta\\
+    &=\sin^2\theta
+  \end{split}
+\end{align}
+$R^\alpha_{\ \beta\mu\nu}$は$\mu\nu$について反対称なので
+\begin{align}
+  R^\theta_{\ \phi\phi\theta}=-\sin^2\theta
+\end{align}
+である.また
+\begin{align}
+  \begin{split}
+    R_{\theta\phi\theta\phi}&=g_{\theta\rho}R^\rho_{\ \phi\theta\phi}\\
+    &=g_{\theta\theta}R^\theta_{\ \phi\theta\phi}+0\\
+    &=a^2\sin^2\theta=-R_{\phi\theta\theta\phi}
+  \end{split}
+\end{align}
+よって
+\begin{align}
+  \begin{split}
+    R^\phi_{\ \theta\theta\phi}&=g^{\phi\rho}R_{\rho\theta\theta\phi}\\
+    &=\frac{1}{a^2\sin^2\theta}(-a^2\sin^2\theta)+0\\
+    &=-1
+  \end{split}
+\end{align}
+であり,また
+\begin{align}
+  R^\phi_{\ \theta\phi\theta}=1
+\end{align}
+となる.次にRicciテンソルは
+\begin{align}
+  R_{\theta\theta}=R^\alpha_{\ \theta\theta\alpha}=-1+0=-1
+\end{align}
+\begin{align}
+  R_{\theta\phi}=R^\theta_{\ \theta\phi\theta}+R^\phi_{\ \theta\phi\phi}=0=R_{\phi\theta}
+\end{align}
+\begin{align}
+  R_{\phi\phi}=-\sin^2\theta
+\end{align}
+となる.次にスカラー曲率は$g^{\theta\phi}=g^{\phi\theta}=0$から
+\begin{align}
+  \begin{split}
+    R&=g^{\mu\nu}R_{\mu\nu}\\
+    &=g^{\theta\theta}R_{\theta\theta}+g^{\phi\phi}R_{\phi\phi}\\
+    &=\frac{1}{a^2}(-1)+\frac{1}{a^2\sin^2\theta}(-\sin^2\theta)\\
+    &=-\frac{2}{a^2}
+  \end{split}
+\end{align}
+となる.
+\end{document}
