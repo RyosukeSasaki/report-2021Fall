@@ -1,0 +1,153 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{jplain}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+\renewcommand{\thesubsubsection}{(\alph{subsubsection})}
+\renewcommand{\thesubsection}{(\roman{subsection})}
+\begin{document}
+\title{天体物理学レポート No.5}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+Friedmann方程式は
+\begin{align}
+  \left(\frac{\dot{a}}{a}\right)^2+\frac{Kc^2}{a^2}-\frac{\Lambda c^2}{3}=\frac{8\pi G}{3c^2}\rho
+\end{align}
+であり両辺に$a^2$を掛けて$\tau=H_0t$と変換すれば
+\begin{align}
+  \begin{split}
+    \left(\frac{da}{d\tau}\right)^2&=-\frac{Kc^2}{H_0^2}+\frac{\Lambda c^2}{3H_0^2}+\frac{8\pi G}{3c^2H_0^2}\rho a^2\\
+    &=-k_0+\lambda_0a^2+\frac{\rho}{\rho_c}a^2
+  \end{split}
+\end{align}
+ここでエネルギー方程式
+\begin{align}
+  \dot{\rho}=-3\left(\frac{\dot{a}}{a}\right)(\rho+P)
+\end{align}
+を考える,相対論的(すなわち輻射的)な時には$P=\rho/3$であるので
+\begin{align}
+  \begin{split}
+    \dot{\rho}&=-3\left(\frac{\dot{a}}{a}\right)\frac{4\rho}{3}\\
+    \frac{\dot{\rho}}{\rho}&=-4\frac{\dot{a}}{a}\\
+    \frac{d}{dt}\log\rho&=-4\frac{d}{dt}\log a\\
+    \therefore\ \rho&\propto a^{-4}
+  \end{split}
+\end{align}
+一方で非相対論的(すなわち物質的)な時には$\rho\gg P$として
+\begin{align}
+  \begin{split}
+    \dot{\rho}&=-3\left(\frac{\dot{a}}{a}\right)\rho\\
+    \frac{\dot{\rho}}{\rho}&=-3\frac{\dot{a}}{a}\\
+    \therefore\ \rho&\propto a^{-3}
+  \end{split}
+\end{align}
+となり$\rho$は$a^{-4}$の輻射成分と$a^{-3}$の物質成分に分離できることが期待できるので
+\begin{align}
+  \rho=\rho_{0r}a^{-4}+\rho_{0m}a^{-3}
+\end{align}
+と置く.さらに
+\begin{align}
+  \Omega_{0r}=\frac{\rho_{0r}}{\rho_c},\ \Omega_{0m}=\frac{\rho_{0m}}{\rho_c}
+\end{align}
+とすれば(2)式は
+\begin{align}
+  \left(\frac{da}{d\tau}\right)^2=\Omega_{0r}a^{-2}+\Omega_{0m}a^{-1}-k_0+\lambda_0a^2
+\end{align}
+となる.以下では$\Lambda=0$の場合を取り扱うので
+\begin{align}
+  \left(\frac{da}{d\tau}\right)^2=\Omega_{0r}a^{-2}+\Omega_{0m}a^{-1}-k_0
+\end{align}
+となる.
+\subsection{$k_0=0$のとき}
+\subsubsection{輻射優勢なとき}
+輻射優勢なときには$\Omega_{0r}\gg\Omega_{0m}$なので
+\begin{align}
+  \begin{split}
+    \left(\frac{da}{d\tau}\right)^2&=\Omega_{0r}a^{-2}\\
+    \frac{da}{d\tau}a&=\sqrt{\Omega_{0r}}
+  \end{split}
+\end{align}
+両辺積分すれば
+\begin{align}
+  \begin{split}
+    \frac{a^2}{2}&=\sqrt{\Omega_{0r}}\tau+C\\
+    a(\tau)&=\sqrt{2(\sqrt{\Omega_{0r}}\tau+C)}
+  \end{split}
+\end{align}
+ここで現在時刻を$\tau=0$とすると現在のスケール因子は$1$と定義されるので
+\begin{align}
+  C=\frac{1}{2}
+\end{align}
+となる.以上から
+\begin{align}
+  a(t)&=\sqrt{2H_0\sqrt{\Omega_{0r}}t+1}
+\end{align}
+である.したがって宇宙は時間の$1/2$乗程度のスケールで膨張する.
+\subsubsection{物質優勢なとき}
+物質優勢なときには$\Omega_{0m}\gg\Omega_{0r}$なので
+\begin{align}
+  \begin{split}
+    \left(\frac{da}{d\tau}\right)^2&=\Omega_{0m}a^{-1}\\
+    \frac{da}{d\tau}\sqrt{a}&=\sqrt{\Omega_{0m}}\\
+    \frac{2}{3}a^{3/2}&=\sqrt{\Omega_{0m}}\tau+C\\
+  \end{split}
+\end{align}
+$a(0)=1$とすれば
+\begin{align}
+  a(\tau)=\left(\frac{3}{2}\sqrt{\Omega_{0m}}\tau+1\right)^{2/3}
+\end{align}
+したがって
+\begin{align}
+  a(t)=\left(\frac{3}{2}H_0\sqrt{\Omega_{0m}}t+1\right)^{2/3}
+\end{align}
+したがって宇宙は時間の$2/3$乗程度のスケールで膨張する.
+\subsection{$k_0\neq 0$のとき}
+Friedmann方程式は
+\begin{align}
+  \begin{split}
+    \left(\frac{da}{d\tau}\right)^2-\frac{\Omega_{0r}}{a^2}-\frac{\Omega_{0m}}{a}=-k_0
+  \end{split}
+\end{align}
+ここで
+\begin{align}
+  U(a)=-\frac{\Omega_{0r}}{a^2}-\frac{\Omega_{0m}}{a}
+\end{align}
+とすると(17)はポテンシャル$U(a)$下での質点$a$の運動と考えられる.
+ここで$\Omega_{0r},\ \Omega_{0m}>0$とすると$U(a)$は図\ref{fig:fig1.jpg}のような概形になる.
+したがって$k_0>0$のとき$a(t)$は最初増加し,途中で減少に転じるとわかる.
+一方で$k_0<0$のとき$a(t)$は増加し続けると考えられる.
+\mfig[width=8cm]{fig1.jpg}{$U(a)$の概形}
+\end{document}
