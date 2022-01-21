@@ -1,0 +1,316 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{流体弾性体力学 期末レポート}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsection*{レポート1}
+ナビエ方程式は
+\begin{align}
+  \rho({\bm r})\partial_t^2{\bm u}=(\lambda+\mu)\nabla(\nabla\cdot{\bm u})+\mu\nabla^2{\bm u}
+\end{align}
+である.また変位ベクトルは
+\begin{align}
+  {\bm u}(x,z)=\left(
+    \begin{array}{c}
+      \sum_\nu A_{x,\nu}{\rm e}^{\nu z}{\rm e}^{ik(x-vt)}\\
+      0\\
+      \sum_\nu A_{z,\nu}{\rm e}^{\nu z}{\rm e}^{ik(x-vt)}
+    \end{array}
+  \right)
+  &=:\left(
+    \begin{array}{c}
+      \sum_\nu A_{x,\nu}f(\nu,x,z)\\
+      0\\
+      \sum_\nu A_{z,\nu}f(\nu,x,z)
+    \end{array}
+  \right)
+\end{align}
+の実部である.ここで$f(\nu,x,z)={\rm e}^{\nu z}{\rm e}^{ik(x-vt)}$とした.
+このとき
+\begin{align}
+  \begin{split}
+    \partial_t^2{\bm u}&=\left(
+      \begin{array}{c}
+        \sum_\nu A_{x,\nu}(-ikv)^2f(\nu,x,z)\\
+        0\\
+        \sum_\nu A_{z,\nu}(-ikv)^2f(\nu,x,z)
+      \end{array}
+    \right)
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    \nabla(\nabla\cdot{\bm u})&=\left(
+      \begin{array}{c}
+        \partial_x(\partial_xu_x+\partial_zu_z)\\
+        0\\
+        \partial_z(\partial_xu_x+\partial_zu_z)
+      \end{array}
+    \right)\\
+    &=\left(
+      \begin{array}{c}
+        \sum_\nu ik(ikA_{x,\nu}+\nu A_{z,\nu})f(\nu,x,z)\\
+        0\\
+        \sum_\nu \nu(ikA_{x,\nu}+\nu A_{z,\nu})f(\nu,x,z)
+      \end{array}
+    \right)
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    \nabla^2{\bm u}&=\left(
+      \begin{array}{c}
+        (\partial_x^2+\partial_z^2)u_x\\
+        0\\
+        (\partial_x^2+\partial_z^2)u_z
+      \end{array}
+    \right)\\
+    &=\left(
+      \begin{array}{c}
+        \sum_\nu ((ik)^2+\nu^2)A_{x,\nu}f(\nu,x,z)\\
+        0\\
+        \sum_\nu ((ik)^2+\nu^2)A_{z,\nu}f(\nu,x,z)
+      \end{array}
+    \right)
+  \end{split}
+\end{align}
+これらを(1)に代入して$f(\nu,x,z)$の係数を比較すると$x$成分については
+\begin{align}
+  \sum_\nu\left(\rho k^2v^2A_{x,\nu}+(\lambda+\mu)(-k^2A_{x,\nu}+ik\nu A_{z,\nu})+\mu(\nu^2-k^2)A_{x,\nu}\right)=0
+\end{align}
+同様に$z$成分については
+\begin{align}
+  \sum_\nu\left(\rho k^2v^2A_{z,\nu}+(\lambda+\mu)(ik\nu A_{x,\nu}+\nu^2A_{z,\nu})+\mu(\nu^2-k^2)A_{z,\nu}\right)
+\end{align}
+それぞれ$\nu$について独立であるとすると
+\begin{align*}
+  \rho k^2v^2A_{x,\nu}+(\lambda+\mu)(-k^2A_{x,\nu}+ik\nu A_{z,\nu})+\mu(\nu^2-k^2)A_{x,\nu}&=0\\
+  \rho k^2v^2A_{z,\nu}+(\lambda+\mu)(ik\nu A_{x,\nu}+\nu^2A_{z,\nu})+\mu(\nu^2-k^2)A_{z,\nu}&=0
+\end{align*}
+すなわち
+\begin{align}
+  \begin{split}
+    \left(
+      \begin{array}{cc}
+      \rho k^2v^2-k^2(\lambda+\mu)+\mu(\nu^2-k^2)&ik\nu(\lambda+\mu)\\
+      ik\nu(\lambda+\mu)&\rho k^2v^2+\nu^2(\lambda+\mu)+\mu(\nu^2-k^2)
+    \end{array}
+    \right)
+    \left(
+      \begin{array}{c}
+        A_{x,\nu}\\A_{z,\nu}
+      \end{array}
+    \right)
+    ={\bm 0}
+  \end{split}
+\end{align}
+となる.これが非自明な解を持つためには
+\begin{align}
+  \left|
+    \begin{array}{cc}
+    \rho k^2v^2-k^2(\lambda+\mu)+\mu(\nu^2-k^2)&ik\nu(\lambda+\mu)\\
+    ik\nu(\lambda+\mu)&\rho k^2v^2+\nu^2(\lambda+\mu)+\mu(\nu^2-k^2)
+  \end{array}
+  \right|=0
+\end{align}
+これを整理すると
+\begin{align}
+  \left(\rho k^2v^2+(\nu^2-k^2)\mu\right)\left(\rho k^2v^2+(\nu^2-k^2)(\lambda+2\mu)\right)=0
+\end{align}
+となる.また境界条件から
+\begin{align}
+  \sigma_{ij}=0=\lambda\nabla\cdot{\bm u}\delta_{ij}+2\mu{\bm \epsilon}_{ij}|_{z=0}
+\end{align}
+両辺$i=j$で和を取ると${\rm Tr}\ {\bm \epsilon}=\nabla\cdot{\bm u}$から
+\begin{align}
+    0&=(3\lambda+2\mu)\nabla\cdot{\bm u}|_{z=0}
+\end{align}
+したがって
+\begin{align}
+  \begin{split}
+    \nabla\cdot{\bm u}|_{z=0}&=0\\
+    ikA_{x,\nu}+\nu A_{z,\nu}&=0
+  \end{split}
+\end{align}
+となる.以上から
+\begin{align}
+  \begin{split}
+    0&=\left(\rho k^2v^2+(\nu^2-k^2)\mu\right)\left(\rho k^2v^2+(\nu^2-k^2)(\lambda+2\mu)\right)\\
+    0&=ikA_{x,\nu}+\nu A_{z,\nu}
+  \end{split}
+\end{align}
+が満たすべき方程式である.
+\subsection*{レポート2}
+流体に粘性が無いことから動径方向の流速が一定とする.さらに流体の速度が$x$方向のみであることから,
+流体は渦なしである.したがって管内の流体は渦なし非圧縮流体となり,ベルヌーイの定理を適用できる.
+断面積の変化は十分遅く,流れポテンシャルの変化は十分小さいものとする.すなわち
+\begin{align}
+  \frac{\partial \phi}{\partial t}\simeq0
+\end{align}
+とする.ここで図\ref{fig:fig1.jpg}のように断面積が$S_0$の位置で速度$v_0$,
+断面積が$S_0+\delta S(x,t)$の位置で速度$v$とおく.するとベルヌーイの定理から
+\begin{align*}
+  \frac{v_0^2}{2}+\frac{P_0}{\rho}=\frac{v(x)^2}{2}+\frac{P_0+\nu\delta S(x,t)}{\rho}    
+\end{align*}
+\begin{align}
+  v(x)^2=v_0^2-\frac{2\nu\delta S(x,t)}{\rho}
+\end{align}
+よって
+\begin{align}
+  v(x)=\pm\sqrt{v_0^2-\frac{2\nu\delta S(x,t)}{\rho}}
+\end{align}
+となる.ここで十分長い距離$L$で$v^2$を平均すると(16)式から
+\begin{align}
+  \begin{split}
+    \frac{1}{L}\int_0^Lv(x)^2dx&=\frac{1}{L}\int_0^Lv_0^2-\frac{2\nu\delta S(x,t)}{\rho}dx\\
+    &=v_0^2-\frac{1}{L}\int_0^L\frac{2\nu\delta S(x,t)}{\rho}dx
+  \end{split}
+\end{align}
+$\delta S$は十分な長さに渡って平均すれば0になると考えられるので
+\begin{align}
+  \frac{1}{L}\int_0^Lv(x)^2dx=v_0^2
+\end{align}
+となる.このことから断面積$S_0$の位置での速度$v_0$は位置$x$での速度$v$の平均値に一致すると考えられる.
+速度の平均値が0であると仮定すると
+\begin{align}
+  \begin{split}
+    v(x)&=\pm\sqrt{0-\frac{2\nu\delta S(x,t)}{\rho}}\\
+    &=\pm\sqrt{\frac{2\nu|\delta S(x,t)|}{\rho}}
+  \end{split}
+\end{align}
+となる.
+\mfig[width=8cm]{fig1.jpg}{断面積の変化}
+\subsection*{レポート3}
+$d$次元空間の任意の閉曲面$S$に囲まれた領域$D$を考える.
+$D$に含まれる粒子の全運動量の$i$成分は,速度場と密度場の存在を仮定すれば
+\begin{align}
+  \int_D\rho({\bm r},t)v_i({\bm r},t)dV
+\end{align}
+となる.この時間変化は
+\begin{align}
+  \int_D\frac{\partial}{\partial t}(\rho v_i)dV
+\end{align}
+である.
+一方で領域$D$を出入りする粒子により増減する運動量の$i$成分はその流束が
+\begin{align}
+  {\bm j}_i={\bm v}\rho v_i
+\end{align}
+と書けることから曲面$S$の法線ベクトル$\hat{n}$を用いて
+\begin{align}
+  -\int_S\rho v_i{\bm v}\cdot\hat{n}dS
+\end{align}
+と書ける.ただし符号は流入を正とするためにつけている.
+ガウスの発散定理を用いると
+\begin{align}
+  -\int_S\rho v_i{\bm v}\cdot\hat{n}dS=-\int_D\nabla\cdot({\bm v}\rho v_i)dV
+\end{align}
+となる.ここで$\nabla$は$d$次元でのナブラベクトルであり第$n$次元の基底ベクトルを${\bm e}_n$として
+\begin{align}
+  \nabla=\sum_{n=1}^d\frac{\partial}{\partial x_n}{\bm e}_n
+\end{align}
+と表される.また運動量は外力によっても変化するので,これを計算する.
+まず体積力を$\bm g$とすると領域$D$にかかる力は
+\begin{align}
+  \int_D\rho({\bm r},t){\bm g}dV
+\end{align}
+次に曲面$S$を通じて加わる圧力は
+\begin{align}
+  -\int_SP({\bm r})dS=-\int_D\nabla P({\bm r})dV
+\end{align}
+となる.以上から(25), (27), (28)の総和が運動量の時間変化に等しいので
+\begin{align}
+  \begin{split}
+    \int_D\frac{\partial}{\partial t}(\rho v_i)dV&=
+    \int_D-\nabla\cdot({\bm v}\rho v_i)+\rho g_i-(\nabla P)_idV\\
+    \int_D\frac{\partial}{\partial t}(\rho v_i)+\nabla\cdot({\bm v}\rho v_i)dV&=\int_D\rho g_i-(\nabla P)_idV
+  \end{split}
+\end{align}
+積分領域が等しいことから
+\begin{align}
+  \frac{\partial}{\partial t}(\rho v_i)+\nabla\cdot({\bm v}\rho v_i)=\rho g_i-(\nabla P)_i
+\end{align}
+ここで左辺について
+\begin{align}
+  \frac{\partial}{\partial t}(\rho v_i)+\nabla\cdot({\bm v}\rho v_i)&=
+  \left(\frac{\partial \rho}{\partial t}+\nabla\cdot({\bm v}\rho)\right)v_i+\rho\frac{\partial v_i}{\partial t}+({\bm v}\rho)\cdot\nabla v_i
+\end{align}
+この右辺第1項は連続の式から0になるので(30)は
+\begin{align}
+  \rho\frac{\partial v_i}{\partial t}+({\bm v}\rho)\cdot\nabla v_i=\rho g_i-(\nabla P)_i
+\end{align}
+以上から
+\begin{align}
+  \rho\left(\frac{\partial}{\partial t}+{\bm v}\cdot\nabla\right){\bm v}=-\nabla P+\rho{\bm g}
+\end{align}
+を得る.
+\subsection*{レポート4}
+非圧縮渦なし完全流体であることから流れポテンシャルは
+\begin{align}
+  \Delta \phi=0
+\end{align}
+のラプラス方程式を満たす.またベルヌーイの定理が適用でき
+\begin{align}
+  \frac{\partial\phi}{\partial t}+\frac{v^2}{2}+\frac{P}{\rho}+gz={\rm Const}
+\end{align}
+ここで定数として$P_0/\rho+gh_0$と置けば
+\begin{align}
+  \begin{split}
+    \frac{\partial\phi}{\partial t}+\frac{v^2}{2}+g(z-h_0)&=\frac{1}{\rho}(P_0-P)\\
+  \end{split}
+\end{align}
+となる.(36)式は水面付近において
+\begin{align}
+  \frac{\partial\phi}{\partial t}+\frac{v^2}{2}+gh(x,t)&=\frac{f}{\rho}\frac{\partial^2 h(x,t)}{\partial x^2}
+\end{align}
+となる.ここで$v$が十分小さいとして左辺第2項を無視すると
+\begin{align}
+  \frac{\partial\phi}{\partial t}=-gh+\frac{f}{\rho}\frac{\partial^2 h(x,t)}{\partial x^2}
+\end{align}
+また水面付近での$h$を$\tilde{h}$, $z$, $x$方向の速度を$\tilde{v}_z$, $\tilde{v}_x$とすると
+\begin{align}
+  \frac{\partial\tilde{h}}{\partial t}=\tilde{v}_z-\frac{\partial\tilde{h}}{\partial x}\tilde{v}_x
+\end{align}
+ここで右辺第2項は微小量の2次なので無視すると
+\begin{align}
+  \frac{\partial\tilde{h}}{\partial t}=\tilde{v}_z=\frac{\partial\tilde{\phi}}{\partial z}
+\end{align}
+\bibliography{ref.bib}
+\end{document}
