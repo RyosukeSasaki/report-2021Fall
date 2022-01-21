@@ -302,15 +302,66 @@ $D$に含まれる粒子の全運動量の$i$成分は,速度場と密度場の�
 \end{align}
 となる.ここで$v$が十分小さいとして左辺第2項を無視すると
 \begin{align}
-  \frac{\partial\phi}{\partial t}=-gh+\frac{f}{\rho}\frac{\partial^2 h(x,t)}{\partial x^2}
+  \frac{\partial\phi}{\partial t}=-gh+\frac{f}{\rho}\frac{\partial^2 h}{\partial x^2}
 \end{align}
-また水面付近での$h$を$\tilde{h}$, $z$, $x$方向の速度を$\tilde{v}_z$, $\tilde{v}_x$とすると
+両辺$t$で微分すると
 \begin{align}
-  \frac{\partial\tilde{h}}{\partial t}=\tilde{v}_z-\frac{\partial\tilde{h}}{\partial x}\tilde{v}_x
+  \frac{\partial^2\phi}{\partial t^2}=-g\frac{\partial h}{\partial t}+\frac{f}{\rho}\frac{\partial^2}{\partial x^2}\frac{\partial h}{\partial t}
+\end{align}
+また水面付近での$z$, $x$方向の速度を$\tilde{v}_z$, $\tilde{v}_x$とすると
+\begin{align}
+  \frac{\partial{h}}{\partial t}=\tilde{v}_z-\frac{\partial{h}}{\partial x}\tilde{v}_x
 \end{align}
 ここで右辺第2項は微小量の2次なので無視すると
 \begin{align}
-  \frac{\partial\tilde{h}}{\partial t}=\tilde{v}_z=\frac{\partial\tilde{\phi}}{\partial z}
+  \frac{\partial{h}}{\partial t}=\tilde{v}_z=\frac{\partial\tilde{\phi}}{\partial z}
 \end{align}
+よって(39)式は水面近傍においては
+\begin{align}
+  \frac{\partial^2\tilde{\phi}}{\partial t^2}=-g\frac{\partial\tilde{\phi}}{\partial z}+\frac{f}{\rho}\frac{\partial^2}{\partial x^2}\frac{\partial\tilde{\phi}}{\partial z}
+\end{align}
+ここで$\phi$を
+\begin{align}
+  \phi({\bm r},t)=R(z)\sin(k(x-ct))
+\end{align}
+と展開する.ラプラス方程式から
+\begin{align}
+  \begin{split}
+    \frac{\partial^2 R}{\partial z^2}\sin(k(x-ct))-k^2R(z)\sin(k(x-ct))&=0\\
+    \frac{\partial^2 R}{\partial z^2}-k^2R&=0
+  \end{split}
+\end{align}
+したがって
+\begin{align}
+  R(z)=A{\rm e}^{kz}+B{\rm e}^{-kz}
+\end{align}
+ここで水底においては流体の速度の鉛直成分は0であるべきなので
+\begin{align}
+  \begin{split}
+  \left.\frac{\partial\phi}{\partial z}\right|_{z=0}&=0\\
+  (A-B)k\sin(k(x-ct))&=0
+  \end{split}
+\end{align}
+したがって
+\begin{align}
+  A=B
+\end{align}
+であり
+\begin{align}
+  \phi({\bm r},t)=A\cosh(kz)\sin(k(x-ct))
+\end{align}
+となる.これと(42)式から
+\begin{align}
+  k^2c^2\phi=gkA\sinh(kh_0)\sin(k(x-ct))+\frac{f}{\rho}k^3A\sinh(kh_0)\sin(k(x-ct))
+\end{align}
+両辺$\phi$で割ると
+\begin{align}
+  k^2c^2=\left(gk+\frac{f}{\rho}k^3\right)\tanh(kh_0)
+\end{align}
+\begin{align}
+  \therefore\ c=\sqrt{\left(\frac{g}{k}+\frac{f}{\rho}k\right)\tanh(kh_0)}
+\end{align}
+を得る.
+\subsection*{レポート5}
 \bibliography{ref.bib}
 \end{document}
