@@ -50,16 +50,16 @@
 \begin{align}
   {\bm u}(x,z)=\left(
     \begin{array}{c}
-      \sum_\nu A_{x,\nu}{\rm e}^{\nu z}{\rm e}^{ik(x-vt)}\\
+      \sum_\nu A{\rm e}^{\nu z}{\rm e}^{ik(x-vt)}\\
       0\\
-      \sum_\nu A_{z,\nu}{\rm e}^{\nu z}{\rm e}^{ik(x-vt)}
+      \sum_\nu B{\rm e}^{\nu z}{\rm e}^{ik(x-vt)}
     \end{array}
   \right)
   &=:\left(
     \begin{array}{c}
-      \sum_\nu A_{x,\nu}f(\nu,x,z)\\
+      \sum_\nu Af(\nu,x,z)\\
       0\\
-      \sum_\nu A_{z,\nu}f(\nu,x,z)
+      \sum_\nu Bf(\nu,x,z)
     \end{array}
   \right)
 \end{align}
@@ -69,9 +69,9 @@
   \begin{split}
     \partial_t^2{\bm u}&=\left(
       \begin{array}{c}
-        \sum_\nu A_{x,\nu}(-ikv)^2f(\nu,x,z)\\
+        \sum_\nu A(-ikv)^2f(\nu,x,z)\\
         0\\
-        \sum_\nu A_{z,\nu}(-ikv)^2f(\nu,x,z)
+        \sum_\nu B(-ikv)^2f(\nu,x,z)
       \end{array}
     \right)
   \end{split}
@@ -87,9 +87,9 @@
     \right)\\
     &=\left(
       \begin{array}{c}
-        \sum_\nu ik(ikA_{x,\nu}+\nu A_{z,\nu})f(\nu,x,z)\\
+        \sum_\nu ik(ikA+\nu B)f(\nu,x,z)\\
         0\\
-        \sum_\nu \nu(ikA_{x,\nu}+\nu A_{z,\nu})f(\nu,x,z)
+        \sum_\nu \nu(ikA+\nu B)f(\nu,x,z)
       \end{array}
     \right)
   \end{split}
@@ -105,25 +105,25 @@
     \right)\\
     &=\left(
       \begin{array}{c}
-        \sum_\nu ((ik)^2+\nu^2)A_{x,\nu}f(\nu,x,z)\\
+        \sum_\nu ((ik)^2+\nu^2)Af(\nu,x,z)\\
         0\\
-        \sum_\nu ((ik)^2+\nu^2)A_{z,\nu}f(\nu,x,z)
+        \sum_\nu ((ik)^2+\nu^2)Bf(\nu,x,z)
       \end{array}
     \right)
   \end{split}
 \end{align}
 これらを(1)に代入して$f(\nu,x,z)$の係数を比較すると$x$成分については
 \begin{align}
-  \sum_\nu\left(\rho k^2v^2A_{x,\nu}+(\lambda+\mu)(-k^2A_{x,\nu}+ik\nu A_{z,\nu})+\mu(\nu^2-k^2)A_{x,\nu}\right)=0
+  \sum_\nu\left(\rho k^2v^2A+(\lambda+\mu)(-k^2A+ik\nu B)+\mu(\nu^2-k^2)A\right)=0
 \end{align}
 同様に$z$成分については
 \begin{align}
-  \sum_\nu\left(\rho k^2v^2A_{z,\nu}+(\lambda+\mu)(ik\nu A_{x,\nu}+\nu^2A_{z,\nu})+\mu(\nu^2-k^2)A_{z,\nu}\right)
+  \sum_\nu\left(\rho k^2v^2B+(\lambda+\mu)(ik\nu A+\nu^2B)+\mu(\nu^2-k^2)B\right)
 \end{align}
 それぞれ$\nu$について独立であるとすると
 \begin{align}
-  \rho k^2v^2A_{x,\nu}+(\lambda+\mu)(-k^2A_{x,\nu}+ik\nu A_{z,\nu})+\mu(\nu^2-k^2)A_{x,\nu}&=0\\
-  \rho k^2v^2A_{z,\nu}+(\lambda+\mu)(ik\nu A_{x,\nu}+\nu^2A_{z,\nu})+\mu(\nu^2-k^2)A_{z,\nu}&=0
+  \rho k^2v^2A+(\lambda+\mu)(-k^2A+ik\nu B)+\mu(\nu^2-k^2)A&=0\\
+  \rho k^2v^2B+(\lambda+\mu)(ik\nu A+\nu^2B)+\mu(\nu^2-k^2)B&=0
 \end{align}
 すなわち
 \begin{align}
@@ -136,7 +136,7 @@
     \right)
     \left(
       \begin{array}{c}
-        A_{x,\nu}\\A_{z,\nu}
+        A\\B
       \end{array}
     \right)
     ={\bm 0}
@@ -156,42 +156,118 @@
   \left(\rho k^2v^2+(\nu^2-k^2)\mu\right)\left(\rho k^2v^2+(\nu^2-k^2)(\lambda+2\mu)\right)=0
 \end{align}
 となる.
-%ここで
-%\begin{align}
-%  c_l^2=\frac{\lambda+2\mu}{\rho},\ c_t^2=\frac{\mu}{\rho}
-%\end{align}
-%を用いると
-%\begin{align}
-%  \left(c_t^2\nu^2-k^2(c_t^2-v^2)\right)\left(c_l^2\nu^2-k^2(c_l^2-v^2)\right)=0
-%\end{align}
-%となるので
-%\begin{align}
-%  \nu_1^2=k^2\left(1-\frac{v^2}{c_l^2}\right),\ \nu_2^2=k^2\left(1-\frac{v^2}{c_t^2}\right)
-%\end{align}
-%となる.これを用いると(8), (9)は
-また境界条件から
+ここで
 \begin{align}
-  \sigma_{ij}=0=\lambda\nabla\cdot{\bm u}\delta_{ij}+2\mu{\bm \epsilon}_{ij}|_{z=0}
+  c_l^2=\frac{\lambda+2\mu}{\rho},\ c_t^2=\frac{\mu}{\rho}
 \end{align}
-両辺$i=j$で和を取ると${\rm Tr}\ {\bm \epsilon}=\nabla\cdot{\bm u}$から
+を用いると
 \begin{align}
-    0&=(3\lambda+2\mu)\nabla\cdot{\bm u}|_{z=0}
+  \left(c_t^2\nu^2-k^2(c_t^2-v^2)\right)\left(c_l^2\nu^2-k^2(c_l^2-v^2)\right)=0
+\end{align}
+となるので
+\begin{align}
+  \nu_1^2=k^2\left(1-\frac{v^2}{c_l^2}\right),\ \nu_2^2=k^2\left(1-\frac{v^2}{c_t^2}\right)
+\end{align}
+となる.これを用いると(8), (9)は
+\begin{align}
+  \frac{B}{A}&=\frac{k^2(v^2-c_l^2)+\nu^2c_t^2}{-ik\nu(c_l^2-c_t^2)}
+\end{align}
+\begin{align}
+  \frac{B}{A}&=\frac{-ik\nu(c_l^2-c_t^2)}{k^2(v^2-c_t^2)+\nu^2c_l^2}
+\end{align}
+更に$\nu_1$, $\nu_2$を代入したときの$A$, $B$を$A_1$, $B_1$及び$A_2$, $B_2$とすると
+\begin{align}
+  \frac{B_1}{A_1}=-\frac{i\nu_1}{k},\ \frac{B_2}{A_2}=\frac{k}{i\nu_2}
+\end{align}
+となる.以上から$\bm u$はこれらの線形結合で表されるので
+\begin{align}
+  {\bm u}_x&=\left(A_1{\rm e}^{\nu_1 z}+A_2{\rm e}^{\nu_2 z}\right){\rm e}^{ik(x-vt)}\\
+  {\bm u}_z&=\left(-\frac{i\nu_1}{k}A_1{\rm e}^{\nu_1 z}+\frac{k}{i\nu_2}A_2{\rm e}^{\nu_2 z}\right){\rm e}^{ik(x-vt)}
+\end{align}
+となる.
+また表面においては$z$方向の応力が0となるべきなので
+\begin{align}
+  \sigma_{xz}=\sigma_{yz}=\sigma_{zz}=0
+\end{align}
+すなわち
+\begin{align}
+  \lambda(u_{xx}+u_{yy}+u_{zz})+2\mu u_{zz}=(\lambda+2\mu)u_{zz}+\lambda u_{xx}=0
+\end{align}
+および
+\begin{align}
+  u_{xz}+u_{zx}=0
+\end{align}
+となる.これに(19), (20)を用いると表面では$z=0$であることから
+\begin{align}
+  (\lambda+2\mu)\left(-\frac{i\nu_1^2}{k}A_1+\frac{k}{i}A_2\right)+\lambda ik(A_1+A_2)=0
+\end{align}
+\begin{align}
+  2\nu_1A_1+\left(\nu_2+\frac{k^2}{\nu_2}\right)A_2=0
+\end{align}
+(24)に$c_l$, $c_t$を用いると
+\begin{align}
+  \begin{split}
+    c_l^2\left(k\left(1-\frac{v^2}{c_l^2}\right)A_1+kA_2\right)-k(c_l^2+2c_t^2)(A_1+A_2)&=0\\
+    (2-\frac{v^2}{c_t^2})A_1+2A_2&=0
+  \end{split}
+\end{align}
+また(25)は
+\begin{align}
+  2\nu_1A_1+\frac{k^2}{\nu_2}\left(2-\frac{v^2}{c_t^2}\right)A_2=0
+\end{align}
+以上から(26), (27)は
+\begin{align}
+  \begin{split}
+    \left(
+      \begin{array}{cc}
+        2-\frac{v^2}{c_t^2}&2\nu_2\\
+        2\nu_1&k^2\left(2-\frac{v^2}{c_t^2}\right)
+      \end{array}
+    \right)\left(
+      \begin{array}{c}
+        A_1\\A_2/\nu_2
+      \end{array}
+    \right)={\bm 0}
+  \end{split}
+\end{align}
+これが非自明な解を持つためには
+\begin{align}
+  \begin{split}
+    k^2\left(2-\frac{v^2}{c_t^2}\right)^2&=4\nu_1\nu_2\\
+    k^4\left(2-\frac{v^2}{c_t^2}\right)^4&=16k^4\left(1-\frac{v^2}{c_l^2}\right)\left(1-\frac{v^2}{c_t^2}\right)
+  \end{split}
+\end{align}
+ここで$v=c_tx$, $c_t/c_l=\gamma$とすると
+\begin{align}
+  \begin{split}
+    0&=16(1-x^2)(1-\gamma^2x^2)-(2-x^2)^4\\
+    &=-x^8+8x^6-(16a^2-24)x^4+16(1-a^2)x^2
+  \end{split}
 \end{align}
 したがって
 \begin{align}
-  \begin{split}
-    \nabla\cdot{\bm u}|_{z=0}&=0\\
-    ikA_{x,\nu}+\nu A_{z,\nu}&=0
-  \end{split}
+  0=x^6-8x^4-8x^2(2\gamma^2-3)+16(\gamma^2-1)
 \end{align}
-となる.以上から
-\begin{align}
-  \begin{split}
-    0&=\left(\rho k^2v^2+(\nu^2-k^2)\mu\right)\left(\rho k^2v^2+(\nu^2-k^2)(\lambda+2\mu)\right)\\
-    0&=ikA_{x,\nu}+\nu A_{z,\nu}
-  \end{split}
-\end{align}
-が満たすべき方程式である.
+を得る.
+%両辺$i=j$で和を取ると${\rm Tr}\ {\bm \epsilon}=\nabla\cdot{\bm u}$から
+%\begin{align}
+%    0&=(3\lambda+2\mu)\nabla\cdot{\bm u}|_{z=0}
+%\end{align}
+%したがって
+%\begin{align}
+%  \begin{split}
+%    \nabla\cdot{\bm u}|_{z=0}&=0\\
+%    ikA+\nu B&=0
+%  \end{split}
+%\end{align}
+%となる.以上から
+%\begin{align}
+%  \begin{split}
+%    0&=\left(\rho k^2v^2+(\nu^2-k^2)\mu\right)\left(\rho k^2v^2+(\nu^2-k^2)(\lambda+2\mu)\right)\\
+%    0&=ikA+\nu B
+%  \end{split}
+%\end{align}
+%が満たすべき方程式である.
 \subsection*{レポート2}
 流体に粘性が無いことから動径方向の流速が一定とする.さらに流体の速度が$x$方向のみであることから,
 流体は渦なしである.したがって管内の流体は渦なし非圧縮流体となり,ベルヌーイの定理を適用できる.
