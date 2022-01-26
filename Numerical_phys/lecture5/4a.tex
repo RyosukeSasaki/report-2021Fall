@@ -1,0 +1,91 @@
+\section{6-A.}
+\subsection{プログラムについて}
+数値計算プログラムにはサンプルプログラムであるeigen1.f90を用いた.
+また単種原子のときの固有モードの厳密解を計算するプログラムを作成した.
+プログラムのPAD図を図\ref{fig:fig/exact.png}に示す.またソースコードは補遺に示す.
+このプログラムではまず粒子数$N$をndimに格納した後,
+(1)式に基づいて固有モードを計算している.ここで$N=2n$である.
+\begin{align}
+  \frac{\omega_j}{\omega_0}=\left|2\sin\frac{\pi j}{N}\right|,\qquad j=-n+1,\ldots,-1,0,1,\ldots,n
+\end{align}
+\mfig[width=6cm]{fig/exact.png}{厳密解の計算プログラム}
+また状態密度の厳密解は(2)式で与えられる.状態密度の図示においてはこの関数をgnuplotで直接描画した.
+\begin{align}
+  \frac{N(\omega)\omega_0}{N}=\frac{1}{\pi\sqrt{1-x^2/4}}
+\end{align}
+\newpage
+\subsection{結果}
+\subsubsection{動作確認}
+$N=10$のとき各$j$に対する固有モードは表\ref{tab:6a_exact}の通りである.
+一方で数値計算によって得られた固有値は表\ref{tab:6a_num}の通りである.
+\begin{table}[h]
+  \begin{minipage}[t]{.45\textwidth}
+    \begin{center}
+      \begin{tabular}{cc}
+        \hline
+        $j$&固有モード$\omega_j/\omega_0$\\
+        \hline \hline
+        $-4$& 1.902 \\
+        $-3$& 1.618 \\
+        $-2$& 1.175 \\
+        $-1$& 0.6180\\
+        $0 $& 0.000 \\
+        $1 $& 0.6180\\    
+        $2 $& 1.175 \\  
+        $3 $& 1.618 \\  
+        $4 $& 1.902 \\  
+        $5 $& 2.000 \\  
+        \hline
+      \end{tabular}
+    \end{center}
+    \caption{厳密解の結果}
+    \label{tab:6a_exact}
+  \end{minipage}
+  %
+  \hfill
+  %
+  \begin{minipage}[t]{.45\textwidth}
+    \begin{center}
+      \begin{tabular}{c}
+        \hline
+        固有値$\omega_j/\omega$\\
+        \hline \hline
+        0.0000\\
+        0.6180\\
+        0.6180\\
+        1.175\\
+        1.175\\
+        1.618\\
+        1.618\\
+        1.902\\
+        1.902\\
+        2.000\\
+        \hline
+      \end{tabular}
+    \end{center}
+    \caption{数値計算の結果}
+    \label{tab:6a_num}
+  \end{minipage}
+\end{table}
+\newpage
+\subsubsection{状態密度の計算}
+図\ref{fig:graph/6A1.tex}から図\ref{fig:graph/6A3.tex}に数値計算及び厳密解によって得られた固有モードの状態密度を示す.
+それぞれヒストグラムの分割数を20, 30, 40とし,数値計算は$N=200$で行った.
+\gnu{固有モードの度数分布(分割数20)}{graph/6A1.tex}
+\gnu{固有モードの度数分布(分割数30)}{graph/6A2.tex}
+\gnu{固有モードの度数分布(分割数40)}{graph/6A3.tex}
+\subsection{考察}
+\subsubsection{動作確認}
+表\ref{tab:6a_exact}と表\ref{tab:6a_num}を比較すると計算された固有値の順番は昇順にソートされているが得られた固有モードの値は一致している.
+このことから数値計算プログラムは正常に動作していると考えられる.
+固有値はソートされて出力されているため,直接分散関係を計算することは出来ないが度数分布を計算する上では問題ないと考えられる.
+\subsubsection{状態密度の計算}
+図\ref{fig:graph/6A1.tex}から図\ref{fig:graph/6A3.tex}より,数値計算により得られた状態密度と厳密解により得られた状態密度は同様の傾向を示していることがわかる.
+その傾向とは振動数の小さいところでは状態密度が小さく,振動数が上限に近づくにつれて急激に増大している.
+このことは図\ref{fig:graph/6A4.tex}の分散関係からも直感的に理解できる.
+図\ref{fig:graph/6A4.tex}は厳密解の計算プログラムを用いて$N=30$の場合に計算したものである.
+分散関係は(1)式のような$\sin$関数型であり$0$付近では急進に変化するが$\pi j/N\simeq\pm\pi/2$となるに従ってその変化は緩やかになる.
+したがって$k$空間を等間隔に離散化した時に$k\simeq0$では状態密度が小さくなり$k\simeq\pm\pi/a$では状態密度が大きくなると理解できる.
+図\ref{fig:graph/6A4.tex}では$k\simeq0$のときほど点の間隔が広く,
+$k\simeq\pm\pi/a$では狭い様子がわかる.
+\gnu{分散関係($N=30$)}{graph/6A4.tex}

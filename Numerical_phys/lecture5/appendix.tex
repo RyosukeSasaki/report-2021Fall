@@ -1,0 +1,85 @@
+\appendix
+\def\thesection{補遺\Alph{section}}
+\renewcommand*{\thelstlisting}{\Alph{section}.\arabic{lstlisting}}
+\section{ソースコード}
+\begin{lstlisting}[caption=分散関係の厳密解計算プログラム,label=src5a]
+program main
+  implicit none
+  INTEGER :: ndim,n,i
+  DOUBLE PRECISION :: eigval
+  DOUBLE PRECISION, PARAMETER :: pi = 4d0*atan(1d0)
+  write(0,*) 'number of lattice points ?'
+  read (*,*)  ndim
+  
+  n=int(dble(ndim)/2d0)
+  do i=-n+1, n
+    eigval = 2*abs(sin(pi*dble(i)/(2*dble(n))))
+    write(*,*) i, eigval
+  end do
+end program main
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[caption=2種原子への拡張,label=src5b]
+~~~~~~~~~~~中略~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+real(kind=8) :: gamma,bodd,beven,bi,bj
+!==========================================================-
+!   nyuryoku
+!==========================================================-
+write(0,*) 'number of lattice points ?'
+read (*,*)  ndim
+write(0,*) 'gamma ?'
+read (*,*)  gamma
+!==========================================================-
+!   kensa
+!==========================================================-
+if((ndim.gt.nmax).or.(ndim.lt.1)) then
+  write(*,*) 'error in ndim:',ndim
+  stop
+endif
+if(gamma.eq.0d0) then
+  write(*,*) 'error in gamma:',gamma
+  stop
+endif
+bodd = 1d0
+beven = 1d0/sqrt(gamma)
+!======================================================================-
+! gyoretsu-yoso no keisan
+!======================================================================-
+! Make MATRIX A(j,i)=A(i*(i-1)/2+j)
+do i=1,ndim
+  if(mod(i,2).eq.1) then
+      bi = bodd
+  else
+      bi = beven
+  endif
+
+  if(i.eq.ndim) then
+    ip=1
+  else
+    ip=i+1
+  endif
+  if(i.eq.1) then
+    im=ndim
+  else
+    im=i-1
+  endif
+  do j=1,i
+    if(mod(j,2).eq.1) then
+      bj = bodd
+    else
+      bj = beven
+    endif
+
+    k=(i*(i-1)/2)+j
+    if (j.eq.i) then
+      rmatrx(k)= 2.0d0
+    else if ((j.eq.ip).or.(j.eq.im)) then
+      rmatrx(k)=-1.0d0
+    else
+      rmatrx(k)= 0.0d0
+    end if
+    rmatrx(k) = rmatrx(k)*bi*bj
+  end do
+end do
+~~~~~~~~~~~以下略~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\end{lstlisting}

@@ -1,0 +1,8 @@
+:terminal START
+入力
+	ndim=N
+	n=ndim/2
+:while i=-n+1,n
+	eigval=2|sin(π*i/(2*n))|
+出力
+:terminal END

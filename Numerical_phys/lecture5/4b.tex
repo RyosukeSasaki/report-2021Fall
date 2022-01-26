@@ -1,0 +1,50 @@
+\section{6-B.}
+\subsection{プログラムについて}
+もともと単種原子の数値計算プログラムだったeigen1.f90を質量の異なる交互に並ぶ2種原子の場合に拡張した.
+プログラムの修正部分をソースコード\ref{src5b}に示す.
+基本的にはサンプルプログラムと同様だが粒子の質量比$\gamma$を変数gammaに格納する点と,
+係数行列の計算方法が
+\begin{align}
+  \begin{split}
+    A_{ij}=(2\delta_{i,j}-\delta_{i+1,j}-\delta_{i-1,j}) b_i b_j\\
+    b_i,b_j=\left\{\begin{array}{cc}
+      1&(i,j:奇数)\\
+      \gamma^{-1/2}&(i,j:偶数)
+    \end{array}\right.
+  \end{split}
+\end{align}
+となっている点が修正されている.
+\newpage
+\subsection{結果}
+図\ref{fig:graph/6B1.tex}から図\ref{fig:graph/6B4.tex}に$\gamma=1,2,4,8$のときの固有モードの状態密度を示す.
+それぞれヒストグラムの分割数を30とし,数値計算は$N=200$で行った.
+\gnu{$\gamma=1$のときの状態密度}{graph/6B1.tex}
+\gnu{$\gamma=2$のときの状態密度}{graph/6B2.tex}
+\gnu{$\gamma=4$のときの状態密度}{graph/6B3.tex}
+\gnu{$\gamma=8$のときの状態密度}{graph/6B4.tex}
+\subsection{考察}
+\subsubsection{プログラムの動作について}
+$\gamma=1$のときの結果は単種原子の場合の結果と一致するべきである,図に問6-A.で得られた分割数30のヒストグラムと図\ref{fig:graph/6B1.tex}を重ねた図を示す.
+この結果から前問で得られた結果と$\gamma=1$の場合の結果は完全に一致しており,正常に動作していると考えられる.
+\gnu{固有モードの状態密度}{graph/6B6.tex}
+\subsubsection{ギャップについて}
+図\ref{fig:graph/6B2.tex}から図\ref{fig:graph/6B4.tex}を見ると,
+固有値のモードに\ref{fig:graph/6B1.tex}にはなかったバンドが発生していることがわかる.
+また図\ref{fig:graph/6B5.tex}に各$\gamma$でのヒストグラムを重ねて描画した図を示す.
+この図から振動数が高い方のモードを光学フォノン,振動数が低い方のモードを音響フォノンと呼ぶと
+\begin{itemize}
+  \item $\gamma$が大きくなるとギャップが大きくなっている
+  \item 光学フォノンの下限振動数は変化していない,すなわち音響フォノンの上限周波数が下がっている
+\end{itemize}
+ことがわかる.ここでこの問題設定における分散関係は以下で与えられる.
+\begin{align}
+  \frac{\omega}{\omega_0}=\sqrt{\frac{1}{\gamma}\left((1+\gamma)\pm\sqrt{(1+\gamma)^2-4\gamma\sin^2 ka}\right)}
+\end{align}
+$+$側の解が光学モード,
+$-$側の解が音響モードであり,各$\gamma$に対して分散関係は図\ref{fig:graph/6B7.tex}のような形状になる.
+これを見ると$\gamma$の増大に伴って光学モードの最低振動数は変化しないのに対して,
+音響モードの最大振動数が小さくなっていることがわかる.
+これは図\ref{fig:graph/6B5.tex}の状態密度の結果と整合しており,妥当であると考えられる.
+\gnu{固有モードの状態密度}{graph/6B5.tex}
+\gnu{固有モードの状態密度}{graph/6B7.tex}
+
