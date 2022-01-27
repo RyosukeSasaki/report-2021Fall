@@ -1,0 +1,442 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{量子力学3 期末レポート}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\section*{1.}
+\subsection*{(a)}
+動径方向の波動関数$R_l(r)$は
+\begin{align}
+  \left(\frac{d^2}{dr^2}+\frac{2}{r}\frac{d}{dr}-\frac{l(l+1)}{r^2}-U(r)+k^2\right)R_l(r)=0
+\end{align}
+\begin{align}
+  U(r)=\frac{2\mu}{\hbar^2}V(r),\qquad \mu=\frac{MM}{M+M}=\frac{M}{2}
+\end{align}
+を満たす.まず$b<r$のとき$U(r)=0$より
+\begin{align}
+  \left(\frac{d^2}{dr^2}+\frac{2}{r}\frac{d}{dr}-\frac{l(l+1)}{r^2}+k^2\right)R_l(r)=0
+\end{align}
+ここでs波($l=0$)では
+\begin{align}
+  \left(\frac{1}{r}\left(\frac{d}{dr}\right)^2r+k^2\right)R_0(r)=0
+\end{align}
+$rR_0(r)=u_0(r)$とおくと
+\begin{align}
+  \left(\left(\frac{d^2}{dr^2}\right)+k^2\right)u_0(r)=0
+\end{align}
+したがって一般解は
+\begin{align}
+  u_0(r)=B\sin k(r+\alpha_1)
+\end{align}
+となる.
+次に$c<r<b$においては$U(r)=-2\mu V_0/\hbar^2=:-U_0$より$k'^2=2\mu(E+V_0)/\hbar^2$とすると
+\begin{align}
+  \left(\frac{1}{r}\left(\frac{d}{dr}\right)^2r+k'^2\right)R_0(r)=0
+\end{align}
+で同型の方程式になので一般解は
+\begin{align}
+  u_0(r)=A\sin k'(r+\alpha_2)
+\end{align}
+である.ここで$r=c$において$u_0(r)=0$となるべきなので
+\begin{align}
+  u_0(r)=A\sin k'(r-c)
+\end{align}
+となる.
+以上から一般解は
+\begin{align}
+  R_0(r)=\left\{
+  \begin{array}{ll}
+    A\sin k'(r-c)/r&(c<r<b)\\
+    B\sin (kr+\delta_0)/r&(b<r)
+  \end{array}
+  \right.
+\end{align}
+\subsection*{(b)}
+$r=b$において
+\begin{align}
+  \frac{1}{R_0}\frac{d R_0}{dr}
+\end{align}
+が一致すべきである.
+$c<r<b$では
+\begin{align*}
+  \left.\frac{1}{R_0}\frac{d R_0}{dr}\right|_{r=b}&=\frac{k'b\cos k'(b-c)-\sin k'(b-c)}{b\sin k'(b-c)}\\
+  &=k'\cot k'(b-c)-\frac{1}{b}=:\gamma_0
+\end{align*}
+となり$\gamma_0$は$k$に依らない.
+一方で$b<r$では
+\begin{align*}
+  \left.\frac{1}{R_0}\frac{d R_0}{dr}\right|_{r=b}&=\frac{\frac{d}{dr}\left(\frac{\sin kr\cos\delta_0+\cos kr\sin\delta_0}{r}\right)}{\frac{\sin kr\cos\delta_0+\cos kr\sin\delta_0}{r}}
+\end{align*}
+これが$\gamma_0$に一致するので
+\begin{align*}
+  \gamma_0\frac{\sin kb\cos\delta_0+\cos kb\sin\delta_0}{b}&=\frac{d}{dr}\left(\frac{\sin kb\cos\delta_0+\cos kb\sin\delta_0}{b}\right)\\
+  \gamma_0\left(j_0(kb)+n_0(kb)\tan\delta_0\right)&=j'_0(kb)+n'_0(kb)\tan\delta_0\\
+\end{align*}
+したがって
+\begin{align*}
+  \tan\delta_0&=-\frac{j'_0(kb)-\gamma_0j_0(kb)}{n'_0(kb)-\gamma_0n_0(kb)}\\
+  &=-\frac{kb\cos kb-\sin kb-\gamma_0b\sin kb}{kb\sin kb+\cos kb+\gamma_0b\cos kb}
+\end{align*}
+以上から
+\begin{align}
+  \cot\delta_0&=-\frac{kb\sin kb+\cos kb+\gamma_0b\cos kb}{kb\cos kb-\sin kb-\gamma_0b\sin kb}
+\end{align}
+%$r=b$において$R_0(r)$及びその一階微分が連続であるべきなので
+%\begin{align}
+%  B\sin (kb+\delta)=A\sin k'(b-c)
+%\end{align}
+%\begin{align}
+%  B(kb\cos (kb+\delta)-\sin (kb+\delta))=A(k'b\cos k'(b-c)-\sin k'(b-c))
+%\end{align}
+%連立して$A$, $B$を削除すると
+%\begin{align*}
+%  \frac{k'b\cos k'(b-c)-\sin k'(b-c)}{kb\cos (kb+\delta)-\sin (kb+\delta)}=\frac{\sin k'(b-c)}{\sin (kb+\delta)}\\[8pt]
+%  \frac{k'b\cos k'(b-c)-\sin k'(b-c)}{\sin k'(b-c)}=\frac{kb\cos (kb+\delta)-\sin (kb+\delta)}{\sin (kb+\delta)}
+%\end{align*}
+%ここで左辺を$\gamma_0$とすると
+%\begin{align*}
+%  \gamma_0=\frac{kb\cos (kb+\delta)-\sin (kb+\delta)}{\sin (kb+\delta)}
+%\end{align*}
+\subsection*{(c)}
+(12)を$k\simeq 0$で近似すると
+\begin{align*}
+  \cot\delta_0\simeq-\frac{k^2b^2+1+\gamma_0b}{kb-kb-\gamma_0kb^2}\simeq\frac{1+\gamma_0b}{\gamma_0kb^2}
+\end{align*}
+両辺に$k$をかければ
+\begin{align*}
+  k\cot\delta_0\simeq\frac{1+\gamma_0b}{\gamma_0b^2}=-\frac{1}{a}
+\end{align*}
+したがって
+\begin{align*}
+  a=-\frac{\gamma_0b^2}{1+\gamma_0b}=-\frac{k'b\cot k'(b-c)-1}{k'\cot k'(b-c)}
+\end{align*}
+ここで
+\begin{align*}
+  k'=\sqrt{\frac{M(E_0+V_0)}{\hbar^2}}
+\end{align*}
+だが$E_0\ll V_0$なので
+\begin{align*}
+  k'=K_0
+\end{align*}
+とできる.したがって
+\begin{align}
+  a=\frac{1-K_0b\cot K_0(b-c)}{K_0\cot K_0(b-c)}
+\end{align}
+また(12)を$kb=x$としてテイラー展開すると
+\begin{align}
+  \cot\delta_0=-\frac{x(x-x^3/6)+1-x^2/2+\gamma_0b(1-x^2/2)}{x(1-x^2/2)-x+x^3/6-\gamma_0b(x-x^3/6)}
+\end{align}
+したがって
+\begin{align*}
+  k\cot\delta_0=-\frac{1}{b}\left(\frac{1+\gamma_0b}{-\gamma_0b+x^2(\gamma_0b/6-1/3)}
+  +\frac{(1/2-\gamma_0b/2)x^2}{-\gamma_0b+x^2(\gamma_0b/6-1/3)}+O(x^3)
+  \right)
+\end{align*}
+各項をテイラー展開して整理すると
+\begin{align*}
+  k\cot\delta_0=\frac{1+\gamma_0b}{\gamma_0b^2}-\frac{1-(\gamma_0b)^2}{2b(\gamma_0b)^2}x^2+O(x^3)
+\end{align*}
+したがって
+\begin{align}
+  \begin{split}
+    r_{\rm eff}&=\frac{1-(\gamma_0b)^2}{b(\gamma_0b)^2}\\
+    &=\frac{1-(K_0\cot K_0(b-c)-1)^2}{b(K_0\cot K_0(b-c)-1)^2}
+  \end{split}
+\end{align}
+となる.
+\subsection*{(d)}
+散乱振幅は
+\begin{align*}
+  f(\theta)=\sum_l(2l+1)f_lP_l(\cos\theta),\qquad f_l=\frac{{\rm e}^{i\delta_l}\sin\delta_l}{k}
+\end{align*}
+ここで
+\begin{align*}
+  f_l=\frac{1}{k}\frac{\sin\delta_l}{\cos\delta_l-i\sin\delta_l}=\frac{1}{k\cot\delta_l-ik}
+\end{align*}
+であり,今はs波のみを考えているので
+\begin{align*}
+  f_0=\frac{1}{-\frac{1}{a}+\frac{1}{2}r_{\rm eff}k^2-ik}=\frac{-\frac{1}{a}+\frac{1}{2}r_{\rm eff}k^2+ik}{\left(-\frac{1}{a}+\frac{1}{2}r_{\rm eff}k^2\right)^2+k^2}
+\end{align*}
+\begin{align*}
+  P_0(\cos\theta)=1
+\end{align*}
+より
+\begin{align}
+  f(\theta)=\frac{1}{-\frac{1}{a}+\frac{1}{2}r_{\rm eff}k^2-ik}
+\end{align}
+したがって微分断面積は
+\begin{align}
+  \begin{split}
+  \frac{d\sigma}{d\Omega}&=|f(\theta)|^2\\
+  &=\frac{1}{\left(-\frac{1}{a}+\frac{1}{2}r_{\rm eff}k^2\right)^2+k^2}
+  \end{split}
+\end{align}
+であり,また全断面積は
+\begin{align}
+  \sigma=\int\frac{d\sigma}{d\Omega}d\Omega=\frac{4\pi}{\left(-\frac{1}{a}+\frac{1}{2}r_{\rm eff}k^2\right)^2+k^2}
+\end{align}
+となる.
+\section*{2.}
+\subsection*{(a)}
+ベクトルポテンシャルを用いると
+\begin{align*}
+  \vec{B}&=\nabla\times\vec{A}\\
+  \vec{E}&=-\nabla\phi-\frac{\partial\vec{A}}{\partial t}
+\end{align*}
+と表される.
+ここでMaxwell方程式
+\begin{align*}
+  \nabla\times\vec{B}=\frac{\partial\vec{E}}{\partial t}
+\end{align*}
+においてCoulombゲージを用いれば
+\begin{align*}
+  \nabla\times(\nabla\times\vec{A})=-\nabla^2\vec{A}=\partial_t\left(-\nabla\phi-\partial_t\vec{A}\right)
+\end{align*}
+特に真空中では$\phi=0$なので
+\begin{align*}
+  (\partial_t^2-\nabla^2)\vec{A}=0
+\end{align*}
+となり$\vec{A}$が波動方程式に従うことがわかる.
+したがって$\vec{A}$を波数$k$の平面波で展開すると
+\begin{align}
+  \vec{A}=\sum_{\vec{k},\lambda}\hat{e}_{\vec{k},\lambda}\left(A_{\vec{k},\lambda}{\rm e}^{i(\vec{k}\cdot\vec{r}-\omega_kt)}+A_{\vec{k},\lambda}^\dagger{\rm e}^{-i(\vec{k}\cdot\vec{r}-\omega_kt)}\right)
+\end{align}
+ここで$\lambda=1,2$は$\vec{k}$に直行する2方向を示す添字である.
+このとき
+\begin{align}
+  \vec{E}=\sum_{\vec{k},\lambda}\hat{e}_{\vec{k},\lambda}\left(i\omega_k A_{\vec{k},\lambda}{\rm e}^{i(\vec{k}\cdot\vec{r}-\omega_kt)}-i\omega_k A_{\vec{k},\lambda}^\dagger{\rm e}^{-i(\vec{k}\cdot\vec{r}-\omega_kt)}\right)
+\end{align}
+\begin{align}
+  \vec{B}=\nabla\times\vec{A}=\sum_{\vec{k},\lambda}\left(A_{\vec{k},\lambda}(i\vec{k}\times\hat{e}_{\vec{k},\lambda}){\rm e}^{i(\vec{k}\cdot\vec{r}-\omega_kt)}
+  A_{\vec{k},\lambda}^\dagger(-i\vec{k}\times\hat{e}_{\vec{k},\lambda}){\rm e}^{-i(\vec{k}\cdot\vec{r}-\omega_kt)}\right)
+\end{align}
+となる.
+ここで調和振動子の生成,消滅演算子を用いると
+\begin{align*}
+  \hat{x}=\sqrt{\frac{\hbar}{2m\omega}}(\hat{a}+\hat{a}^\dagger),\qquad\hat{p}=\frac{1}{\sqrt{2m\hbar\omega}}\frac{\hat{a}-\hat{a}^\dagger}{i}
+\end{align*}
+であったが,これらと(19), (20)は同様の形をしている.
+このことから調和振動子と電磁場には類似性があり,電磁場もまた生成,消滅演算子を用いて表すことができることを示唆している.
+ここで電磁場のエネルギーは
+\begin{align*}
+  U=\int\varepsilon\vec{E}^2dV
+\end{align*}
+ここで$\exp(2i(\vec{k}\cdot\vec{r}-\omega_kt))$の項は全空間で積分した時に0になり,クロスタームのみが残るので
+\begin{align*}
+  \begin{split}
+    U&=\varepsilon\int dV\sum_{\vec{k},\lambda}\omega_k^2(A_{\vec{k},\lambda}A_{\vec{k},\lambda}^\dagger+A_{\vec{k},\lambda}^\dagger A_{\vec{k},\lambda})\\
+    &=\sum_{\vec{k},\lambda}V\varepsilon\omega_k^2(A_{\vec{k},\lambda}A_{\vec{k},\lambda}^\dagger+A_{\vec{k},\lambda}^\dagger A_{\vec{k},\lambda})
+  \end{split}
+\end{align*}
+ここで
+\begin{align*}
+  \sqrt{V\varepsilon}\omega_kA_{\vec{k},\lambda}=\sqrt{\frac{\hbar\omega_k}{2}}\hat{a}_{\vec{k},\lambda}
+\end{align*}
+と置き直せば
+\begin{align*}
+  \sum_{\vec{k},\lambda}\frac{\hbar\omega_k}{2}(\hat{a}_{\vec{k},\lambda}\hat{a}_{\vec{k},\lambda}^\dagger+\hat{a}_{\vec{k},\lambda}^\dagger\hat{a}_{\vec{k},\lambda})
+\end{align*}
+となり,これは調和振動子のハミルトニアンそのものである.ここで生成消滅演算子の交換関係
+\begin{align*}
+  [\hat{a}_{\vec{k},\lambda},\hat{a}_{\vec{k},\lambda}^\dagger]=1
+\end{align*}
+を用いれば
+\begin{align*}
+  \sum_{\vec{k},\lambda}\hbar\omega\left(\hat{a}_{\vec{k},\lambda}\hat{a}_{\vec{k},\lambda}^\dagger+\frac{1}{2}\right)
+\end{align*}
+とできる.
+ここで$\hat{a}_{\vec{k},\lambda}\hat{a}_{\vec{k},\lambda}^\dagger=\hat{N}$の個数演算子であるのでハミルトニアンを固有状態に作用すると
+\begin{align}
+  \sum_{\vec{k},\lambda}\hbar\omega\left(\hat{a}_{\vec{k},\lambda}\hat{a}_{\vec{k},\lambda}^\dagger+\frac{1}{2}\right)|n\rangle=\sum_{\vec{k},\lambda}\hbar\omega\left(n_{\vec{k},\lambda}+\frac{1}{2}\right)
+\end{align}
+となり$n$が光子数に対応する.このことから$n=0$の真空状態でもエネルギーは0にならず,零点振動のようにエネルギーを持っていることがわかる.
+このことを真空場ゆらぎと呼ぶ.
+古典電磁気学では光は波として扱われたが,以上によって光が量子化され光子という粒子性が現れた.
+\subsection*{(b)}
+\begin{align*}
+  \hat{A}=\sum_{\vec{k},\lambda}\sqrt{\frac{\hbar}{2\omega_kL^3}}{\bm \epsilon}_{\vec{k},\lambda}\left(\hat{a}_{\vec{k},\lambda}{\rm e}^{i(kx-\omega_xt)}+\hat{a}_{\vec{k},\lambda}^\dagger{\rm e}^{-i(kx-\omega_xt)}\right)
+\end{align*}
+とすると
+\begin{align*}
+  \hat{E}=-\partial_t\hat{A}=\sum_{\vec{k},\lambda}\sqrt{\frac{\hbar}{2\omega_kL^3}}{\bm \epsilon}_{\vec{k},\lambda}\left(i\omega_k\hat{a}_{\vec{k},\lambda}{\rm e}^{i(kx-\omega_xt)}-i\omega_k\hat{a}_{\vec{k},\lambda}^\dagger{\rm e}^{-i(kx-\omega_xt)}\right)
+\end{align*}
+なので
+\begin{align*}
+  \hat{E}(t=0)\times\hat{A}(t=0)=&\sum_{\vec{k}}\frac{\hbar}{2\omega_kL^3}\sum_\lambda{\bm \epsilon}_{\vec{k},\lambda}\left(i\omega_k\hat{a}_{\vec{k},\lambda}{\rm e}^{ikx}-i\omega_k\hat{a}_{\vec{k},\lambda}^\dagger{\rm e}^{-ikx}\right)\\
+  &\times\sum_{\lambda'}{\bm \epsilon}_{\vec{k},\lambda'}\left(\hat{a}_{\vec{k},\lambda'}{\rm e}^{ikx}+\hat{a}_{\vec{k},\lambda'}^\dagger{\rm e}^{-ikx}\right)\\
+  =&\sum_{\vec{k}}\frac{i\hbar}{2L^3}\biggl(0\\
+  &+{\bm \epsilon}_{\vec{k},1}\times{\bm \epsilon}_{\vec{k},2}\left(\hat{a}_{\vec{k},1}{\rm e}^{ikx}-\hat{a}_{\vec{k},1}^\dagger{\rm e}^{-ikx}\right)\left(\hat{a}_{\vec{k},2}{\rm e}^{ikx}+\hat{a}_{\vec{k},2}^\dagger{\rm e}^{-ikx}\right)\\
+  &+{\bm \epsilon}_{\vec{k},2}\times{\bm \epsilon}_{\vec{k},1}\left(\hat{a}_{\vec{k},2}{\rm e}^{ikx}-\hat{a}_{\vec{k},2}^\dagger{\rm e}^{-ikx}\right)\left(\hat{a}_{\vec{k},1}{\rm e}^{ikx}+\hat{a}_{\vec{k},1}^\dagger{\rm e}^{-ikx}\right)\\
+  &+0\biggr)
+\end{align*}
+ここで前問と同様に$\exp(2i(\vec{k}\cdot\vec{r}-\omega_kt))$の残った項は全空間で積分した時に0になるので
+\begin{align}
+  \begin{split}
+    \hat{S}=&\sum_{\vec{k}}\frac{i\hbar}{2L^3}\int dV\hat{E}(t=0)\times\hat{A}(t=0)\\
+    =&\sum_{\vec{k}}\frac{i\hbar}{2L^3}\int dV\hat{k}\biggl(\left(\hat{a}_{\vec{k},1}\hat{a}_{\vec{k},2}^\dagger-\hat{a}_{\vec{k},1}^\dagger\hat{a}_{\vec{k},2}\right)\\
+    &-\left(\hat{a}_{\vec{k},2}\hat{a}_{\vec{k},1}^\dagger-\hat{a}_{\vec{k},2}^\dagger\hat{a}_{\vec{k},1}\right)\biggr)\\
+    =&\sum_{\vec{k}}\frac{i\hbar\hat{k}}{L^3}\int dV\left(\hat{a}_{\vec{k},1}\hat{a}_{\vec{k},2}^\dagger-\hat{a}_{\vec{k},1}^\dagger\hat{a}_{\vec{k},2}\right)\\
+    =&i\sum_{\vec{k}}\hbar\hat{k}\left(\hat{a}_{\vec{k},1}\hat{a}_{\vec{k},2}^\dagger-\hat{a}_{\vec{k},1}^\dagger\hat{a}_{\vec{k},2}\right)
+  \end{split}
+\end{align}
+となる.
+\subsection*{(c)}
+交換関係を計算する.
+\begin{align}
+  \begin{split}
+    [\hat{a}_{\vec{k},+},\hat{a}_{\vec{k}',+}^\dagger]&=\frac{1}{2}\left([\hat{a}_{\vec{k},1},\hat{a}_{\vec{k}',1}^\dagger]-i[\hat{a}_{\vec{k},2},\hat{a}_{\vec{k}',1}^\dagger]+i[\hat{a}_{\vec{k},1},\hat{a}_{\vec{k}',2}^\dagger]+[\hat{a}_{\vec{k},2},\hat{a}_{\vec{k}',2}^\dagger]\right)\\
+    &=\delta_{\vec{k},\vec{k}'}
+  \end{split}
+\end{align}
+\begin{align}
+  \begin{split}
+    [\hat{a}_{\vec{k},+},\hat{a}_{\vec{k}',-}]&=\frac{1}{2}\left([\hat{a}_{\vec{k},1},\hat{a}_{\vec{k}',1}]-i[\hat{a}_{\vec{k},2},\hat{a}_{\vec{k}',1}]+i[\hat{a}_{\vec{k},1},\hat{a}_{\vec{k}',2}]+[\hat{a}_{\vec{k},2},\hat{a}_{\vec{k}',2}]\right)\\
+    &=0
+  \end{split}
+\end{align}
+ここで
+\begin{align*}
+  \hat{a}_{\vec{k},+}\hat{a}_{\vec{k},+}^\dagger=\hat{a}_{\vec{k},-}\hat{a}_{\vec{k},-}^\dagger=\frac{1}{2}\left(\hat{a}_{\vec{k},1}\hat{a}_{\vec{k},1}^\dagger+i\hat{a}_{\vec{k},1}\hat{a}_{\vec{k},2}^\dagger-i\hat{a}_{\vec{k},1}^\dagger\hat{a}_{\vec{k},2}+\hat{a}_{\vec{k},2}\hat{a}_{\vec{k},2}^\dagger\right)
+\end{align*}
+より
+\begin{align*}
+  i\left(\hat{a}_{\vec{k},1}\hat{a}_{\vec{k},2}^\dagger-\hat{a}_{\vec{k},1}^\dagger\hat{a}_{\vec{k},2}\right)=2\left(\hat{a}_{\vec{k},+}\hat{a}_{\vec{k},+}^\dagger-\frac{1}{2}\right)
+\end{align*}
+\begin{align}
+  \hat{S}=2\sum_{\vec{k}}\hbar\vec{k}\left(\hat{a}_{\vec{k},+}\hat{a}_{\vec{k},+}^\dagger-\frac{1}{2}\right)
+\end{align}
+となる.これは調和振動子のエネルギーであるため$\hat{S}$は電磁場のエネルギーであると考えられる.
+\section*{(3)}
+\subsection*{(a)}
+\subsubsection*{(1)}
+ディラック方程式から
+\begin{align*}
+  i\gamma^0\partial_0&=-i\gamma^1\partial_1+-i\gamma^2\partial_2+-i\gamma^3\partial_3+m
+\end{align*}
+ここで
+\begin{align*}
+  {\bm \alpha}=\gamma_0\left(
+  \begin{array}{ccc}
+    \gamma_1&\gamma_2&\gamma_3
+  \end{array}
+\right)
+\end{align*}
+とすれば
+\begin{align*}
+  i\partial_0={\bm \alpha}\cdot{\bm P}+\gamma_0 m
+\end{align*}
+であり$-\partial_t=H$なので
+\begin{align}
+  H_{\rm Dirac}={\bm \alpha}\cdot{\bm P}+\gamma_0 m
+\end{align}
+を得る.
+\subsubsection*{(2)}
+交換関係を計算する.
+$L^i=\varepsilon_{ijk}x_jP_k$から
+\begin{align*}
+  [H_{\rm Dirac},L^i]&=[\alpha_lP_l,\varepsilon_{ijk}x_jP_k]\\
+  &=\varepsilon_{ijk}\alpha_l\left(x_j[P_l,P_k]+[P_l,x_j]P_k\right)\\
+  &=-i\varepsilon_{ijk}\alpha_jP_k
+\end{align*}
+である.また
+\begin{align*}
+  \gamma_0\gamma^i=\left(
+    \begin{array}{cc}
+      {\bm 1}&{\bm 0}\\
+      {\bm 0}&-{\bm1}
+    \end{array}
+  \right)\left(
+    \begin{array}{cc}
+      {\bm 0}&\sigma^i\\
+      -\sigma^i&{\bm 0}\\
+    \end{array}
+  \right)=\left(
+    \begin{array}{cc}
+      {\bm 0}&\sigma^i\\
+      \sigma^i&{\bm 0}\\
+    \end{array}
+  \right)
+\end{align*}
+より
+\begin{align*}
+  \alpha^i=\left(
+    \begin{array}{cc}
+      {\bm 0}&\sigma^i\\
+      \sigma^i&{\bm 0}\\
+    \end{array}
+  \right)
+\end{align*}
+である.ここで
+\begin{align*}
+  [\sigma_i,\sigma_j]=2i\varepsilon_{ijk}\sigma_k
+\end{align*}
+また
+\begin{align*}
+  \alpha^iS^j=S^j\alpha^i=\frac{1}{2}\left(
+    \begin{array}{cc}
+      {\bm 0}&\sigma_i\sigma_j\\
+      \sigma_i\sigma_j&{\bm 0}\\
+    \end{array}
+  \right)
+\end{align*}
+から
+\begin{align}
+  \begin{split}
+    [H_{\rm Dirac},S^j]&=[\alpha_iP_i,S^j]\\
+    &=[\alpha_i,S^j]P_i\\
+    &=\frac{1}{2}\left(
+      \begin{array}{cc}
+        {\bm 0}&\sigma_i\sigma_j-\sigma_j\sigma_i\\
+        \sigma_i\sigma_j-\sigma_j\sigma_i&{\bm 0}\\
+      \end{array}
+    \right)P_i\\
+    &=i\varepsilon_{ijk}\alpha_kP_i\\
+    &=i\varepsilon_{jki}\alpha_kP_i
+  \end{split}
+\end{align}
+となる.以上から
+\begin{align}
+  [H_{\rm Dirac},J_i+S_i]i\varepsilon_{ijk}(\alpha_jP_k-\alpha_jP_k)=0
+\end{align}
+となり,全角運動量が保存していることがわかる.
+\subsection*{(b)}
+\bibliography{ref.bib}
+\end{document}
