@@ -438,5 +438,76 @@ $L^i=\varepsilon_{ijk}x_jP_k$から
 \end{align}
 となり,全角運動量が保存していることがわかる.
 \subsection*{(b)}
+\begin{align*}
+  \vec{p}=p\left(
+    \begin{array}{c}
+      \sin\theta\cos\phi\\
+      \sin\theta\sin\phi\\
+      \cos\theta
+    \end{array}
+  \right)
+\end{align*}
+とおくと
+\begin{align*}
+  {\bm \sigma}\cdot\vec{p}=p\left(
+    \begin{array}{cc}
+      \cos\theta&\sin\theta{\rm e}^{-i\phi}\\
+      \sin\theta{\rm e}^{i\phi}&-\cos\theta\\
+    \end{array}
+  \right)
+\end{align*}
+このとき固有値方程式
+\begin{align*}
+  0=&|{\bm \sigma}\cdot\vec{p}-{\bm I}\lambda|\\
+  =&\lambda^2-p^2\cos^2\theta-p^2\sin^2\theta
+\end{align*}
+より
+\begin{align}
+  \lambda=\pm p
+\end{align}
+$\lambda=1$に対応する固有ベクトルは
+\begin{align*}
+  \begin{split}
+    \vec{x}_1&=(p\cos\theta-p,p\sin\theta{\rm e}^{i\phi})\\
+    &=(p\sin\theta{\rm e}^{-i\phi},p\cos\theta+p)
+  \end{split}
+\end{align*}
+$\lambda=-1$に対応する固有ベクトルは
+\begin{align*}
+  \vec{x}_2&=(p\cos\theta+p,p\sin\theta{\rm e}^{i\phi})
+\end{align*}
+である.それぞれ規格化すれば
+\begin{align}
+  \psi_1=\frac{1}{\sqrt{2(1+\cos\theta)}}(\sin\theta{\rm e}^{-i\phi},\cos\theta+1)
+\end{align}
+\begin{align}
+  \psi_2=\frac{1}{\sqrt{2(1+\cos\theta)}}(\cos\theta+1,\sin\theta{\rm e}^{i\phi})
+\end{align}
+したがってベリー接続は
+\begin{align*}
+  a_{1,p}=i\langle\psi_1|\frac{d}{dr}|\psi_1\rangle=0
+\end{align*}
+\begin{align*}
+  a_{1,\theta}&=i\langle\psi_1|\frac{1}{p}\frac{d}{d\theta}|\psi_1\rangle\\
+  &=\frac{i\sin\theta}{4r(1+\cos\theta)^2}\left(\begin{array}{c}
+    \sin^2\theta\\
+    (\cos\theta+1)^2
+  \end{array}\right)+
+  \frac{i}{2r(1+\cos\theta)}\left(\begin{array}{c}
+    \sin\theta\cos\theta\\
+    (1-\sin\theta)(1+\cos\theta)
+  \end{array}\right)
+\end{align*}
+\begin{align*}
+  a_{1,\phi}&=i\langle\psi_1|\frac{1}{r\sin\theta}\frac{d}{d\phi}|\psi_1\rangle\\
+  &=\frac{-1}{2r(1+\cos\theta)}\left(\begin{array}{c}
+    \sin\theta\\0
+  \end{array}\right)
+\end{align*}
+したがってベリー曲率は
+\begin{align*}
+  {\bm b}_p&=\nabla_p\times{\bm a}_p\\
+  &=
+\end{align*}
 \bibliography{ref.bib}
 \end{document}
