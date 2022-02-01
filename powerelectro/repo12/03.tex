@@ -1,0 +1,27 @@
+\subsubsection*{3.(1)}
+スイッチON時,スイッチ両端電圧が$2\ \si{\volt}$なので負荷には$98\ \si{\volt}$の電圧が印加され,
+$9.8\ \si{\ampere}$の電流が流れる.したがって平均オン損失は
+\begin{align*}
+  P_{\rm on}=0.6\times2\times9.8=11.76\ \si{\watt}
+\end{align*}
+\subsubsection*{3.(2)}
+オン電圧,オフ電流を無視すると$v_{\rm ce}$及び$i$の1周期の波形は図5のようになる.
+したがってスイッチング1回あたりのスイッチング損失$J_{\rm sw}$は
+\begin{align*}
+  J_{\rm sw}=\int_0^{\Delta T}E\left(1-\frac{t}{\Delta T}\right)I\frac{t}{\Delta T}dt=\frac{EI}{6}\Delta t
+\end{align*}
+スイッチングは1秒間に$2/T$回行われるので平均のスイッチング損失は
+\begin{align*}
+  P_{\rm sw}=\frac{EI}{8}\frac{2\Delta T}{T}=\frac{100\times10}{6}\frac{2\times 2\times10^{-6}}{10\times10^{-6}}=\frac{200}{3}\ \si{\watt}=66.67\ \si{\watt}
+\end{align*}
+\subsubsection*{3.(3)}
+オフ電流を無視すると入力電力は
+\begin{align*}
+  P_{\rm in}=0.6\times100\times9.8=588.0\ \si{\watt}
+\end{align*}
+なので効率は
+\begin{align*}
+  \eta=\frac{588.0-(11.76+66.67)}{588.0}=0.8666
+\end{align*}
+となる.
+\gnu{$v_{\rm ce}$及び$i$}{graph/sw.tex}

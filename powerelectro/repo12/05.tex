@@ -1,0 +1,98 @@
+\subsubsection*{5.(1)}
+$C\gg1$から$v_o$, $i_R$は直流とする.
+また$L\gg1$から$i_L$は直流とする.
+ここで$v_L$は図\ref{fig:fig/fig2.png}のようになっているが,青い部分の面積と赤い部分の面積が等しくあるべきことと,
+$d=0.5$から$V_o=E$となる.したがって
+\begin{align*}
+  v_o=E,\qquad i_R=\frac{E}{R}
+\end{align*}
+となる.
+まずスイッチオン時にはダイオードの左右がそれぞれ閉回路を形成することから
+\begin{align*}
+  i_{D_{\rm on}}=0,\qquad i_{S_{\rm on}}=i_L,\qquad i_R=-i_{C_{\rm on}}=\frac{E}{R}
+\end{align*}
+次にスイッチオフ時にはインダクタンスからのエネルギー放出で負荷に電流が流れるので
+\begin{align*}
+  i_{S_{\rm off}}=0,\qquad i_{D_{\rm off}}=i_L=i_{C_{\rm off}}+i_R,\qquad i_R=\frac{E}{R}
+\end{align*}
+また定常状態ではコンデンサの電荷が維持されるべきなので,放電量と充電量は等しくなるべきである.
+したがって
+\begin{align*}
+  i_{C_{\rm on}}=-i_{C_{\rm off}}
+\end{align*}
+以上を連立すれば
+\begin{gather*}
+  i_{D_{\rm on}}=0,\qquad i_{D_{\rm off}}=2\frac{E}{R}\\
+  i_{S_{\rm on}}=2\frac{E}{R},\qquad i_{S_{\rm off}}=0\\
+  v_{L_{\rm on}}=-E,\qquad v_{L_{\rm off}}=E
+\end{gather*}
+となり,波形は図\ref{fig:fig/fig3.png}のようになる.
+\mfig[width=6cm]{fig/fig2.png}{$v_L$の波形}
+\mfig[width=6cm]{fig/fig3.png}{$v_L$, $i_S$, $i_D$の波形}
+\subsubsection*{5.(2)}
+コンデンサの損失を$R_C$,両端電圧を$v_C$とおく.
+前問と同様に定常状態においては
+\begin{gather}
+  v_{L_{\rm on}}=-v_{L_{\rm off}}=-E\\
+  -i_{C_{\rm on}}=i_{C_{\rm off}}=i_C
+\end{gather}
+である.加えて$C\gg1$から
+\begin{align}
+  \label{equ:5-2-vconoff}
+  v_{C_{\rm on}}=v_{C_{\rm off}}
+\end{align}
+である.またオン時には
+\begin{gather}
+  i_{D_{\rm on}}=0\\
+  \label{equ:5-2-ison}
+  i_{S_{\rm on}}=i_{L_{\rm on}}\\
+  \label{equ:5-2-iron}
+  i_{R_{\rm on}}=i_C\\
+  \label{equ:5-2-voon}
+  v_{o_{\rm on}}=Ri_{R_{\rm on}}\\
+  \label{equ:5-2-vcon}
+  v_C=v_{o_{\rm on}}+R_Ci_C=(R+R_C)i_C
+\end{gather}
+が,オフ時には
+\begin{gather}
+  i_{S_{\rm off}}=0\\
+  \label{equ:5-2-iloff}
+  i_{L_{\rm off}}=i_{L_{\rm on}}\\
+  \label{equ:5-2-idoff}
+  i_{D_{\rm off}}=i_{L_{\rm off}}=i_C+i_{R_{\rm off}}\\
+  \label{equ:5-2-vooff}
+  v_{o_{\rm off}}=E=Ri_{R_{\rm off}}=240\ \si{\volt}\\
+  \label{equ:5-2-vcoff}
+  v_C=E-R_Ci_C
+\end{gather}
+が成り立つ.ここで(\ref{equ:5-2-vooff})から
+\begin{align}
+  \label{equ:5-2-iroff}
+  i_{R_{\rm off}}=\frac{E}{R}=12.0\ \si{\ampere}
+\end{align}
+である.また(\ref{equ:5-2-vconoff}), (\ref{equ:5-2-iron}), (\ref{equ:5-2-vcon}), (\ref{equ:5-2-vcoff})から
+\begin{align}
+  \begin{split}
+    \label{equ:5-2-ic}
+    (R+R_C)i_C&=E-R_Ci_C\\
+    \therefore\ i_C&=i_{R_{\rm on}}=\frac{E}{R+2R_C}\simeq11.9\ \si{\ampere}
+  \end{split}
+\end{align}
+したがって(\ref{equ:5-2-idoff}), (\ref{equ:5-2-iroff}), (\ref{equ:5-2-ic})から
+\begin{align}
+  i_{D_{\rm off}}=\frac{2E(R+R_C)}{R(R+2R_C)}\simeq23.9\ \si{\ampere}
+\end{align}
+また(\ref{equ:5-2-ison}), (\ref{equ:5-2-iloff}), (\ref{equ:5-2-idoff})から
+\begin{align}
+  i_{S_{\rm on}}=i_{D_{\rm off}}
+\end{align}
+また(\ref{equ:5-2-voon}), (\ref{equ:5-2-ic})から
+\begin{align}
+  v_{o_{\rm on}}=238\ \si{\volt}
+\end{align}
+である.したがって波形は図\ref{fig:fig/fig4.png}のようになる.また$R_C$による損失は
+\begin{align}
+  P_C=R_Ci_C^2\simeq14.1\ \si{\watt}
+\end{align}
+となる.
+\mfig[width=6cm]{fig/fig4.png}{$v_o$, $i_D$, $i_R$, $i_S$の波形}
